@@ -1685,6 +1685,15 @@ function renderRefCategoryView(catId) {
 }
 
 /* ---------------- INIT ---------------- */
+try{ if('scrollRestoration' in history) history.scrollRestoration='manual'; }catch(e){}
+(function(){
+  var h=(location.hash||'').replace(/^#\/?/,'');
+  var known=!h||h.indexOf('services/')===0||h.indexOf('referencii')===0;
+  if(!known){ try{ history.replaceState(null,'',location.pathname+location.search); }catch(e){ location.hash=''; } }
+  function top(){ window.scrollTo(0,0); }
+  window.addEventListener('load',function(){ if(!pendingAnchor){ top(); setTimeout(top,150); setTimeout(top,600); } });
+  window.addEventListener('pageshow',function(e){ if(e.persisted && !pendingAnchor) top(); });
+})();
 renderRoute();
 
 </script>
