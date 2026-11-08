@@ -1592,7 +1592,7 @@ function renderHomePage() {
     }
     if (!cat.icon) cat.icon = guessIcon(cat.title);
     a.innerHTML = `
-      <div class="cat-photo">${categoryArtSvg(cat)}</div>
+      <div class="cat-photo">${coverPhotoFor(cat) ? `<img src="${coverPhotoFor(cat)}" alt="${cat.title.replace(/"/g, "")}" loading="lazy">` : categoryArtSvg(cat)}</div>
       <div class="cat-body">
         <div class="cat-name">${cat.title}</div>
         <div class="cat-meta">${count} ${countedWord(count)}</div>
@@ -1727,7 +1727,7 @@ function renderRefHome() {
     card.onclick = () => navigateRoute('referencii/' + cat.id);
     if (!cat.icon) cat.icon = guessIcon(cat.title);
     card.innerHTML = `
-      <div class="cat-photo">${categoryArtSvg(cat)}</div>
+      <div class="cat-photo">${coverPhotoFor(cat) ? `<img src="${coverPhotoFor(cat)}" alt="${cat.title.replace(/"/g, "")}" loading="lazy">` : categoryArtSvg(cat)}</div>
       <div class="cat-body">
         <div class="cat-name">${cat.title}</div>
         <div class="cat-meta">${count} ${countedWord(count)}</div>
