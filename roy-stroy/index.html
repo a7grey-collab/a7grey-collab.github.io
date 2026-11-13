@@ -354,6 +354,19 @@ body.menu-open .mbar,body.lb-open .mbar,body.inst-open .mbar{display:none}
 .hero h1{font-size:clamp(23px,5.6vw,46px)}
 @media (max-width:350px){.hero h1{font-size:19.5px;letter-spacing:-.03em}}
 
+.stage img.ph,.svc-art img.ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.stage img.ph{opacity:0;transform:translate(var(--px,0),var(--py,0)) scale(1.08);transition:opacity .7s ease,transform .25s ease-out}
+.stage img.ph.on{opacity:1}
+.stage::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,34,56,.05) 40%,rgba(13,34,56,.55));pointer-events:none}
+.stage canvas.flow{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.stage-tag{z-index:2}
+.stage-open{position:absolute;right:12px;bottom:12px;z-index:2;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px;border-radius:999px;border:2px solid #fff;background:rgba(13,34,56,.72);color:#fff;font:600 15px 'Onest',sans-serif;cursor:pointer}
+.stage-open svg{width:18px;height:18px}
+.svc-art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,34,56,0) 55%,rgba(13,34,56,.35));pointer-events:none}
+.svc-art img.ph{transition:transform .6s ease}
+.svc:hover .svc-art img.ph{transform:scale(1.06)}
+.svc-temp{z-index:2}
+
 </style>
 </head><body>
 <a class="skip" href="#app">К содержимому</a>
@@ -419,294 +432,6 @@ window.__REQ_PDF="JVBERi0xLjQKJZOMi54gUmVwb3J0TGFiIEdlbmVyYXRlZCBQREYgZG9jdW1lbn
 function downloadRequisites(){try{var b=atob(window.__REQ_PDF),n=b.length,u=new Uint8Array(n);for(var i=0;i<n;i++)u[i]=b.charCodeAt(i);var url=URL.createObjectURL(new Blob([u],{type:"application/pdf"}));var a=document.createElement("a");a.href=url;a.download="Rekvizity-ROY-STROY.pdf";document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(url);a.remove()},1500)}catch(e){window.open("data:application/pdf;base64,"+window.__REQ_PDF)}}
 </script>
 <script>
-/* ===== Isometric 3D scenes (own artwork, SVG) ===== */
-const ISO_BG = {
-  cat_0:['#e4f3f1','#cfe9e5'], cat_1:['#e3eff7','#c9e0ef'], cat_2:['#e3edf1','#cadde5'],
-  cat_3:['#eaf3e3','#d5e8c8'], cat_4:['#f8ecdc','#f1d9b8'], cat_5:['#e4ecf3','#cddbe8'],
-  cat_6:['#f8e9de','#f0d2bb'], cat_7:['#e6eaf2','#d0d8e8'], cat_8:['#f8e6e2','#f0cfc8'],
-  cat_9:['#e4f1ef','#cfe4e0'], cat_11:['#e8f0ee','#d3e4de']
-};
-const ISO_DEFAULT_BG = ['#e6eef2','#d0dee6'];
-
-function isoArtSvg(cat) {
-  const icon = cat.icon || 'hvac';
-  const bg = ISO_BG[cat.id] || ISO_DEFAULT_BG;
-  const uid = 'i' + String(cat.id).replace(/\W/g, '');
-  const W = 960, H = 400;
-  let S = 24, OX = 480, OY = 230;
-  const mix = (a, b, t) => {
-    const pa = a.match(/\w\w/g).map(h => parseInt(h, 16)), pb = b.match(/\w\w/g).map(h => parseInt(h, 16));
-    return '#' + pa.map((v, i) => Math.round(v + (pb[i] - v) * t).toString(16).padStart(2, '0')).join('');
-  };
-  const lighten = (c, t) => mix(c, '#ffffff', t);
-  const darken = (c, t) => mix(c, '#0b1a26', t);
-  let bx0 = 1e9, bx1 = -1e9, by0 = 1e9, by1 = -1e9;
-  const P = (x, y, z) => { const px = OX + (x - y) * 0.866 * S, py = OY + (x + y) * 0.5 * S - z * S; if (px < bx0) bx0 = px; if (px > bx1) bx1 = px; if (py < by0) by0 = py; if (py > by1) by1 = py; return [px, py]; };
-  const pt = p => p[0].toFixed(1) + ',' + p[1].toFixed(1);
-  const poly = (pts, fill, extra) => `<polygon points="${pts.map(pt).join(' ')}" fill="${fill}" ${extra || ''}/>`;
-  const EDGE = 'stroke="rgba(255,255,255,.28)" stroke-width=".7" stroke-linejoin="round"';
-  const items = [], shadows = [];
-  let gid = 0;
-  const defs = [];
-  const add = (k, svg) => items.push({ k, svg });
-
-  const hull = pts => {
-    pts = pts.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]);
-    const cr = (o, a, b) => (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
-    const lo = []; for (const p of pts) { while (lo.length >= 2 && cr(lo[lo.length - 2], lo[lo.length - 1], p) <= 0) lo.pop(); lo.push(p); }
-    const up = []; for (let i = pts.length - 1; i >= 0; i--) { const p = pts[i]; while (up.length >= 2 && cr(up[up.length - 2], up[up.length - 1], p) <= 0) up.pop(); up.push(p); }
-    return lo.slice(0, -1).concat(up.slice(0, -1));
-  };
-  const shadow = (x, y, w, d, h) => {
-    const t = Math.min(h, 7) * 0.5, u = Math.min(h, 7) * 0.12;
-    const pts = [];
-    for (const [px, py] of [[x, y], [x + w, y], [x + w, y + d], [x, y + d]]) { pts.push(P(px, py, 0)); pts.push(P(px + t, py + u, 0)); }
-    shadows.push(poly(hull(pts), 'rgba(18,40,58,.16)'));
-  };
-
-  // box: x,y,z origin; w (x), d (y), h (z)
-  const box = (x, y, z, w, d, h, c, o) => {
-    o = o || {};
-    const top = o.top || lighten(c, .22), L = o.left || c, R = o.right || darken(c, .30);
-    let s = '';
-    s += poly([P(x, y + d, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x, y + d, z + h)], L, EDGE);
-    s += poly([P(x + w, y, z), P(x + w, y + d, z), P(x + w, y + d, z + h), P(x + w, y, z + h)], R, EDGE);
-    s += poly([P(x, y, z + h), P(x + w, y, z + h), P(x + w, y + d, z + h), P(x, y + d, z + h)], top, EDGE);
-    if (o.det) s += o.det(x, y, z, w, d, h);
-    if (z === 0 && !o.noShadow) shadow(x, y, w, d, h);
-    add(o.k !== undefined ? o.k : (x + w / 2) + (y + d / 2) + z * 1.2, s);
-  };
-  // rectangles on faces
-  const FL = (x, y, z, d, x0, x1, z0, z1, c, e) => poly([P(x + x0, y + d, z + z0), P(x + x1, y + d, z + z0), P(x + x1, y + d, z + z1), P(x + x0, y + d, z + z1)], c, e || '');
-  const FR = (x, y, z, w, y0, y1, z0, z1, c, e) => poly([P(x + w, y + y0, z + z0), P(x + w, y + y1, z + z0), P(x + w, y + y1, z + z1), P(x + w, y + y0, z + z1)], c, e || '');
-  const FT = (x, y, z, h, x0, x1, y0, y1, c, e) => poly([P(x + x0, y + y0, z + h), P(x + x1, y + y0, z + h), P(x + x1, y + y1, z + h), P(x + x0, y + y1, z + h)], c, e || '');
-  const winsL = (x, y, z, d, w, h, cols, rows, c, m, fz) => { let s = ''; const cw = (w - m * 2) / cols, rh = (h - (fz || 0.7) - m) / rows; for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) s += FL(x, y, z, d, m + i * cw + cw * .18, m + (i + 1) * cw - cw * .18, (fz || 0.7) + j * rh + rh * .2, (fz || 0.7) + (j + 1) * rh - rh * .2, c); return s; };
-  const winsR = (x, y, z, w, d, h, cols, rows, c, m, fz) => { let s = ''; const cw = (d - m * 2) / cols, rh = (h - (fz || 0.7) - m) / rows; for (let i = 0; i < cols; i++) for (let j = 0; j < rows; j++) s += FR(x, y, z, w, m + i * cw + cw * .18, m + (i + 1) * cw - cw * .18, (fz || 0.7) + j * rh + rh * .2, (fz || 0.7) + (j + 1) * rh - rh * .2, c); return s; };
-
-  const cyl = (cx, cy, z, r, h, c, o) => {
-    o = o || {};
-    const id = uid + 'c' + (gid++);
-    defs.push(`<linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="${lighten(c, .35)}"/><stop offset=".45" stop-color="${c}"/><stop offset="1" stop-color="${darken(c, .38)}"/></linearGradient>`);
-    const b = P(cx, cy, z), t = P(cx, cy, z + h), rx = 1.2247 * r * S, ry = .7071 * r * S;
-    let s = `<path d="M${(b[0] - rx).toFixed(1)} ${t[1].toFixed(1)}V${b[1].toFixed(1)}A${rx.toFixed(1)} ${ry.toFixed(1)} 0 0 0 ${(b[0] + rx).toFixed(1)} ${b[1].toFixed(1)}V${t[1].toFixed(1)}Z" fill="url(#${id})" stroke="rgba(255,255,255,.25)" stroke-width=".7"/>`;
-    s += `<ellipse cx="${t[0].toFixed(1)}" cy="${t[1].toFixed(1)}" rx="${rx.toFixed(1)}" ry="${ry.toFixed(1)}" fill="${o.top || lighten(c, .35)}" stroke="rgba(255,255,255,.3)" stroke-width=".7"/>`;
-    if (o.det) s += o.det(b, t, rx, ry);
-    if (z === 0) { const sh = P(cx + Math.min(h, 7) * .5, cy + Math.min(h, 7) * .12, 0); shadows.push(`<ellipse cx="${sh[0].toFixed(1)}" cy="${sh[1].toFixed(1)}" rx="${(rx * 1.08).toFixed(1)}" ry="${(ry * 1.1).toFixed(1)}" fill="rgba(18,40,58,.16)"/>`); }
-    add(o.k !== undefined ? o.k : cx + cy + z * 1.2, s);
-  };
-  const fan = (cx, cy, z, r, c, k) => {
-    let s = '';
-    const ring = [], inner = [];
-    for (let i = 0; i < 28; i++) { const a = i / 28 * Math.PI * 2; ring.push(P(cx + Math.cos(a) * r, cy + Math.sin(a) * r, z)); inner.push(P(cx + Math.cos(a) * r * .86, cy + Math.sin(a) * r * .86, z)); }
-    s += poly(ring, '#2a3b49', 'stroke="rgba(255,255,255,.25)" stroke-width=".6"');
-    s += poly(inner, '#15222d');
-    for (let b = 0; b < 5; b++) {
-      const a0 = b * Math.PI * 2 / 5 + .35;
-      const pts = [P(cx, cy, z), P(cx + Math.cos(a0 - .22) * r * .84, cy + Math.sin(a0 - .22) * r * .84, z), P(cx + Math.cos(a0 + .38) * r * .84, cy + Math.sin(a0 + .38) * r * .84, z)];
-      s += poly(pts, c || '#dfe8ee', 'opacity=".95"');
-    }
-    const h = P(cx, cy, z); s += `<ellipse cx="${h[0].toFixed(1)}" cy="${h[1].toFixed(1)}" rx="${(r * S * .2).toFixed(1)}" ry="${(r * S * .12).toFixed(1)}" fill="#f4f7f9"/>`;
-    add(k !== undefined ? k : cx + cy + z * 1.2 + .3, s);
-  };
-  const sphere = (cx, cy, z, r, c, k) => {
-    const id = uid + 's' + (gid++), p = P(cx, cy, z + r);
-    defs.push(`<radialGradient id="${id}" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="${lighten(c, .55)}"/><stop offset=".55" stop-color="${c}"/><stop offset="1" stop-color="${darken(c, .4)}"/></radialGradient>`);
-    add(k !== undefined ? k : cx + cy + z * 1.2 + r, `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${(r * S * 1.02).toFixed(1)}" fill="url(#${id})"/>`);
-    if (z === 0) { const q = P(cx + r * .9, cy + r * .3, 0); shadows.push(`<ellipse cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" rx="${(r * S * 1.2).toFixed(1)}" ry="${(r * S * .6).toFixed(1)}" fill="rgba(18,40,58,.16)"/>`); }
-  };
-  const dome = (cx, cy, z, r, c, k) => {
-    const id = uid + 'd' + (gid++), b = P(cx, cy, z), rx = 1.2247 * r * S, ry = .7071 * r * S, hh = r * S * 1.25;
-    defs.push(`<linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="${lighten(c, .5)}"/><stop offset=".5" stop-color="${c}"/><stop offset="1" stop-color="${darken(c, .4)}"/></linearGradient>`);
-    add(k !== undefined ? k : cx + cy + z * 1.2 + 1, `<path d="M${(b[0] - rx).toFixed(1)} ${b[1].toFixed(1)}A${rx.toFixed(1)} ${hh.toFixed(1)} 0 0 1 ${(b[0] + rx).toFixed(1)} ${b[1].toFixed(1)}A${rx.toFixed(1)} ${ry.toFixed(1)} 0 0 1 ${(b[0] - rx).toFixed(1)} ${b[1].toFixed(1)}Z" fill="url(#${id})" stroke="rgba(255,255,255,.25)" stroke-width=".7"/>`);
-  };
-  const cone = (cx, cy, z, r, h, c, k) => {
-    const id = uid + 'n' + (gid++), b = P(cx, cy, z), t = P(cx, cy, z + h), rx = 1.2247 * r * S, ry = .7071 * r * S;
-    defs.push(`<linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="${lighten(c, .35)}"/><stop offset=".5" stop-color="${c}"/><stop offset="1" stop-color="${darken(c, .38)}"/></linearGradient>`);
-    add(k !== undefined ? k : cx + cy + z * 1.2 + .5, `<path d="M${(b[0] - rx).toFixed(1)} ${b[1].toFixed(1)}L${t[0].toFixed(1)} ${t[1].toFixed(1)}L${(b[0] + rx).toFixed(1)} ${b[1].toFixed(1)}A${rx.toFixed(1)} ${ry.toFixed(1)} 0 0 1 ${(b[0] - rx).toFixed(1)} ${b[1].toFixed(1)}Z" fill="url(#${id})" stroke="rgba(255,255,255,.22)" stroke-width=".6"/>`);
-  };
-  // gable roof along x: base box footprint x,y,w,d at height z, ridge height rh
-  const gable = (x, y, z, w, d, rh, c, k) => {
-    const R = darken(c, .3), L = c, T = lighten(c, .15);
-    let s = poly([P(x + w, y, z), P(x + w, y + d, z), P(x + w, y + d / 2, z + rh)], R, EDGE);
-    s += poly([P(x, y + d, z), P(x + w, y + d, z), P(x + w, y + d / 2, z + rh), P(x, y + d / 2, z + rh)], L, EDGE);
-    s += poly([P(x, y + d / 2, z + rh), P(x + w, y + d / 2, z + rh), P(x + w, y + d / 2 + .12, z + rh), P(x, y + d / 2 + .12, z + rh)], T);
-    add(k !== undefined ? k : (x + w / 2) + (y + d / 2) + z * 1.2 + .5, s);
-  };
-  const tube = (pts, c, wd, k) => {
-    const d = 'M' + pts.map(pt).join('L');
-    add(k !== undefined ? k : 50, `<path d="${d}" fill="none" stroke="${darken(c, .35)}" stroke-width="${wd + 1.6}" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${c}" stroke-width="${wd}" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${lighten(c, .55)}" stroke-width="${Math.max(1, wd * .28)}" stroke-linecap="round" stroke-linejoin="round" opacity=".7" transform="translate(-.6,-.8)"/>`);
-  };
-  const tree = (x, y, c) => {
-    cyl(x, y, 0, .16, .7, '#8a6a4a');
-    cone(x, y, .5, .62, 1.7, c || '#3f9a62', x + y + .6);
-    cone(x, y, 1.2, .46, 1.4, lighten(c || '#3f9a62', .12), x + y + .7);
-  };
-  const cloud = (x, y, z, sc, k) => {
-    const p = P(x, y, z); let s = '';
-    for (const [dx, dy, r] of [[-14, 2, 10], [0, -4, 14], [16, 1, 11], [5, 5, 10], [-6, 6, 8]]) s += `<circle cx="${(p[0] + dx * sc).toFixed(1)}" cy="${(p[1] + dy * sc).toFixed(1)}" r="${(r * sc).toFixed(1)}" fill="#fff" opacity=".85"/>`;
-    add(k !== undefined ? k : 90, s);
-  };
-  const arrow = (a, b, c) => {
-    const p = P(a[0], a[1], a[2]), q = P(b[0], b[1], b[2]), ang = Math.atan2(q[1] - p[1], q[0] - p[0]);
-    const h1 = [q[0] - Math.cos(ang - .45) * 11, q[1] - Math.sin(ang - .45) * 11], h2 = [q[0] - Math.cos(ang + .45) * 11, q[1] - Math.sin(ang + .45) * 11];
-    const mx = (p[0] + q[0]) / 2, my = (p[1] + q[1]) / 2 - 14;
-    add(95, `<path d="M${pt(p)}Q${mx.toFixed(1)},${my.toFixed(1)} ${pt(q)}" fill="none" stroke="${c}" stroke-width="3.2" stroke-linecap="round" stroke-dasharray="1 8" opacity=".95"/><path d="M${pt(h1)}L${pt(q)}L${pt(h2)}" fill="none" stroke="${c}" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>`);
-  };
-  const flake = (x, y, z, r, c) => {
-    const p = P(x, y, z); let s = '';
-    for (let i = 0; i < 6; i++) { const a = i * Math.PI / 3; const ex = p[0] + Math.cos(a) * r, ey = p[1] + Math.sin(a) * r; s += `<path d="M${p[0].toFixed(1)} ${p[1].toFixed(1)}L${ex.toFixed(1)} ${ey.toFixed(1)}M${(p[0] + Math.cos(a) * r * .6 + Math.cos(a + 1.1) * r * .25).toFixed(1)} ${(p[1] + Math.sin(a) * r * .6 + Math.sin(a + 1.1) * r * .25).toFixed(1)}L${(p[0] + Math.cos(a) * r * .6).toFixed(1)} ${(p[1] + Math.sin(a) * r * .6).toFixed(1)}L${(p[0] + Math.cos(a) * r * .6 + Math.cos(a - 1.1) * r * .25).toFixed(1)} ${(p[1] + Math.sin(a) * r * .6 + Math.sin(a - 1.1) * r * .25).toFixed(1)}" stroke="${c}" stroke-width="2.6" stroke-linecap="round" fill="none"/>`; }
-    add(96, s);
-  };
-  const floor = (x0, y0, x1, y1, c) => {
-    const t = .5; let s = '';
-    s += poly([P(x0, y1, -t), P(x1, y1, -t), P(x1, y1, 0), P(x0, y1, 0)], darken(c, .12), EDGE);
-    s += poly([P(x1, y0, -t), P(x1, y1, -t), P(x1, y1, 0), P(x1, y0, 0)], darken(c, .28), EDGE);
-    s += poly([P(x0, y0, 0), P(x1, y0, 0), P(x1, y1, 0), P(x0, y1, 0)], c, EDGE);
-    for (let i = 1; i < (x1 - x0); i++) s += `<path d="M${pt(P(x0 + i, y0, 0))}L${pt(P(x0 + i, y1, 0))}" stroke="rgba(120,150,170,.18)" stroke-width="1"/>`;
-    for (let j = 1; j < (y1 - y0); j++) s += `<path d="M${pt(P(x0, y0 + j, 0))}L${pt(P(x1, y0 + j, 0))}" stroke="rgba(120,150,170,.18)" stroke-width="1"/>`;
-    return s;
-  };
-
-  const NAVY = '#2c5d91', TEAL = '#1fa596', ORG = '#f08a3c', WHT = '#f1f5f8', STL = '#a9bccb', DRK = '#2a4358', GLS = '#a8d8ec', GLSD = '#7fbad4', RED = '#d6544f', GRN = '#4aa66a', CRM = '#f6e7cf', YEL = '#f5c443';
-  let FLOOR = '#eef3f6', fl = [0, 0, 10, 10], extraBg = '';
-
-  switch (icon) {
-    case 'hvac': { // office building with rooftop units, outdoor units
-      S = 25; OX = 480; OY = 200; fl = [-1, -1, 11, 10];
-      box(1, 1, 0, 6, 5, 6, WHT, { det: (x, y, z, w, d, h) => winsL(x, y, z, d, w, h, 5, 4, GLS, .45, .9) + winsR(x, y, z, w, d, h, 4, 4, GLSD, .45, .9) + FL(x, y, z, d, 2.4, 3.6, 0, 1.1, DRK) });
-      box(2, 2, 6, 2.2, 1.8, .9, STL, { det: (x, y, z, w, d, h) => FL(x, y, z, d, .2, 2, .2, .7, '#7e92a3') });
-      fan(5.4, 3.4, 6.6, .9, '#dfe8ee'); box(4.6, 2.5, 6, 1.7, 1.8, .6, STL, { noShadow: true });
-      fan(5.4, 3.4, 6.62, .75, '#e6eef3', 40);
-      tube([P(3.2, 3, 6.9), P(3.2, 3, 8.4), P(1.8, 3, 8.4)], TEAL, 6, 60);
-      box(8, 4, 0, 2.4, 1.8, 1.5, STL, { det: (x, y, z, w, d, h) => FL(x, y, z, d, .3, 2.1, .25, 1.2, '#6c8294') + FR(x, y, z, w, .2, 1.6, .25, 1.2, '#6c8294') });
-      fan(9.2, 4.9, 1.52, .78, '#dfe8ee');
-      box(8, 7, 0, 2.4, 1.8, 1.5, STL, { det: (x, y, z, w, d, h) => FL(x, y, z, d, .3, 2.1, .25, 1.2, '#6c8294') + FR(x, y, z, w, .2, 1.6, .25, 1.2, '#6c8294') });
-      fan(9.2, 7.9, 1.52, .78, '#dfe8ee');
-      tube([P(7.2, 6, 1), P(8, 6, 1), P(8, 5, .8)], ORG, 5, 30);
-      arrow([1.2, 7.2, 3], [3.2, 9, 1.4], TEAL);
-      tree(-.2, 8, '#4aa66a'); tree(8.8, 1.2, '#3f9a62');
-      cloud(1, 0, 11, 1.1); break;
-    }
-    case 'snowflake': { // blast freezer
-      S = 25; OX = 470; OY = 215; fl = [-1, -1, 11, 10];
-      box(1, 1, 0, 6, 5, 4, '#dbe6ee', { det: (x, y, z, w, d, h) =>
-        FL(x, y, z, d, .5, 4.2, .35, 3.4, '#b6c8d6', 'stroke="#8fa6b8" stroke-width="1.2"') + FL(x, y, z, d, .85, 3.9, .7, 3.05, '#cfe3f0') + FL(x, y, z, d, 3.5, 3.75, 1.5, 2.6, '#7c93a6') + FL(x, y, z, d, 4.5, 5.6, .6, 2.4, '#2f97b7', 'opacity=".9"') +
-        FR(x, y, z, w, .6, 4.4, .4, 3.6, '#c7d8e4') + FR(x, y, z, w, 1, 4, .8, 3.2, '#d8e7f1') });
-      box(1.4, 1.4, 4, 5.2, 4.2, .7, '#c3d2dd');
-      fan(3, 3, 4.72, .9, '#e8f1f6'); fan(5, 3.6, 4.72, .9, '#e8f1f6');
-      box(8, 1.5, 0, 2.2, 4, .4, STL, { k: 20 });
-      for (let i = 0; i < 3; i++) box(8.2, 1.8 + i * 1.3, .4, 1.8, 1.05, .8 + (i % 2) * .5, i % 2 ? ORG : '#e6b075', { k: 30 + i });
-      box(8.2, 1.8, 1.2, 1.8, 1.05, .6, '#f0c89a', { k: 31 });
-      flake(8.9, 7, 3.2, 17, TEAL); flake(1.4, 8.3, 5.4, 11, '#5bb6d6');
-      cloud(5, 6.4, .9, .9, 70); cloud(3.2, 7.2, .5, .7, 71);
-      break;
-    }
-    case 'fan': { // chiller
-      S = 24; OX = 470; OY = 228; fl = [-1, -1, 12, 9];
-      box(1, 1.5, 0, 8, 3.2, 2.3, '#dfe7ee', { det: (x, y, z, w, d, h) => { let s = ''; for (let i = 0; i < 12; i++) s += FL(x, y, z, d, .35 + i * .62, .8 + i * .62, .3, 1.9, '#9fb2c1'); for (let j = 0; j < 4; j++) s += FR(x, y, z, w, .35 + j * .7, .85 + j * .7, .3, 1.9, '#8ea3b4'); return s + FL(x, y, z, d, 0, 8, 2.1, 2.3, TEAL); } });
-      for (let i = 0; i < 4; i++) { box(1.3 + i * 1.9, 1.85, 2.3, 1.6, 1.8, .22, '#c8d6e0', { noShadow: true, k: 45 + i }); fan(2.1 + i * 1.9, 2.75, 2.55, .78, '#e4edf3', 46 + i); }
-      cyl(10.3, 3.2, 0, 1, 3, '#cfdce6', { det: (b, t, rx, ry) => `<ellipse cx="${b[0]}" cy="${b[1] - 28}" rx="${rx}" ry="${ry}" fill="none" stroke="rgba(255,255,255,.35)"/>` });
-      cyl(10.3, 3.2, 3, 1, .01, '#cfdce6');
-      tube([P(9.1, 3.2, 1.5), P(9.7, 3.2, 1.5), P(10.3, 3.2, 1)], '#3a9fd0', 6, 60);
-      tube([P(9.1, 2.4, .9), P(10.3, 2.4, .9), P(10.3, 3.2, .9)], ORG, 6, 61);
-      box(5, 6.5, 0, 1.6, 1.4, 1, DRK, { det: (x, y, z, w, d, h) => FL(x, y, z, d, .2, 1.4, .2, .8, '#476079') });
-      cyl(7.2, 7.2, 0, .55, 1.2, TEAL);
-      tube([P(5.8, 6.8, 1), P(5.8, 4.8, 1)], '#3a9fd0', 5, 62);
-      flake(2.2, 7.6, 3.2, 14, '#3a9fd0'); arrow([1.6, 6.5, 2.4], [4.2, 6.5, 3.6], TEAL);
-      break;
-    }
-    case 'wheat': { // agro: greenhouse hall + silos + field
-      S = 23; OX = 470; OY = 214; fl = [-1, -1, 12, 10];
-      for (let r = 0; r < 5; r++) box(.2, 6.2 + r * .6, 0, 6.6, .34, .5, r % 2 ? '#8cc152' : '#a5d46a', { noShadow: true, k: 5 + r });
-      box(1, 1, 0, 6.5, 4.2, 2.2, '#e8f2f7', { det: (x, y, z, w, d, h) => { let s = ''; for (let i = 0; i < 6; i++) s += FL(x, y, z, d, .3 + i * 1.05, 1.05 + i * 1.05, .3, 1.9, 'rgba(120,200,225,.7)'); for (let i = 0; i < 4; i++) s += FR(x, y, z, w, .25 + i * 1, .95 + i * 1, .3, 1.9, 'rgba(100,180,210,.7)'); return s; } });
-      gable(1, 1, 2.2, 6.5, 4.2, 1.5, '#d4e8f0');
-      cyl(9.2, 2.2, 0, 1, 4.3, '#cfd8de'); cone(9.2, 2.2, 4.3, 1.05, .9, TEAL);
-      cyl(9.2, 4.8, 0, 1, 3.6, '#dfe5ea'); cone(9.2, 4.8, 3.6, 1.05, .9, ORG);
-      tube([P(8.2, 3.5, 3.1), P(7.6, 3.5, 3.1), P(7.6, 3, 2.4)], STL, 4, 60);
-      tree(-.3, 1.2, '#4aa66a'); tree(10.2, 7.4, '#3f9a62');
-      extraBg = `<circle cx="250" cy="90" r="34" fill="${YEL}" opacity=".9"/><circle cx="250" cy="90" r="52" fill="${YEL}" opacity=".18"/>`;
-      break;
-    }
-    case 'warehouse': { // fruit storage
-      S = 23; OX = 470; OY = 210; fl = [-1, -1, 12, 10];
-      box(1, 1, 0, 7, 5, 3.4, '#f3f0ea', { det: (x, y, z, w, d, h) => FL(x, y, z, d, .5, 2.2, 0, 2.2, '#9aa9b5') + FL(x, y, z, d, 2.5, 4.2, 0, 2.2, '#9aa9b5') + FL(x, y, z, d, 4.6, 6.5, 0, 2.2, '#9aa9b5') + FL(x, y, z, d, 0, 7, 2.7, 3.4, ORG) + FR(x, y, z, w, .5, 4.5, 1.2, 2.4, '#d8e4ec') });
-      gable(1, 1, 3.4, 7, 5, 1.3, '#e8e2d8');
-      box(2, 2, 4.2, 1.8, 1.6, .7, STL, { noShadow: true, k: 60 }); fan(2.9, 2.8, 4.92, .6, '#e4edf3', 61);
-      for (let i = 0; i < 3; i++) for (let j = 0; j < 2; j++) box(8.6 + j * 1.15, 1.3 + i * 1.3, 0, 1.05, 1.15, .75, i % 2 ? '#8bbf4f' : '#d85c4a', { k: 20 + i + j * .1 });
-      box(8.6, 1.3, .75, 1.05, 1.15, .75, '#d85c4a', { k: 25 }); box(9.75, 2.6, .75, 1.05, 1.15, .75, '#8bbf4f', { k: 26 });
-      sphere(9, 6.6, 0, .4, '#d9473b'); sphere(9.8, 7.2, 0, .4, '#8bbf4f'); sphere(9.3, 7.7, 0, .4, '#f2a33a');
-      flake(1.2, 7.8, 3.6, 12, '#4aa6d6'); tree(10.2, 5, '#3f9a62');
-      break;
-    }
-    case 'fridge': { // walk-in cold room
-      S = 25; OX = 470; OY = 215; fl = [-1, -1, 11, 10];
-      box(1, 1, 0, 6, 5, 3.8, '#e6eef4', { det: (x, y, z, w, d, h) => { let s = ''; for (let i = 1; i < 6; i++) s += `<path d="M${pt(P(x + i, y + d, z))}L${pt(P(x + i, y + d, z + h))}" stroke="rgba(120,150,170,.4)" stroke-width="1"/>`; s += FL(x, y, z, d, 2, 4, 0, 3.1, '#b9ccda', 'stroke="#8fa6b8" stroke-width="1.3"') + FL(x, y, z, d, 2.15, 3.95 - 1.9, .15, 2.95, '#d4e4ef') + FL(x, y, z, d, 3.05, 3.85, .15, 2.95, '#d4e4ef') + FL(x, y, z, d, 3.6, 3.78, 1.2, 1.9, '#6f879a'); s += FL(x, y, z, d, 4.6, 5.6, 2, 2.8, '#16242f') + FL(x, y, z, d, 4.75, 5.45, 2.15, 2.65, '#52d1c4'); for (let j = 1; j < 4; j++) s += `<path d="M${pt(P(x + w, y, z + j * .9))}L${pt(P(x + w, y + d, z + j * .9))}" stroke="rgba(255,255,255,.18)"/>`; return s; } });
-      box(1.8, 1.8, 3.8, 3.2, 2.4, .7, STL); fan(2.8, 3, 4.52, .7, '#e4edf3'); fan(4.1, 3, 4.52, .7, '#e4edf3');
-      box(8, 2, 0, 1.6, 1.4, 1.1, DRK, { det: (x, y, z, w, d, h) => FL(x, y, z, d, .2, 1.4, .2, .9, '#476079') });
-      tube([P(7, 3, 3.8), P(7.6, 3, 3.8), P(8.4, 2.7, 1.2)], TEAL, 5, 60);
-      flake(9, 6.8, 3, 14, '#4aa6d6'); cloud(6.3, 6.4, .8, .8, 70);
-      break;
-    }
-    case 'cutlery': { // restaurant
-      S = 24; OX = 470; OY = 215; fl = [-1, -1, 11, 10];
-      box(1, 1, 0, 6.4, 4.4, 3, '#f6ece0', { det: (x, y, z, w, d, h) => FL(x, y, z, d, .5, 5.9, .55, 2.4, '#a8d8ec') + FL(x, y, z, d, 2.9, 3.6, .55, 2.4, '#8fc5de') + FR(x, y, z, w, .5, 3.9, .7, 2.2, '#c9e6f2') + FT(x, y, z, h, .3, 6.1, .3, 4.1, '#e8d9c6') });
-      for (let i = 0; i < 6; i++) { const x0 = 1 + i * 1.067; add(40 + i * .1, poly([P(x0, 5.4, 2.4), P(x0 + 1.067, 5.4, 2.4), P(x0 + 1.067, 6.4, 3.1), P(x0, 6.4, 3.1)], i % 2 ? '#fff' : ORG, EDGE)); }
-      box(5.2, 1.6, 3, 1, 1, 2.2, '#b7c6d2', { noShadow: true, k: 30 }); box(5, 1.4, 5.2, 1.4, 1.4, .3, '#8fa3b3', { noShadow: true, k: 31 }); fan(5.7, 2.1, 5.52, .55, '#e4edf3', 32);
-      for (const [x, y] of [[8.6, 1.2], [8.6, 3.8]]) { cyl(x, y, 0, .75, .12, '#c9a46a'); cyl(x, y, .12, .5, .7, '#d9b77c'); cyl(x, y, .82, .62, .1, '#f2e6cf'); sphere(x - .3, y - .6, .9, .22, '#ffffff'); }
-      tree(9.8, 6.2, '#4aa66a'); tree(-.2, 7.2, '#3f9a62'); arrow([4.6, 1.3, 6.4], [3.2, -.6, 7.8], TEAL);
-      break;
-    }
-    case 'bed': { // hotel
-      S = 22; OX = 470; OY = 238; fl = [-1, -1, 11, 10];
-      box(1.4, 1.4, 0, 4.2, 3.6, 9, '#eef2f7', { det: (x, y, z, w, d, h) => { let s = winsL(x, y, z, d, w, h, 4, 6, '#7fb1d6', .32, 1.5) + winsR(x, y, z, w, d, h, 3, 6, '#5f98c4', .32, 1.5); for (let j = 0; j < 6; j++) s += FL(x, y, z, d, 0, w, 1.4 + j * 1.25, 1.5 + j * 1.25, 'rgba(255,255,255,.7)'); s += FL(x, y, z, d, 1.4, 2.8, 0, 1.3, '#243a4e'); return s; } });
-      box(.6, 5, 0, 5.8, 2.4, 2, NAVY, { det: (x, y, z, w, d, h) => FL(x, y, z, d, .4, 5.4, .4, 1.6, '#8fc5de') + FL(x, y, z, d, 0, 5.8, 1.7, 2, ORG) });
-      box(1.8, 1.8, 9, 3, 2.6, .6, STL, { noShadow: true, k: 70 }); fan(3.3, 3.1, 9.62, .7, '#e4edf3', 71);
-      box(.7, 7.6, 0, 3.2, .8, .9, '#c9a46a', { noShadow: true, k: 15 });
-      tree(7.2, 6.2, '#3f9a62'); tree(8.6, 3.2, '#4aa66a'); tree(7.8, .4, '#3f9a62');
-      arrow([6.4, 4, 4], [8.2, 2.2, 6.4], TEAL);
-      break;
-    }
-    case 'cupcake': { // patisserie
-      S = 25; OX = 470; OY = 212; fl = [-1, -1, 11, 10];
-      box(1, 1, 0, 6, 4.2, 2.8, '#fbe9e4', { det: (x, y, z, w, d, h) => FL(x, y, z, d, .5, 5.5, .5, 2.2, '#a8d8ec') + FL(x, y, z, d, 1, 2.2, .5, 1.2, CRM) + FL(x, y, z, d, 3, 4.2, .5, 1.5, '#f4c6c0') + FR(x, y, z, w, .6, 3.6, .8, 2.1, '#c9e6f2') });
-      for (let i = 0; i < 6; i++) add(40 + i * .1, poly([P(1 + i, 5.2, 2.3), P(2 + i, 5.2, 2.3), P(2 + i, 6.2, 3), P(1 + i, 6.2, 3)], i % 2 ? '#fff' : '#e7757f', EDGE));
-      box(7.6, 1.2, 0, 2.2, 1.8, 1.6, '#e8eef3', { det: (x, y, z, w, d, h) => FL(x, y, z, d, .2, 2, .25, 1.4, '#a8d8ec') });
-      cyl(9, 6, 0, 1.05, .9, '#e8a8a0'); cyl(9, 6, .9, 1.1, .12, '#f9efe3'); sphere(9, 6, 1.02, .75, '#f2c6c9'); sphere(9, 6, 1.9, .32, '#d6544f');
-      cyl(6.4, 7.2, 0, .8, .8, '#d9b77c'); cyl(6.4, 7.2, .8, .62, .5, '#f6e7cf'); cyl(6.4, 7.2, 1.3, .46, .4, '#f2c6c9'); sphere(6.4, 7.2, 1.7, .22, '#d6544f');
-      sphere(7.6, 8.4, 0, .3, ORG); tree(-.2, 7.4, '#4aa66a');
-      break;
-    }
-    case 'cart': { // store
-      S = 22; OX = 470; OY = 210; fl = [-1, -1, 12, 10];
-      box(.8, 1, 0, 8, 4.4, 3, '#eff3f6', { det: (x, y, z, w, d, h) => FL(x, y, z, d, .5, 7.5, .35, 2.2, '#a8d8ec') + FL(x, y, z, d, 3.4, 4.6, 0, 2.2, '#5b7a90') + FL(x, y, z, d, 0, 8, 2.4, 3, TEAL) + FR(x, y, z, w, .6, 3.8, .6, 2.1, '#c9e6f2') });
-      box(1.6, 1.6, 3, 1.8, 1.6, .7, STL, { noShadow: true, k: 60 }); fan(2.5, 2.4, 3.72, .6, '#e4edf3', 61);
-      box(4.4, 1.6, 3, 1.8, 1.6, .7, STL, { noShadow: true, k: 62 }); fan(5.3, 2.4, 3.72, .6, '#e4edf3', 63);
-      for (let i = 0; i < 2; i++) box(1.4 + i * 2.6, 6.6, 0, 2.2, 1, 1.3, '#dfe8ee', { det: (x, y, z, w, d, h) => FL(x, y, z, d, .15, 2.05, .75, 1.15, '#4aa6d6') + FL(x, y, z, d, .15, 2.05, .2, .65, i ? ORG : '#7cc16a') });
-      for (const x of [8.2, 9.4]) { box(x, 7, .5, .9, .7, .1, '#9fb2c1', { noShadow: true }); box(x, 7, .6, .9, .05, .6, '#c9d6df', { noShadow: true }); cyl(x + .1, 7.7, 0, .1, .5, DRK); }
-      tree(10, 2, '#3f9a62'); arrow([6.6, 5.6, 2.6], [8.6, 4, 4], TEAL);
-      break;
-    }
-    default: { // 'cap' — mosque / religious building
-      S = 23; OX = 470; OY = 220; fl = [-1, -1, 12, 10];
-      box(1.2, 1.4, 0, 5.8, 4.8, 3.4, '#f5efe2', { det: (x, y, z, w, d, h) => { let s = ''; for (let i = 0; i < 3; i++) s += FL(x, y, z, d, .6 + i * 1.8, 1.6 + i * 1.8, .4, 2.4, '#6fb5a4') + FL(x, y, z, d, .6 + i * 1.8, 1.6 + i * 1.8, 2.4, 2.7, '#6fb5a4'); s += FR(x, y, z, w, .7, 1.7, .4, 2.4, '#6fb5a4') + FR(x, y, z, w, 3.1, 4.1, .4, 2.4, '#6fb5a4') + FL(x, y, z, d, 0, 5.8, 3, 3.4, '#c9a227'); return s; } });
-      box(2.2, 2.4, 3.4, 3.8, 2.8, .7, '#efe6d3', { noShadow: true });
-      dome(4.1, 3.8, 4.1, 1.85, '#2f9a8a', 80); cyl(4.1, 3.8, 6.3, .12, .8, '#c9a227', { k: 81 });
-      box(7.8, 1.4, 0, 1.3, 1.3, 7, '#f5efe2', { det: (x, y, z, w, d, h) => FL(x, y, z, d, .35, .95, 1, 2.4, '#6fb5a4') + FL(x, y, z, d, .35, .95, 3.6, 5, '#6fb5a4') + FL(x, y, z, d, 0, 1.3, 6, 6.4, '#c9a227') });
-      cone(8.45, 2.05, 7, .8, 2.2, '#2f9a8a', 90); cyl(8.45, 2.05, 9.1, .07, .6, '#c9a227', { k: 91 });
-      tree(-.2, 6.6, '#4aa66a'); tree(9.6, 6.4, '#3f9a62'); tree(.4, .2, '#3f9a62');
-    }
-  }
-
-  items.sort((a, b) => a.k - b.k);
-  const body = floor(fl[0], fl[1], fl[2], fl[3], FLOOR) + shadows.join('') + items.map(i => i.svg).join('');
-  const k = Math.min(1.6, 580 / (bx1 - bx0), 372 / (by1 - by0)), CY = 200;
-  const bgId = uid + 'bg';
-  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${(cat.title || '').replace(/"/g, '')}">
-<defs><linearGradient id="${bgId}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${bg[0]}"/><stop offset="1" stop-color="${bg[1]}"/></linearGradient>${defs.join('')}</defs>
-<rect width="${W}" height="${H}" fill="url(#${bgId})"/>${extraBg}
-<g transform="translate(480 ${CY}) scale(${k.toFixed(3)}) translate(${(-(bx0 + bx1) / 2).toFixed(1)} ${(-(by0 + by1) / 2).toFixed(1)})">${body}</g>
-</svg>`;
-}
 
 </script>
 <script>
@@ -766,22 +491,43 @@ var STEPS = [
 var FAQ = [
   ['С чего начать работу?', 'Позвоните по номеру ' + PHONE + ' или оставьте заявку ниже. Мы уточним задачу, объект и сроки, после чего предложим выезд на расчёт.'],
   ['Вы работаете «под ключ»?', 'Да. В работах по каждому направлению — расчёт, поставка оборудования, монтаж, пусконаладка и сервис. Состав работ по вашему объекту согласуем до начала.'],
-  ['С какими объектами вы работаете?', 'Рестораны и кафе, отели, кондитерские, магазины, фруктохранилища, холодильные камеры, агропредприятия и религиозные учреждения. Примеры — в разделе «Объекты».'],
+  ['С какими объектами вы работаете?', 'С объектами любого назначения: государственными, частными, коммерческими, промышленными и агропромышленными. Примеры реализованных проектов — в разделе «Объекты».'],
   ['Можно получить реквизиты для договора?', 'Да. Реквизиты есть на этой странице в разделе «Контакты», их можно скопировать или скачать в PDF. Мы работаем по общей системе налогообложения (ОСНО).'],
   ['Как узнать стоимость?', 'Стоимость зависит от объекта, мощности и состава работ. Оставьте заявку, мы свяжемся и после уточнения задачи подготовим расчёт.']
 ];
 
-/* ----- art ----- */
-var artCache = {};
-function art(catId, suffix, vb) {
-  var cat = CAT[catId] || { id: catId, icon: 'hvac' };
-  var s = isoArtSvg(cat);
-  suffix = suffix || '';
-  if (suffix) {
-    s = s.replace(/id="([^"]+)"/g, 'id="$1' + suffix + '"').replace(/url\(#([^)]+)\)/g, 'url(#$1' + suffix + ')').replace(/href="#([^"]+)"/g, 'href="#$1' + suffix + '"');
+/* ----- photos + flow ----- */
+function photo(catId, cls, extra) { var c = CAT[catId]; return '<img class="' + cls + '" ' + (extra || '') + ' alt="" decoding="async" src="' + c.projects[0].media[0] + '">'; }
+var TEMP = { klimat: 22, zamorozka: -35, chillery: 7, agrosektor: 8, fruktohranilishcha: 2, 'holodilnye-kamery': -18 };
+function startFlow(stage, temp) {
+  var cv = stage.querySelector('canvas.flow'); if (!cv || reduce) return null;
+  var ctx = cv.getContext('2d'), W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1), N = innerWidth < 700 ? 46 : 80, P = [], mx = -999, my = -999, T = temp, vis = true;
+  function size() { var r = stage.getBoundingClientRect(); W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); }
+  function mk(init) { return { x: Math.random() * W, y: init ? Math.random() * H : (T >= 0 ? H + 5 : -5), s: .5 + Math.random() * 1.1, ph: Math.random() * 6.28 }; }
+  size(); for (var i = 0; i < N; i++) P.push(mk(true));
+  function col(a) { var k = (T + 40) / 65, r = Math.round(170 + 85 * k), g = Math.round(225 - 20 * k), b = Math.round(255 - 135 * k); return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')'; }
+  function frame(t) {
+    if (!cv.isConnected) return;
+    if (vis && !document.hidden) {
+      ctx.clearRect(0, 0, W, H); ctx.lineCap = 'round'; ctx.lineWidth = 1.7;
+      var vy0 = -T / 40 * .9 - (T >= 0 ? .15 : -.15);
+      for (var i = 0; i < P.length; i++) {
+        var q = P[i], vx = Math.sin(t / 900 + q.ph) * .45, vy = vy0 * q.s;
+        var dx = q.x - mx, dy = q.y - my, d2 = dx * dx + dy * dy;
+        if (d2 < 9000) { var f = (1 - d2 / 9000) * 2.2, dd = Math.sqrt(d2 + 1); vx += dx / dd * f; vy += dy / dd * f; }
+        ctx.strokeStyle = col(.55 * Math.min(1, q.s)); ctx.beginPath(); ctx.moveTo(q.x, q.y); ctx.lineTo(q.x - vx * 9, q.y - vy * 9); ctx.stroke();
+        q.x += vx * 1.6; q.y += vy * 1.6;
+        if (q.y < -10 || q.y > H + 10 || q.x < -10 || q.x > W + 10) P[i] = mk(false);
+      }
+    }
+    requestAnimationFrame(frame);
   }
-  s = s.replace(/viewBox="0 0 960 400"/, 'viewBox="' + (vb || '150 0 660 412') + '"').replace('<svg ', '<svg aria-hidden="true" focusable="false" ');
-  return s;
+  stage.addEventListener('pointermove', function (e) { var r = stage.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; stage.style.setProperty('--px', ((mx / W - .5) * -14).toFixed(1) + 'px'); stage.style.setProperty('--py', ((my / H - .5) * -10).toFixed(1) + 'px'); });
+  stage.addEventListener('pointerleave', function () { mx = my = -999; stage.style.setProperty('--px', '0px'); stage.style.setProperty('--py', '0px'); });
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { vis = es[0].isIntersecting; }).observe(stage);
+  window.addEventListener('resize', size);
+  requestAnimationFrame(frame);
+  return { set: function (v) { T = v; } };
 }
 
 /* ----- SEO ----- */
@@ -831,17 +577,17 @@ var STOPS = [
   { t: 22, cat: 'cat_0', slug: 'klimat', name: 'Кондиционирование и вентиляция', note: 'Комфортный воздух для залов, офисов и производств.', short: 'Климат' },
   { t: 7, cat: 'cat_2', slug: 'chillery', name: 'Чиллеры', note: 'Водоохлаждающие установки для коммерческого и промышленного холода.', short: 'Чиллеры' },
   { t: 2, cat: 'cat_4', slug: 'fruktohranilishcha', name: 'Фруктохранилища', note: 'Климат-контроль и газовая среда для долгого хранения урожая.', short: 'Фрукты' },
-  { t: -18, cat: 'cat_5', slug: 'holodilnye-kamery', name: 'Холодильные камеры', note: 'Камеры для ресторанов, магазинов, складов и производств.', short: 'Камеры' },
+  { t: -18, cat: 'cat_5', slug: 'holodilnye-kamery', name: 'Холодильные камеры', note: 'Камеры для складов, торговли, производств и хранилищ.', short: 'Камеры' },
   { t: -35, cat: 'cat_1', slug: 'zamorozka', name: 'Шоковая заморозка', note: 'Быстрое охлаждение сохраняет структуру и срок хранения продукции.', short: 'Заморозка' }
 ];
 function fmtT(t) { return (t > 0 ? '+' : (t < 0 ? '−' : '')) + Math.abs(t) + ' °C'; }
 
 function pageHome() {
-  var stage = STOPS.map(function (s, i) { return art(s.cat, 'h', null).replace('<svg ', '<svg data-cat="' + s.cat + '" class="' + (i === 0 ? 'on' : '') + '" '); }).join('');
+  var stage = STOPS.map(function (s, i) { return photo(s.cat, 'ph' + (i === 0 ? ' on' : ''), 'data-cat="' + s.cat + '"'); }).join('') + '<canvas class="flow" aria-hidden="true"></canvas>';
   var stops = STOPS.map(function (s) { return '<button type="button" class="chip" data-stop="' + s.t + '" aria-pressed="false">' + fmtT(s.t) + ' <small>' + s.short + '</small></button>'; }).join('');
   var nObj = TOTAL_PROJ, nPhotos = 0; ALL.forEach(function (x) { nPhotos += x.p.media.length; });
   var svcCards = META.map(function (m) {
-    return '<a class="svc" href="#services/' + m.slug + '"><div class="svc-art">' + art(m.catId, 's') + '<span class="svc-temp">' + MODE[m.slug] + '</span></div><div class="svc-body"><h3>' + esc(m.title) + '</h3><p>' + esc(m.lead.split('. ')[0].replace(/\.$/,'') + '.') + '</p><span class="svc-more">Подробнее' + IC.arrow + '</span></div></a>';
+    return '<a class="svc" href="#services/' + m.slug + '"><div class="svc-art">' + photo(m.catId, 'ph', 'loading="lazy"') + '<span class="svc-temp">' + MODE[m.slug] + '</span></div><div class="svc-body"><h3>' + esc(m.title) + '</h3><p>' + esc(m.lead.split('. ')[0].replace(/\.$/,'') + '.') + '</p><span class="svc-more">Подробнее' + IC.arrow + '</span></div></a>';
   }).join('');
   var chips = '<button type="button" class="chip on" data-f="all" aria-pressed="true">Все <small>' + nObj + '</small></button>' + ORDER.map(function (id) { var c = CAT[id]; return c ? '<button type="button" class="chip" data-f="' + id + '" aria-pressed="false">' + SHORT[id] + ' <small>' + c.projects.length + '</small></button>' : ''; }).join('');
   var svcOpts = '<option value="">Не выбрано</option>' + META.map(function (m) { return '<option value="' + m.slug + '">' + esc(m.title) + '</option>'; }).join('') + '<option value="other">Другое</option>';
@@ -896,6 +642,7 @@ function pageService(slug) {
   var c = CAT[m.catId], i = META.indexOf(m);
   var prev = META[(i + META.length - 1) % META.length], next = META[(i + 1) % META.length];
   var ph = 0; c.projects.forEach(function (p) { ph += p.media.length; });
+  var items0 = ALL.filter(function (x) { return x.p === c.projects[0]; })[0];
   var items = c.projects.map(function (p) { return { p: p, c: c }; });
   var faq = [
     ['Что входит в работы?', '<ul style="margin:8px 0 0;padding-left:20px">' + m.scope.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ul>'],
@@ -907,7 +654,7 @@ function pageService(slug) {
       '<div class="shero-grid"><div><h1>' + esc(m.title) + '</h1><p class="lead" style="font-size:18.5px;margin-top:14px;max-width:560px">' + esc(m.lead) + '</p>' +
         '<div class="hero-actions"><a class="btn btn-cta" href="#kontakty/' + slug + '">Заказать расчёт' + IC.arrow + '</a><a class="btn btn-line" href="tel:' + TEL + '">' + IC.phone + 'Позвонить</a></div>' +
         '<div class="facts"><div class="fact"><b>' + c.projects.length + '</b><span>' + plural(c.projects.length, ['объект', 'объекта', 'объектов']) + ' в портфолио</span></div><div class="fact"><b>' + ph + '</b><span>фото работ</span></div><div class="fact"><b>' + MODE[slug] + '</b><span>типовой режим</span></div></div></div>' +
-        '<div class="stage" style="box-shadow:var(--shadow)">' + art(m.catId, 'p') + '</div></div></div></section>' +
+        '<div class="stage" id="sstage" data-temp="' + TEMP[slug] + '"><img class="ph on" alt="' + esc(m.title) + ': фото объекта" src="' + c.projects[0].media[0] + '"><canvas class="flow" aria-hidden="true"></canvas><button type="button" class="stage-open" data-open="' + ALL.indexOf(items0) + '" aria-label="Открыть фото объекта">' + IC.img + 'Фото</button></div></div></div></section>' +
     '<section><div class="wrap"><div class="sec-head"><h2>Состав работ</h2></div><ul class="checks">' + m.scope.map(function (s) { return '<li>' + IC.check + '<span>' + esc(s) + '</span></li>'; }).join('') + '</ul></div></section>' +
     '<section class="band" id="obekty"><div class="wrap"><div class="sec-head"><h2>Объекты по направлению</h2><p>Нажмите на карточку, чтобы открыть фотографии.</p></div><div class="proj-grid" id="pg"></div>' +
       '<div class="more-row"><a class="btn btn-line" href="#referencii/' + m.catId + '">Все объекты направления' + IC.arrow + '</a></div></div></section>' +
@@ -918,7 +665,7 @@ function pageService(slug) {
 }
 function pageRefs(catId) {
   var chips = '<button type="button" class="chip ' + (catId ? '' : 'on') + '" data-f="all" aria-pressed="' + (!catId) + '">Все <small>' + TOTAL_PROJ + '</small></button>' + ORDER.map(function (id) { var c = CAT[id]; return c ? '<button type="button" class="chip ' + (catId === id ? 'on' : '') + '" data-f="' + id + '" aria-pressed="' + (catId === id) + '">' + SHORT[id] + ' <small>' + c.projects.length + '</small></button>' : ''; }).join('');
-  return '<section class="shero"><div class="wrap"><nav class="crumbs" aria-label="Навигация"><a href="#">Главная</a><i>/</i><span>Объекты</span></nav><div class="sec-head" style="margin:14px 0 0"><h1>Реализованные объекты</h1><p>' + TOTAL_PROJ + ' проектов: климат, холодильные камеры, хранилища, рестораны, отели и магазины. Нажмите на карточку, чтобы открыть фото.</p></div></div></section>' +
+  return '<section class="shero"><div class="wrap"><nav class="crumbs" aria-label="Навигация"><a href="#">Главная</a><i>/</i><span>Объекты</span></nav><div class="sec-head" style="margin:14px 0 0"><h1>Реализованные объекты</h1><p>' + TOTAL_PROJ + ' проектов на объектах любого назначения: государственных, частных, коммерческих, промышленных и агропромышленных. Нажмите на карточку, чтобы открыть фото.</p></div></div></section>' +
     '<section><div class="wrap"><div class="filters" role="group" aria-label="Фильтр по типу объекта">' + chips + '</div><div class="proj-grid" id="pg"></div><div class="more-row" id="pgMore"></div></div></section>' +
     ctaBand('Хотите такой же результат?', 'Расскажите об объекте, мы предложим решение и выезд на расчёт.');
 }
@@ -993,7 +740,7 @@ function route(opts) {
       ld: { '@context': 'https://schema.org', '@graph': [crumbLd([['Главная', ''], ['Услуги', '#uslugi'], [m.title, '#services/' + m.slug]]), { '@type': 'Service', name: m.title, description: m.lead, provider: { '@id': BASE + '#org' }, areaServed: 'RU', serviceType: m.title, url: BASE + '#services/' + m.slug }] } };
   } else if (parts[0] === 'referencii') {
     var cid = CAT[parts[1]] ? parts[1] : null; html = pageRefs(cid); G.filter = cid || 'all';
-    meta = { title: 'Объекты и референции — РОЙ-СТРОЙ', desc: TOTAL_PROJ + ' реализованных проектов: климат, холодильные камеры, фруктохранилища, рестораны, отели, магазины. Фото и описания. РОЙ-СТРОЙ, Москва.', hash: '#referencii',
+    meta = { title: 'Объекты и референции — РОЙ-СТРОЙ', desc: TOTAL_PROJ + ' реализованных проектов: государственные, частные, коммерческие, промышленные и агропромышленные объекты. Фото и описания. РОЙ-СТРОЙ, Москва.', hash: '#referencii',
       ld: { '@context': 'https://schema.org', '@graph': [crumbLd([['Главная', ''], ['Объекты', '#referencii']])] } };
   } else {
     html = pageHome(); G.filter = 'all';
@@ -1020,17 +767,18 @@ function bindPage() {
   if (t) {
     var stage = $('#stage'), hero = $('#hero');
     var warm = [[255, 241, 225], [255, 224, 194]], cold = [[228, 241, 250], [191, 220, 240]];
-    var curStop = -1;
+    var curStop = -1, flowH = startFlow(stage, 22);
     var lerp = function (a, b, k) { return Math.round(a + (b - a) * k); };
     var mix = function (a, b, k) { return 'rgb(' + lerp(a[0], b[0], k) + ',' + lerp(a[1], b[1], k) + ',' + lerp(a[2], b[2], k) + ')'; };
     var upd = function () {
       var v = +t.value, k = (v + 40) / 65;
       hero.style.setProperty('--ha', mix(cold[0], warm[0], k)); hero.style.setProperty('--hb', mix(cold[1], warm[1], k));
       var best = 0, bd = 999; STOPS.forEach(function (s, i) { var d = Math.abs(s.t - v); if (d < bd) { bd = d; best = i; } });
+      if (flowH) flowH.set(v);
       $('#stT').textContent = fmtT(v); t.setAttribute('aria-valuetext', fmtT(v));
       if (best !== curStop) {
         curStop = best; var s = STOPS[best];
-        $$('svg', stage).forEach(function (x) { x.classList.toggle('on', x.getAttribute('data-cat') === s.cat); });
+        $$('img.ph', stage).forEach(function (x) { x.classList.toggle('on', x.getAttribute('data-cat') === s.cat); });
         $('#stN').textContent = s.name; $('#stNote').textContent = s.note; $('#stGo').setAttribute('href', '#services/' + s.slug);
       }
       $$('[data-stop]').forEach(function (b) { var on = +b.getAttribute('data-stop') === STOPS[best].t; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
@@ -1043,6 +791,7 @@ function bindPage() {
       (function f(now) { var k = Math.min(1, (now - st) / dur); k = 1 - Math.pow(1 - k, 3); t.value = Math.round(from + (to - from) * k); upd(); if (k < 1) requestAnimationFrame(f); })(st);
     };
   }
+  var ss = $('#sstage'); if (ss) startFlow(ss, +ss.getAttribute('data-temp'));
   /* counters */
   var nums = $$('[data-n]');
   if (nums.length) {
