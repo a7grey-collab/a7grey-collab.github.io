@@ -351,6 +351,8 @@ body.menu-open .mbar,body.lb-open .mbar,body.inst-open .mbar{display:none}
 .hero-grid>*,.shero-grid>*,.ct-grid>*,.foot-grid>*,.cta-in>*{min-width:0}
 .stage{max-width:100%}
 .shero h1{font-size:clamp(21px,5.6vw,46px);hyphens:manual}
+.hero h1{font-size:clamp(23px,5.6vw,46px)}
+@media (max-width:350px){.hero h1{font-size:19.5px;letter-spacing:-.03em}}
 
 </style>
 </head><body>
@@ -845,8 +847,8 @@ function pageHome() {
   var svcOpts = '<option value="">Не выбрано</option>' + META.map(function (m) { return '<option value="' + m.slug + '">' + esc(m.title) + '</option>'; }).join('') + '<option value="other">Другое</option>';
   return '' +
     '<section class="hero" id="hero"><div class="wrap hero-grid">' +
-      '<div class="hero-in"><h1>Инженерный холод и климат — от расчёта до запуска</h1>' +
-      '<p class="lead">РОЙ-СТРОЙ проектирует, монтирует и обслуживает климатические и холодильные системы для ресторанов, отелей, магазинов и хранилищ.</p>' +
+      '<div class="hero-in"><h1>Вентиляция, кондиционирование, промышленное охлаждение — от расчёта до запуска</h1>' +
+      '<p class="lead">Проектирование, подбор, поставка, монтаж и пусконаладка инженерных сетей. Строительство объектов под ключ.</p>' +
       '<div class="hero-actions"><a class="btn btn-cta" href="#kontakty">Оставить заявку' + IC.arrow + '</a><a class="btn btn-line" href="#referencii">Смотреть объекты</a></div></div>' +
       '<div class="hero-right"><div class="stage" id="stage">' + stage + '<div class="stage-tag"><b id="stT">+22 °C</b><span id="stN">Кондиционирование и вентиляция</span></div></div>' +
       '<div class="dial"><div class="dial-label" id="dialL">Какая температура нужна на вашем объекте?</div>' +
