@@ -630,11 +630,11 @@ var STOPS = [
 function fmtT(t) { return (t > 0 ? '+' : (t < 0 ? '−' : '')) + Math.abs(t) + ' °C'; }
 
 function pageHome() {
-  var stage = STOPS.map(function (s, i) { return photo(s.cat, 'ph' + (i === 0 ? ' on' : ''), 'data-cat="' + s.cat + '"'); }).join('') + '<span class="ill">Иллюстрация</span>';
+  var stage = STOPS.map(function (s, i) { return photo(s.cat, 'ph' + (i === 0 ? ' on' : ''), 'data-cat="' + s.cat + '"'); }).join('') + '';
   var stops = STOPS.map(function (s) { return '<button type="button" class="chip" data-stop="' + s.t + '" aria-pressed="false">' + fmtT(s.t) + ' <small>' + s.short + '</small></button>'; }).join('');
   var nObj = TOTAL_PROJ, nPhotos = 0; ALL.forEach(function (x) { nPhotos += x.p.media.length; });
   var svcCards = META.map(function (m) {
-    return '<a class="svc" href="#services/' + m.slug + '"><div class="svc-art">' + photo(m.catId, 'ph', 'loading="lazy"') + '<span class="svc-temp">' + MODE[m.slug] + '</span><span class="ill">Иллюстрация</span></div><div class="svc-body"><h3>' + esc(m.title) + '</h3><p>' + esc(m.lead.split('. ')[0].replace(/\.$/,'') + '.') + '</p><span class="svc-more">Подробнее' + IC.arrow + '</span></div></a>';
+    return '<a class="svc" href="#services/' + m.slug + '"><div class="svc-art">' + photo(m.catId, 'ph', 'loading="lazy"') + '<span class="svc-temp">' + MODE[m.slug] + '</span></div><div class="svc-body"><h3>' + esc(m.title) + '</h3><p>' + esc(m.lead.split('. ')[0].replace(/\.$/,'') + '.') + '</p><span class="svc-more">Подробнее' + IC.arrow + '</span></div></a>';
   }).join('');
   var chips = '<button type="button" class="chip on" data-f="all" aria-pressed="true">Все <small>' + nObj + '</small></button>' + ORDER.map(function (id) { var c = CAT[id]; return c ? '<button type="button" class="chip" data-f="' + id + '" aria-pressed="false">' + SHORT[id] + ' <small>' + c.projects.length + '</small></button>' : ''; }).join('');
   var svcOpts = '<option value="">Не выбрано</option>' + META.map(function (m) { return '<option value="' + m.slug + '">' + esc(m.title) + '</option>'; }).join('') + '<option value="other">Другое</option>';
@@ -694,7 +694,7 @@ function pageService(slug) {
       '<div class="shero-grid"><div><h1>' + esc(m.title) + '</h1><p class="lead" style="font-size:18.5px;margin-top:14px;max-width:560px">' + esc(m.lead) + '</p>' +
         '<div class="hero-actions"><a class="btn btn-cta" href="#kontakty">Запросить расчёт' + IC.arrow + '</a><a class="btn btn-line" href="tel:' + TEL + '">' + IC.phone + 'Позвонить</a></div>' +
         '<div class="facts"><div class="fact"><b>' + c.projects.length + '</b><span>' + plural(c.projects.length, ['объект', 'объекта', 'объектов']) + ' в портфолио</span></div><div class="fact"><b>' + ph + '</b><span>фото работ</span></div><div class="fact"><b>' + MODE[slug] + '</b><span>типовой режим</span></div></div></div>' +
-        '<div class="stage" id="sstage" data-temp="' + TEMP[slug] + '"><img class="ph on" alt="' + esc(m.title) + ': фото объекта" src="' + (window.__COVER[m.catId] || c.projects[0].media[0]) + '"><span class="ill">Иллюстрация</span><button type="button" class="stage-open" data-open="' + ALL.indexOf(items0) + '" aria-label="Открыть фото объекта">' + IC.img + 'Фото</button></div></div></div></section>' +
+        '<div class="stage" id="sstage" data-temp="' + TEMP[slug] + '"><img class="ph on" alt="' + esc(m.title) + ': фото объекта" src="' + (window.__COVER[m.catId] || c.projects[0].media[0]) + '"><button type="button" class="stage-open" data-open="' + ALL.indexOf(items0) + '" aria-label="Открыть фото объекта">' + IC.img + 'Фото</button></div></div></div></section>' +
     '<section><div class="wrap"><div class="sec-head"><h2>Состав работ</h2></div><ul class="checks">' + m.scope.map(function (s) { return '<li>' + IC.check + '<span>' + esc(s) + '</span></li>'; }).join('') + '</ul></div></section>' +
     '<section class="band" id="obekty"><div class="wrap"><div class="sec-head"><h2>Объекты по направлению</h2><p>Нажмите на карточку, чтобы открыть фотографии.</p></div><div class="proj-grid" id="pg"></div>' +
       '<div class="more-row"><a class="btn btn-line" href="#referencii/' + m.catId + '">Все объекты направления' + IC.arrow + '</a></div></div></section>' +
@@ -738,7 +738,7 @@ function pagePrivacy() {
   '<h2>6. Правовая информация о сайте</h2>' +
   '<p>6.1. Информация на сайте носит справочный характер и не является публичной офертой (ст. 437 Гражданского кодекса РФ). Состав, сроки и стоимость работ определяются договором.</p>' +
   '<p>6.2. Тексты, оформление и иные материалы сайта используются Оператором. Их копирование и распространение без согласия правообладателя не допускаются.</p>' +
-  '<p>6.3. Изображения с пометкой «Иллюстрация» поясняют направление работ и не являются фотографиями конкретных объектов Оператора. Названия и товарные знаки третьих лиц, если они видны на изображениях, принадлежат их правообладателям.</p>' +
+  '<p>6.3. Названия и товарные знаки третьих лиц, если они видны на изображениях, принадлежат их правообладателям.</p>' +
   '<p>6.4. Сведения об организации и банковские реквизиты размещены в разделе <a href="#rekv">«Контакты»</a>.</p>' +
   '<h2>7. Изменение политики</h2>' +
   '<p>Оператор может изменять политику. Актуальная редакция всегда опубликована на этой странице, дата редакции указана вверху.</p>' +
