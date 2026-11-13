@@ -367,6 +367,31 @@ body.menu-open .mbar,body.lb-open .mbar,body.inst-open .mbar{display:none}
 .svc:hover .svc-art img.ph{transform:scale(1.06)}
 .svc-temp{z-index:2}
 
+.proj-b{padding:14px 16px 18px;gap:6px;background:#fff}
+.proj-b .proj-c{font-size:13.5px;font-weight:700;color:var(--cold)}
+.proj-b .proj-d{display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;color:var(--text);font-size:15px;line-height:1.5}
+.proj{height:100%}
+body:not(.ready) footer,body:not(.ready) .mbar{display:none}
+.boot{padding:28px 0 40px;background:linear-gradient(160deg,#fff1e1,#ffe0c2);min-height:70vh}
+.boot p.s{margin-top:18px;font-weight:600;color:var(--muted)}
+@media (max-width:959px){
+  .hero{padding:16px 0 28px}
+  .hero-right{display:contents}
+  .hero-in{order:2}.stage{order:1}.dial{order:3}
+  .hero-grid{gap:18px}
+  .stage{aspect-ratio:16/9}
+  .hero .lead{font-size:17px;line-height:1.55}
+  .hero h1{margin-bottom:12px}
+  .hero-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+  .hero-actions .btn{min-height:46px;padding:8px 10px;font-size:15px;gap:6px}
+  .hero-actions .btn svg{width:17px;height:17px}
+}
+@media (max-width:699px){
+  .filters{flex-wrap:nowrap;overflow-x:auto;margin:0 -16px 18px;padding:2px 16px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .filters::-webkit-scrollbar{display:none}
+  .filters .chip{flex:0 0 auto;white-space:nowrap}
+}
+
 </style>
 </head><body>
 <a class="skip" href="#app">К содержимому</a>
@@ -393,7 +418,7 @@ body.menu-open .mbar,body.lb-open .mbar,body.inst-open .mbar{display:none}
   <a class="dl" href="#kontakty">Контакты</a>
   <div class="dr-actions"><a class="btn btn-cta" href="tel:+79381539999">Позвонить +7 (938) 153-99-99</a><a class="btn btn-line" href="#kontakty">Оставить заявку</a></div>
 </div>
-<main id="app" tabindex="-1"></main>
+<main id="app" tabindex="-1"><section class="boot"><div class="wrap"><h1>Вентиляция, кондиционирование, промышленное охлаждение — от расчёта до запуска</h1><p class="lead" style="margin-top:14px;font-size:17px">Проектирование, подбор, поставка, монтаж и пусконаладка инженерных сетей. Строительство объектов под ключ.</p><p class="s">Загружаем сайт…</p></div></section></main>
 <footer class="foot"><div class="wrap">
   <div class="foot-grid">
     <div><a class="brand" href="#" aria-label="РОЙ-СТРОЙ"><svg class="brand-mark" aria-hidden="true"><use href="#logo"/></svg><span class="brand-text"><b>РОЙ-СТРОЙ</b><span>Строительство<br>инженерные сети</span></span></a><p class="foot-tag">Климатические и холодильные системы для бизнеса: от расчёта до сервиса.</p></div>
@@ -561,7 +586,7 @@ function projCard(it, idx) {
   var p = it.p, c = it.c;
   return '<button type="button" class="proj" data-open="' + idx + '" aria-label="Открыть фото: ' + esc(p.title) + '">' +
     '<span class="proj-ph"><img loading="lazy" decoding="async" alt="' + esc(p.title) + '" src="' + p.media[0] + '"><span class="proj-n">' + IC.img + p.media.length + '</span></span>' +
-    '<span class="proj-b"><h3>' + esc(p.title) + '</h3><span>' + esc(SHORT[c.id] || c.title) + '</span></span></button>';
+    '<span class="proj-b"><span class="proj-c">' + esc(SHORT[c.id] || c.title) + '</span><h3>' + esc(p.title) + '</h3>' + (p.description && p.description.trim() ? '<span class="proj-d">' + esc(p.description.replace(/\u00a0/g, ' ')) + '</span>' : '') + '</span></button>';
 }
 function faqHtml(list) {
   return '<div class="faq">' + list.map(function (q, i) { return '<details' + (i === 0 ? ' open' : '') + '><summary>' + esc(q[0]) + '</summary><div class="ans">' + q[1] + '</div></details>'; }).join('') + '</div>';
@@ -730,7 +755,7 @@ var cur = '';
 function parseHash() { var h = (location.hash || '').replace(/^#/, ''); return h.split('/').filter(Boolean).map(decodeURIComponent); }
 function route(opts) {
   opts = opts || {};
-  setMenu(false); lbClose();
+  setMenu(false); lbClose(); document.body.classList.add('ready');
   var parts = parseHash(), key = parts.join('/'), app = $('#app'), html, meta, scrollTo = null;
   var homeAnchors = { uslugi: 1, obekty: 1, process: 1, faq: 1, kontakty: 1, rekv: 1 };
   G.fixed = null;
