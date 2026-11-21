@@ -2,7 +2,7 @@
 <html lang="ru"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="36">
+<meta name="app-version" content="37">
 <meta name="color-scheme" content="only light">
 <meta name="theme-color" content="#ffffff">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
@@ -773,12 +773,14 @@ h1{font-weight:700;letter-spacing:-.03em}
  .pr-only{display:block!important}
  .pr-head{display:flex!important;justify-content:space-between;align-items:center;gap:16px;border-bottom:2px solid #1b3c5b;padding:0 0 8px;margin-bottom:10px}
  .pr-head .brand{display:flex;align-items:center;gap:12px;color:#1b3c5b}
- .pr-head .brand-mark{color:#1b3c5b}
+ .pr-head .brand-mark{color:#1b3c5b;width:128px;height:91px}
+ .pr-head .brand-text{padding-top:16px}.pr-head .brand-text b{font-size:27px}.pr-head .brand-text>span{font-size:14px!important;color:#444}.pr-head .brand-text b span{font-size:inherit!important}
  .pr-head .brand-text span{color:#444}
  .pr-head .pc{display:flex;flex-direction:column;align-items:flex-end;font-size:12px;color:#000;gap:2px}
  .pr-head .pc .pcode{font:600 13px 'Courier New',monospace;margin-top:10px;white-space:nowrap}
  .pr-foot{margin-top:18px;padding-top:10px;border-top:1px solid #999;text-align:center;font-size:13.5px;color:#222;break-inside:avoid}
- .pr-foot p{margin:0 0 8px}.pr-foot .pr-ag{display:flex;flex-direction:column;align-items:center;gap:6px}
+ .pr-foot p{margin:0 0 8px}.pr-foot .pr-ag{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:26px}
+ .pr-foot .pr-code{font:600 13px 'Courier New',monospace;margin:8px 0 0}
  .pr-foot .pr-ag a{color:#1f2328;text-decoration:none;font-weight:600}
  .pr-foot .pr-ag .ag-sign{display:flex!important;padding:0;--ag-ink:#1f2328}
  .pr-foot .pr-ag .ag-sign a{width:92px}
@@ -1175,7 +1177,7 @@ function route(opts) {
       ld: { '@context': 'https://schema.org', '@graph': [orgLd(), { '@type': 'WebSite', url: BASE, name: 'РОЙ-СТРОЙ', inLanguage: 'ru' }] } };
   }
   setMeta(meta);
-  app.innerHTML = html; app.classList.remove('page-in'); void app.offsetWidth; app.classList.add('page-in');
+  app.innerHTML = html; app.classList.remove('page-in'); void app.offsetWidth; app.classList.add('page-in'); ensurePrint();
   $$('.nav-d a, .drawer a.dl').forEach(function (a) { a.classList.toggle('on', (a.getAttribute('href') === '#' + (parts[0] === 'services' ? 'uslugi' : parts[0] || '')) || (parts[0] === 'referencii' && a.getAttribute('href') === '#referencii')); });
   if (G.fixed) drawGrid(true); else drawGrid(true);
   bindPage(); nb(app); fitHeadings();
@@ -1307,28 +1309,37 @@ document.addEventListener('pointermove', function (e) {
 })();
 
 /* print header/footer for calculators */
-(function () {
-  var TT = { holod: 'холодильной камеры', zamorozka: 'шоковой заморозки', hranilishche: 'фруктохранилища', ventilyaciya: 'вентиляции', klimat: 'кондиционирования' };
-  function before() {
-    var app = document.getElementById('app'), p = parseHash(); if (!app || p[0] !== 'raschet') return; after();
-    var h = document.createElement('div'); h.id = 'prHead'; h.className = 'pr-only pr-head';
+var PRT = { holod: 'холодильной камеры', zamorozka: 'шоковой заморозки', hranilishche: 'фруктохранилища', ventilyaciya: 'вентиляции', klimat: 'кондиционирования' }, prTitle = null;
+function ensurePrint() {
+  var app = document.getElementById('app'), p = parseHash(); if (!app) return;
+  if (p[0] !== 'raschet') { ['prHead', 'prFoot'].forEach(function (i) { var e = document.getElementById(i); if (e) e.remove(); }); return; }
+  var code = ((document.getElementById('codeV') || {}).textContent || ''), h = document.getElementById('prHead'), f = document.getElementById('prFoot');
+  if (!h) {
+    h = document.createElement('div'); h.id = 'prHead'; h.className = 'pr-only pr-head';
     var br = document.querySelector('#hdr .brand'), bh = br ? br.outerHTML.replace('<a ', '<div ').replace('</a>', '</div>').replace(/ href="[^"]*"/, '') : '<b>РОЙ-СТРОЙ</b>';
-    h.innerHTML = bh + '<div class="pc"><span>' + PHONE + ' · ' + MAIL2 + '</span><span class="pcode">Код расчёта: ' + ((document.getElementById('codeV') || {}).textContent || '') + '</span></div>';
+    h.innerHTML = bh + '<div class="pc"><span>' + PHONE + ' · ' + MAIL2 + '</span><span class="pcode"></span></div>';
     app.insertBefore(h, app.firstChild);
-    var ag = document.querySelector('.ag-sign'), f = document.createElement('div'); f.id = 'prFoot'; f.className = 'pr-only pr-foot';
-    f.innerHTML = '<p><b>Онлайн-расчёт:</b> ' + (TT[p[1]] || 'расчёта') + '.<br>Результат ориентировочный, окончательные параметры подтверждаются проектом.</p><div class="pr-ag">' + (ag ? ag.outerHTML : '') + '<a href="https://t.me/a7grey"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" style="vertical-align:-2px"><path d="M21.5 3.5 2.6 10.8c-.9.4-.9 1.1-.2 1.3l4.8 1.5 1.9 5.7c.2.6.5.7 1 .3l2.7-2.2 4.9 3.6c.9.5 1.5.2 1.8-.8l3.2-15.2c.3-1.3-.5-1.9-1.4-1.5zM8.4 13.3l9.5-6c.5-.3.9-.1.5.2l-7.9 7.1-.3 3.3z"/></svg> @a7grey</a></div>';
+  }
+  h.querySelector('.pcode').textContent = code ? 'Код расчёта: ' + code : '';
+  if (!f) {
+    var ag = document.querySelector('.ag-sign'); f = document.createElement('div'); f.id = 'prFoot'; f.className = 'pr-only pr-foot';
+    f.innerHTML = '<p><b>Онлайн-расчёт:</b> ' + (PRT[p[1]] || 'расчёта') + '.<br>Результаты ориентировочные, окончательные параметры подтверждаются проектом.</p><div class="pr-ag">' + (ag ? ag.outerHTML : '') + '<a href="https://t.me/a7grey"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" style="vertical-align:-2px"><path d="M21.5 3.5 2.6 10.8c-.9.4-.9 1.1-.2 1.3l4.8 1.5 1.9 5.7c.2.6.5.7 1 .3l2.7-2.2 4.9 3.6c.9.5 1.5.2 1.8-.8l3.2-15.2c.3-1.3-.5-1.9-1.4-1.5zM8.4 13.3l9.5-6c.5-.3.9-.1.5.2l-7.9 7.1-.3 3.3z"/></svg> @a7grey</a></div>';
     app.appendChild(f);
   }
-  function after() { ['prHead', 'prFoot'].forEach(function (i) { var e = document.getElementById(i); if (e) e.remove(); }); }
-  window.addEventListener('beforeprint', before); window.addEventListener('afterprint', after);
-})();
+  var fc = f.querySelector('.pr-code'); if (!fc) { fc = document.createElement('p'); fc.className = 'pr-code'; f.insertBefore(fc, f.querySelector('.pr-ag')); }
+  fc.textContent = code ? 'Код расчёта: ' + code : '';
+}
+(function () { var cr = calcRefresh; calcRefresh = function () { var r = cr.apply(this, arguments); try { ensurePrint(); } catch (e) { } return r; }; })();
+function prBefore() { ensurePrint(); if (prTitle === null) { prTitle = document.title; document.title = '\u00a0'; } }
+function prAfter() { if (prTitle !== null) { document.title = prTitle; prTitle = null; } }
+window.addEventListener('beforeprint', prBefore); window.addEventListener('afterprint', prAfter);
 /* update notice */
 (function () {
-  var V = '36', box = document.getElementById('upd'); if (!box) return;
+  var V = '37', box = document.getElementById('upd'); if (!box) return;
   function show(h) { box.innerHTML = h; box.hidden = false; }
   try {
     var prev = localStorage.getItem('rs_ver');
-    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v36.</b> PDF расчёта: логотип как на сайте, код в шапке, без адреса страницы, подпись разработчика в конце.</span><button type="button" id="updX">Понятно</button>'); }
+    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v37.</b> PDF расчёта: название страницы не печатается, шапка и подвал есть всегда, код в шапке и в конце.</span><button type="button" id="updX">Понятно</button>'); }
     localStorage.setItem('rs_ver', V);
   } catch (e) { }
   box.addEventListener('click', function (e) {
@@ -1637,7 +1648,7 @@ document.addEventListener('change', function (e) { calcEv(e, true); });
 document.addEventListener('click', function (e) {
   if (e.target.id === 'codeCp') { var t = document.getElementById('codeV').textContent; try { navigator.clipboard.writeText(t).then(function () { toast('Код скопирован'); }); } catch (x) { } }
   if (e.target.id === 'calcLink') { var cd = document.getElementById('codeV').textContent, k = document.getElementById('cf').getAttribute('data-k'); copyText(location.origin + location.pathname + '#raschet/' + k + '/' + cd, 'Ссылка скопирована'); }
-  if (e.target.id === 'calcPrint') { window.print(); }
+  if (e.target.id === 'calcPrint') { prBefore(); window.print(); setTimeout(prAfter, 1500); }
   if (e.target.id === 'rcodeGo') { var r = decCode(document.getElementById('rcode').value); if (r) { location.hash = '#raschet/' + r.key + '/' + encodeURIComponent(encCode(r.key, r.vals)); } else document.getElementById('rcodeErr').hidden = false; }
 });
 document.addEventListener('keydown', function (e) { if (e.key === '/' && !/INPUT|TEXTAREA|SELECT/.test((e.target.tagName || ''))) { var q = document.getElementById('q'); if (q) { e.preventDefault(); q.focus(); } } });
