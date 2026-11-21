@@ -2,7 +2,7 @@
 <html lang="ru"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="33">
+<meta name="app-version" content="34">
 <meta name="color-scheme" content="only light">
 <meta name="theme-color" content="#ffffff">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
@@ -511,6 +511,7 @@ body.menu-open .fab,body.lb-open .fab,body.inst-open .fab,body:not(.ready) .fab{
 .nav-d .dd>a,.nav-d .dd>button{cursor:pointer}
 .dd-m{position:absolute;left:0;top:100%;min-width:260px;background:#fff;border:1.5px solid var(--line);border-radius:var(--r-md);padding:8px;box-shadow:0 12px 32px rgba(15,23,32,.14);display:none;z-index:60}
 .dd:hover .dd-m,.dd:focus-within .dd-m{display:grid;gap:2px}
+.dd.shut .dd-m{display:none!important}
 .dd-m a{display:block;padding:10px 12px;border-radius:10px;color:var(--ink);font-weight:500;white-space:normal}
 .dd-m a:hover,.dd-m a:focus-visible{background:var(--soft,#eef3f7)}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
@@ -553,7 +554,7 @@ body.menu-open .fab,body.lb-open .fab,body.inst-open .fab,body:not(.ready) .fab{
 
 /* launch splash (installed app) */
 #splash{display:none}
-.sp #splash{display:grid;place-items:center;position:fixed;inset:0;z-index:9999;background:#fff;color:#1b3c5b;opacity:1;visibility:visible;transition:opacity .45s ease,visibility .45s;animation:spOut .01s linear 3.2s forwards}
+.sp #splash{display:grid;place-items:center;position:fixed;inset:0;z-index:9999;background:#fff;color:#1b3c5b;opacity:1;visibility:visible;transition:opacity .45s ease,visibility .45s;animation:spOut .01s linear 6s forwards}
 .sp #splash.out{opacity:0;visibility:hidden}
 .sp-in{display:grid;justify-items:center;gap:0;padding:0 24px;text-align:center}
 .sp-mark{width:min(46vw,200px);height:auto;color:#1b3c5b;animation:spUp .7s cubic-bezier(.2,.7,.2,1) both}
@@ -569,7 +570,7 @@ body.menu-open .fab,body.lb-open .fab,body.inst-open .fab,body:not(.ready) .fab{
 </head><body>
 <a class="skip" href="#app">К содержимому</a>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="logo" viewBox="33 26 824 571"><path fill="currentColor" fill-rule="evenodd" d="M39.0 591.5 L41.2 592.2 L58.0 588.8 L89.0 579.8 L141.0 568.8 L229.2 555.0 L280.8 549.5 L357.0 544.2 L471.8 542.5 L539.8 544.5 L614.2 550.0 L672.5 556.5 L771.5 573.2 L802.0 580.0 L832.8 589.0 L850.8 592.2 L845.5 585.8 L833.0 579.5 L789.0 562.0 L753.2 550.2 L683.0 533.0 L617.2 521.8 L567.5 516.0 L466.2 510.5 L407.0 510.8 L323.0 516.0 L270.2 522.0 L205.8 533.0 L158.2 544.2 L101.2 562.0 L58.5 578.8 L45.5 585.2ZM350.5 283.0 L286.8 314.2 L281.5 321.0 L281.5 500.0 L285.8 505.0 L347.5 499.2 L351.5 497.8 L353.8 494.2 L353.8 288.0ZM562.0 228.2 L560.0 229.8 L559.2 233.5 L559.5 496.2 L561.2 500.0 L564.0 501.5 L598.5 504.2 L614.2 507.0 L617.2 505.5 L619.5 500.2 L619.0 266.0 L616.8 261.0 L565.0 228.8ZM277.0 214.0 L267.5 216.0 L214.8 245.8 L209.0 252.8 L209.0 512.0 L212.5 516.0 L228.8 514.0 L231.8 511.8 L233.0 507.5 L233.0 258.2 L234.5 254.2 L237.8 251.0 L241.0 250.2 L243.8 252.0 L245.0 256.8 L244.8 504.2 L246.5 508.2 L250.5 509.8 L265.0 508.0 L268.5 505.5 L270.0 501.2 L270.2 230.8 L273.2 228.0 L276.2 228.2 L348.2 266.8 L351.5 266.5 L353.5 263.5 L353.0 259.2 L350.5 256.0 L283.8 216.5ZM635.8 158.2 L623.0 164.2 L565.8 198.8 L560.0 204.2 L559.5 208.2 L561.8 211.0 L564.8 210.8 L623.5 175.0 L627.5 173.8 L630.8 176.5 L631.0 503.2 L632.0 506.8 L635.0 509.0 L650.8 512.0 L653.8 510.8 L656.2 506.5 L656.0 195.2 L658.2 192.0 L661.8 191.2 L667.2 196.0 L668.2 200.5 L668.0 510.8 L669.2 513.5 L672.5 515.8 L699.8 520.8 L702.0 520.0 L704.0 516.8 L703.8 196.8 L701.2 193.0 L695.0 188.5 L643.0 160.0ZM431.8 33.0 L429.8 34.5 L429.0 38.0 L428.8 489.8 L432.0 494.0 L434.8 494.2 L437.0 492.8 L438.2 489.2 L438.2 469.5 L439.5 465.8 L442.5 464.0 L447.8 467.0 L450.2 470.8 L450.5 489.5 L454.0 495.5 L542.0 498.8 L545.8 497.2 L547.5 493.8 L547.2 108.8 L541.0 101.5 L497.2 76.5 L488.0 70.2 L476.5 59.8 L437.5 34.2ZM514.0 426.5 L517.5 426.5 L525.8 430.0 L534.5 437.5 L535.2 471.2 L534.2 475.5 L532.2 477.5 L528.0 477.8 L516.8 472.5 L511.0 466.2 L510.5 431.2 L511.8 428.0ZM442.0 387.5 L447.2 389.5 L450.5 395.8 L450.5 431.0 L447.0 434.8 L441.0 433.0 L438.2 427.0 L438.2 391.8 L439.5 389.0ZM513.8 349.8 L517.5 349.5 L529.2 355.2 L534.2 361.5 L535.0 396.5 L532.0 400.8 L528.8 401.0 L522.5 398.8 L511.2 391.0 L510.5 355.5 L511.8 351.2ZM442.0 311.0 L448.0 313.8 L450.5 318.8 L450.5 353.8 L447.8 358.2 L442.0 356.8 L438.2 350.5 L438.0 318.5 L439.5 312.8ZM514.0 273.0 L518.8 273.2 L530.2 279.2 L534.2 284.2 L535.2 320.5 L532.2 324.5 L526.0 324.2 L514.8 318.2 L511.8 315.0 L510.8 311.2 L510.5 277.0ZM441.2 234.5 L448.0 237.8 L450.5 241.5 L450.8 276.0 L447.8 281.5 L441.0 279.2 L438.2 273.5 L438.0 242.2 L438.8 237.5ZM513.5 196.8 L517.2 196.5 L523.2 199.0 L534.2 207.0 L535.0 242.5 L534.2 246.5 L532.2 248.2 L527.2 248.2 L515.8 242.5 L511.0 236.2 L510.5 201.8ZM442.0 157.8 L449.0 162.2 L450.8 167.5 L450.5 201.2 L447.5 205.0 L441.0 203.2 L438.2 197.2 L438.2 162.2 L439.2 159.5ZM513.8 120.0 L517.5 120.0 L527.5 124.8 L534.2 131.2 L535.2 136.8 L535.0 166.8 L531.8 171.5 L527.5 171.2 L517.8 166.8 L511.0 160.5 L510.5 125.2 L511.5 121.8ZM442.0 81.2 L449.2 85.8 L450.8 91.8 L450.5 124.8 L447.5 128.8 L441.0 126.8 L438.0 119.5 L438.2 85.8ZM397.2 30.2 L251.2 102.0 L245.0 109.8 L245.0 205.8 L246.0 208.0 L252.2 209.8 L268.5 203.2 L276.8 203.8 L361.2 250.5 L365.8 257.8 L365.8 493.5 L367.2 496.0 L372.0 497.8 L396.2 497.0 L400.8 494.2 L402.2 490.2 L402.5 34.2 L400.8 31.5ZM374.5 156.8 L378.0 160.8 L377.5 197.2 L373.5 202.8 L362.2 208.5 L356.2 209.0 L353.8 206.0 L353.5 171.5 L354.5 167.5 L359.8 162.8 L371.5 156.8ZM279.8 126.2 L282.0 131.8 L281.2 163.5 L277.5 171.2 L275.0 173.5 L272.8 173.5 L270.5 171.8 L269.8 169.0 L270.0 136.0 L272.2 129.5 L276.0 126.5ZM375.0 80.0 L378.0 85.2 L377.8 120.5 L372.0 127.0 L361.8 132.0 L356.5 132.5 L354.8 131.0 L353.8 127.0 L354.2 91.5 L361.5 85.0 L371.5 80.0Z"/></symbol></svg>
-<div id="splash" aria-hidden="true"><div class="sp-in"><svg class="sp-mark" viewBox="33 26 824 571"><use href="#logo"/></svg><b class="sp-name">РОЙ-СТРОЙ</b><i class="sp-line"></i><span class="sp-sub">Строительство · инженерные сети</span></div></div>
+<div id="splash" aria-hidden="true"><div class="sp-in"><svg class="sp-mark" viewBox="15 8 860 610" overflow="visible"><use href="#logo"/></svg><b class="sp-name">РОЙ-СТРОЙ</b><i class="sp-line"></i><span class="sp-sub">Строительство · инженерные сети</span></div></div>
 <script>try{if(/[?&]splash=1/.test(location.search)||window.matchMedia('(display-mode: standalone)').matches||navigator.standalone)document.documentElement.classList.add('sp')}catch(e){}</script>
 <header class="hdr" id="hdr"><div class="wrap hdr-in">
   <a class="brand" href="#" aria-label="РОЙ-СТРОЙ — на главную"><svg class="brand-mark" aria-hidden="true"><use href="#logo"/></svg><span class="brand-text"><b>РОЙ-СТРОЙ</b><span>Строительство<br>инженерные сети</span></span></a>
@@ -752,6 +753,36 @@ h1{font-weight:700;letter-spacing:-.03em}
 .chbar-n button.on{background:var(--accent,#cf5a14);border-color:var(--accent,#cf5a14);color:#fff}
 .chbar-e{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font-weight:600;color:var(--ink)}
 .chbar-e input{width:140px;min-height:44px;padding:8px 10px;border:1.5px solid var(--line);border-radius:8px;font:600 16px 'Onest',sans-serif;background:#fff;color:var(--ink)}
+
+/* v34 */
+.brand{align-items:center;gap:12px}
+.brand-mark{width:104px;height:74px}
+.brand-text{padding-top:14px}
+.hdr-in{min-height:96px}
+@media (max-width:999px){.brand-mark{width:80px;height:57px}.brand-text{padding-top:10px}.hdr-in{min-height:76px}.drawer{top:76px}}
+@media (max-width:360px){.brand-mark{width:68px;height:48px}.brand-text b{font-size:16px}}
+.foot .brand-text{padding-top:10px}
+.sp-mark{overflow:visible;padding-top:8px}
+.sp-in{padding-top:12px}
+.sp .sp-mark{animation-name:spFade}
+@keyframes spFade{from{opacity:0}to{opacity:1}}
+.pr-only{display:none}
+@media print{
+ @page{margin:12mm}
+ .pr-only{display:block!important}
+ .pr-head{display:flex!important;justify-content:space-between;align-items:center;gap:16px;border-bottom:2px solid #1b3c5b;padding:0 0 8px;margin-bottom:10px;color:#1b3c5b}
+ .pr-head .pb{display:flex;align-items:center;gap:10px}.pr-head svg{width:64px;height:46px;color:#1b3c5b}
+ .pr-head b{display:block;font-size:20px;letter-spacing:-.01em}.pr-head small{font-size:11px;color:#444}
+ .pr-head .pc{font-size:12px;line-height:1.5;text-align:right;color:#000}
+ .pr-foot{margin-top:18px;padding-top:10px;border-top:1px solid #999;text-align:center;font-size:13.5px;color:#222;break-inside:avoid}
+ .pr-foot p{margin:0 0 8px}.pr-foot .pr-ag{display:flex;flex-direction:column;align-items:center;gap:6px}
+ .pr-foot .pr-ag a{color:#1f2328;text-decoration:none;font-weight:600}
+ .pr-foot .pr-ag .ag-sign{display:flex!important;padding:0;--ag-ink:#1f2328}
+ .pr-foot .pr-ag .ag-sign a{width:92px}
+ .pr-foot .pr-ag .ag-dot{animation:none}
+ .v3d canvas{width:auto!important;height:auto!important;max-width:100%;max-height:105mm;margin:0 auto}
+ .v3d{break-inside:avoid;border:0;background:none}.v3d-bar{display:none}
+}
 </style>
 <div class="ag-sign"><a href="https://t.me/a7grey" target="_blank" rel="noopener" aria-label="Alex Grey · IT Solutions" title="Alex Grey · IT Solutions"><svg role="img" aria-label="Alex Grey · IT Solutions" xmlns="http://www.w3.org/2000/svg" viewBox="11.54 26.94 390.53 127.43"><g transform="translate(7.7,1.5)"><path d="M21.12 97.44Q15.55 97.44 11.69 95.30Q7.82 93.17 5.83 89.59Q3.84 86.02 3.84 81.70Q3.84 78.10 4.94 75.12Q6.05 72.14 8.52 69.86Q10.99 67.58 15.17 66.05Q18.05 64.99 22.03 64.18Q26.02 63.36 31.06 62.59Q34.03 62.16 37.34 61.68Q36.96 58.46 35.23 56.78Q33.02 54.62 27.84 54.62Q24.96 54.62 21.84 56.02Q18.72 57.41 17.47 60.96L5.66 57.22Q7.63 50.78 13.06 46.75Q18.48 42.72 27.84 42.72Q34.70 42.72 40.03 44.83Q45.36 46.94 48.10 52.13Q49.63 55.01 49.92 57.89Q50.21 60.77 50.21 64.32V96.00H38.78V89.62Q35.71 93.26 32.26 95.09Q27.84 97.44 21.12 97.44ZM23.90 87.17Q27.50 87.17 29.98 85.90Q32.45 84.62 33.91 82.99Q35.38 81.36 35.90 80.26Q36.91 78.14 37.10 75.31Q37.20 73.63 37.20 72.24Q33.98 72.82 31.68 73.20Q28.08 73.87 25.87 74.40Q23.66 74.93 21.98 75.55Q20.06 76.32 18.89 77.21Q17.71 78.10 17.16 79.15Q16.61 80.21 16.61 81.50Q16.61 83.28 17.50 84.55Q18.38 85.82 20.02 86.50Q21.65 87.17 23.90 87.17Z M60.38 96.00V25.44H73.44V96.00Z M108.67 97.44Q100.70 97.44 94.63 94.01Q88.56 90.58 85.13 84.55Q81.70 78.53 81.70 70.75Q81.70 62.26 85.06 55.97Q88.42 49.68 94.32 46.20Q100.22 42.72 107.90 42.72Q116.06 42.72 121.78 46.56Q127.49 50.40 130.22 57.36Q132.96 64.32 132.14 73.73H95.76Q96.38 78.38 98.69 81.26Q101.81 85.25 107.90 85.25Q111.74 85.25 114.48 83.57Q117.22 81.89 118.66 78.72L131.71 82.46Q128.78 89.57 122.47 93.50Q116.16 97.44 108.67 97.44ZM118.94 64.03Q118.37 59.81 116.74 57.50Q114.19 54.05 108.48 54.05Q101.81 54.05 98.69 58.08Q96.86 60.43 96.10 64.03Z M132.00 96.00 150.53 69.79 132.38 44.16H147.74L158.11 59.52L168.29 44.16H183.65L165.50 69.79L184.13 96.00H168.77L158.11 80.06L147.36 96.00Z" style="fill:var(--ag-ink,#1f2328)"/><path d="M207.46 120.48Q203.04 120.48 199.06 119.06Q195.07 117.65 191.93 115.13Q188.78 112.61 186.82 109.25L198.91 103.39Q200.16 105.70 202.49 106.90Q204.82 108.10 207.55 108.10Q210.48 108.10 213.07 107.11Q215.66 106.13 217.22 104.18Q218.78 102.24 218.69 99.36V94.18Q213.65 97.44 206.30 97.44Q199.15 97.44 193.78 93.84Q188.40 90.24 185.40 84.05Q182.40 77.86 182.40 70.08Q182.40 62.16 185.45 55.99Q188.50 49.82 194.02 46.27Q199.54 42.72 206.98 42.72Q214.37 42.72 219.41 46.32Q219.89 46.66 220.32 46.99V44.16H231.74V99.55Q231.74 101.47 231.58 103.18Q231.41 104.88 230.98 106.56Q229.73 111.31 226.34 114.38Q222.96 117.46 218.06 118.97Q213.17 120.48 207.46 120.48ZM208.42 85.82Q212.78 85.82 215.40 83.86Q218.02 81.89 219.17 78.34Q220.32 74.78 220.32 70.08Q220.32 65.38 219.17 61.82Q218.02 58.27 215.50 56.30Q212.98 54.34 208.90 54.34Q204.53 54.34 201.72 56.47Q198.91 58.61 197.57 62.18Q196.22 65.76 196.22 70.08Q196.22 74.45 197.52 78.02Q198.82 81.60 201.50 83.71Q204.19 85.82 208.42 85.82Z M241.92 96.00V44.16H253.44V52.51Q254.06 51.36 254.88 50.30Q256.56 48.10 259.01 46.66Q260.88 45.50 263.09 44.86Q265.30 44.21 267.65 44.04Q270.00 43.87 272.35 44.16V56.35Q270.19 55.68 267.34 55.90Q264.48 56.11 262.18 57.22Q259.87 58.27 258.29 60.02Q256.70 61.78 255.89 64.15Q255.07 66.53 255.07 69.50V96.00Z M301.34 97.44Q293.38 97.44 287.30 94.01Q281.23 90.58 277.80 84.55Q274.37 78.53 274.37 70.75Q274.37 62.26 277.73 55.97Q281.09 49.68 286.99 46.20Q292.90 42.72 300.58 42.72Q308.74 42.72 314.45 46.56Q320.16 50.40 322.90 57.36Q325.63 64.32 324.82 73.73H288.43Q289.06 78.38 291.36 81.26Q294.48 85.25 300.58 85.25Q304.42 85.25 307.15 83.57Q309.89 81.89 311.33 78.72L324.38 82.46Q321.46 89.57 315.14 93.50Q308.83 97.44 301.34 97.44ZM311.62 64.03Q311.04 59.81 309.41 57.50Q306.86 54.05 301.15 54.05Q294.48 54.05 291.36 58.08Q289.54 60.43 288.77 64.03Z M338.02 119.04 346.56 95.57 325.63 44.16H339.17L352.80 79.44L366.34 44.16H379.39L350.11 119.04Z" fill="#8a9099"/><circle class="ag-dot" cx="384.77" cy="86.40" r="9.60" fill="#c9a227"/><g style="fill:var(--ag-ink,#1f2328)"><path transform="translate(-3.94 -45.60) scale(1.350)" d="M5.76 146.64V129.36H8.27V146.64Z"/><path transform="translate(-2.37 -45.60) scale(1.350)" d="M26.26 146.64V131.72H20.51V129.36H34.51V131.72H28.76V146.64Z"/><path transform="translate(-0.42 -45.60) scale(1.350)" d="M66.94 147.00Q65.08 147.00 63.58 146.36Q62.09 145.72 61.12 144.52Q60.16 143.33 59.87 141.68L62.48 141.29Q62.88 142.87 64.14 143.75Q65.40 144.64 67.08 144.64Q68.12 144.64 69.00 144.31Q69.88 143.98 70.41 143.36Q70.94 142.74 70.94 141.88Q70.94 141.41 70.78 141.05Q70.62 140.69 70.34 140.42Q70.06 140.15 69.65 139.95Q69.25 139.75 68.77 139.61L64.34 138.30Q63.70 138.11 63.02 137.80Q62.35 137.50 61.79 137.00Q61.24 136.50 60.89 135.76Q60.54 135.02 60.54 133.97Q60.54 132.37 61.36 131.26Q62.18 130.15 63.59 129.58Q64.99 129.01 66.73 129.01Q68.48 129.04 69.87 129.64Q71.26 130.24 72.17 131.36Q73.09 132.48 73.44 134.08L70.75 134.53Q70.57 133.56 69.98 132.86Q69.40 132.16 68.54 131.78Q67.69 131.40 66.70 131.39Q65.74 131.36 64.94 131.68Q64.14 131.99 63.67 132.55Q63.19 133.12 63.19 133.85Q63.19 134.57 63.61 135.01Q64.03 135.46 64.65 135.71Q65.27 135.97 65.88 136.14L69.07 137.04Q69.67 137.21 70.43 137.49Q71.20 137.77 71.91 138.28Q72.62 138.78 73.09 139.61Q73.56 140.45 73.56 141.71Q73.56 143.02 73.03 144.01Q72.50 145.00 71.59 145.66Q70.67 146.33 69.47 146.66Q68.27 147.00 66.94 147.00Z"/><path transform="translate(1.90 -45.60) scale(1.350)" d="M93.41 147.00Q90.82 147.00 88.99 145.87Q87.17 144.73 86.20 142.70Q85.24 140.68 85.24 138.00Q85.24 135.32 86.20 133.30Q87.17 131.27 88.99 130.13Q90.82 129.00 93.41 129.00Q95.99 129.00 97.82 130.13Q99.65 131.27 100.61 133.30Q101.57 135.32 101.57 138.00Q101.57 140.68 100.61 142.70Q99.65 144.73 97.82 145.87Q95.99 147.00 93.41 147.00ZM93.41 144.61Q95.24 144.64 96.46 143.80Q97.68 142.97 98.29 141.47Q98.90 139.98 98.90 138.00Q98.90 136.02 98.29 134.54Q97.68 133.06 96.46 132.23Q95.24 131.40 93.41 131.39Q91.57 131.36 90.35 132.19Q89.14 133.02 88.52 134.52Q87.91 136.02 87.90 138.00Q87.89 139.98 88.50 141.46Q89.11 142.94 90.34 143.77Q91.57 144.60 93.41 144.61Z"/><path transform="translate(2.82 -45.60) scale(1.350)" d="M114.29 146.64V129.36H116.80V144.28H124.62V146.64Z"/><path transform="translate(4.55 -45.60) scale(1.350)" d="M143.63 147.00Q141.60 147.00 140.05 146.17Q138.49 145.33 137.62 143.83Q136.74 142.32 136.74 140.28V129.37L139.28 129.36V140.15Q139.28 141.25 139.66 142.09Q140.03 142.93 140.65 143.50Q141.28 144.06 142.05 144.35Q142.82 144.64 143.63 144.64Q144.44 144.64 145.22 144.34Q145.99 144.05 146.62 143.48Q147.24 142.92 147.61 142.08Q147.97 141.24 147.97 140.15V129.36H150.52V140.28Q150.52 142.31 149.64 143.82Q148.76 145.33 147.21 146.17Q145.66 147.00 143.63 147.00Z"/><path transform="translate(6.45 -45.60) scale(1.350)" d="M168.26 146.64V131.72H162.52V129.36H176.52V131.72H170.77V146.64Z"/><path transform="translate(8.01 -45.60) scale(1.350)" d="M188.76 146.64V129.36H191.27V146.64Z"/><path transform="translate(8.93 -45.60) scale(1.350)" d="M212.16 147.00Q209.57 147.00 207.74 145.87Q205.92 144.73 204.95 142.70Q203.99 140.68 203.99 138.00Q203.99 135.32 204.95 133.30Q205.92 131.27 207.74 130.13Q209.57 129.00 212.16 129.00Q214.74 129.00 216.57 130.13Q218.40 131.27 219.36 133.30Q220.32 135.32 220.32 138.00Q220.32 140.68 219.36 142.70Q218.40 144.73 216.57 145.87Q214.74 147.00 212.16 147.00ZM212.16 144.61Q214.00 144.64 215.21 143.80Q216.43 142.97 217.04 141.47Q217.66 139.98 217.66 138.00Q217.66 136.02 217.04 134.54Q216.43 133.06 215.21 132.23Q214.00 131.40 212.16 131.39Q210.32 131.36 209.11 132.19Q207.89 133.02 207.28 134.52Q206.66 136.02 206.65 138.00Q206.64 139.98 207.25 141.46Q207.86 142.94 209.09 143.77Q210.32 144.60 212.16 144.61Z"/><path transform="translate(10.18 -45.60) scale(1.350)" d="M232.80 146.64V129.36H235.34L243.85 142.20V129.36H246.40V146.64H243.85L235.34 133.79V146.64Z"/><path transform="translate(11.22 -45.60) scale(1.350)" d="M266.10 147.00Q264.24 147.00 262.75 146.36Q261.25 145.72 260.29 144.52Q259.32 143.33 259.03 141.68L261.65 141.29Q262.04 142.87 263.30 143.75Q264.56 144.64 266.24 144.64Q267.29 144.64 268.16 144.31Q269.04 143.98 269.57 143.36Q270.11 142.74 270.11 141.88Q270.11 141.41 269.95 141.05Q269.78 140.69 269.50 140.42Q269.22 140.15 268.82 139.95Q268.42 139.75 267.94 139.61L263.51 138.30Q262.86 138.11 262.19 137.80Q261.52 137.50 260.96 137.00Q260.40 136.50 260.05 135.76Q259.70 135.02 259.70 133.97Q259.70 132.37 260.53 131.26Q261.35 130.15 262.75 129.58Q264.16 129.01 265.90 129.01Q267.65 129.04 269.03 129.64Q270.42 130.24 271.34 131.36Q272.26 132.48 272.60 134.08L269.92 134.53Q269.74 133.56 269.15 132.86Q268.56 132.16 267.71 131.78Q266.86 131.40 265.86 131.39Q264.90 131.36 264.10 131.68Q263.30 131.99 262.83 132.55Q262.36 133.12 262.36 133.85Q262.36 134.57 262.78 135.01Q263.20 135.46 263.81 135.71Q264.43 135.97 265.04 136.14L268.24 137.04Q268.84 137.21 269.60 137.49Q270.36 137.77 271.07 138.28Q271.79 138.78 272.26 139.61Q272.72 140.45 272.72 141.71Q272.72 143.02 272.20 144.01Q271.67 145.00 270.75 145.66Q269.83 146.33 268.63 146.66Q267.43 147.00 266.10 147.00Z"/></g></g></svg></a></div>
 <script>
@@ -821,6 +852,7 @@ var SVC_DESC = {
   'holodilnye-kamery': 'Холодильные камеры под ключ: расчёт, монтаж панелей и холодильного контура, автоматика, сдача. 11 объектов с фото. РОЙ-СТРОЙ, Москва.'
 };
 var STEPS = [
+  ['Онлайн-расчёт на сайте', 'Прикиньте нагрузку и режим камеры или системы в онлайн-расчёте: без регистрации и персональных данных. Короткий код расчёта пришлите нам, мы продолжим с ваших цифр.'],
   ['Заявка и вводные', 'Звоните или пишите: уточним объект, задачу, сроки и температурный режим.'],
   ['Выезд и расчёт', 'Осматриваем помещение, считаем нагрузки и подбираем оборудование под ваш режим работы.'],
   ['Проект и смета', 'Согласуем решение, состав работ и стоимость до начала монтажа, без сюрпризов в процессе.'],
@@ -932,7 +964,7 @@ function pageHome() {
     '<section id="raschet"><div class="wrap"><div class="sec-head"><div class="kicker">Онлайн-расчёты</div><h2>Оцените проект за пару минут</h2><p>Пять расчётов: холодильная камера, шоковая заморозка, фруктохранилище, вентиляция и кондиционирование. Каждому расчёту присваивается код: назовите его нам по телефону или отправьте на почту, персональные данные не нужны.</p></div><div class="why-grid w3">' +
       [['ventilyaciya', 'Вентиляция', 'Расход воздуха, воздуховод и мощность калорифера.'], ['klimat', 'Кондиционирование', 'Холодильная нагрузка и ориентир по оборудованию.'], ['holod', 'Холодильные камеры', 'Холодопроизводительность и структура теплопритоков.'], ['zamorozka', 'Шоковая заморозка', 'Время заморозки, мощность камеры и размер партии.'], ['hranilishche', 'Фруктохранилище', 'Пик загрузки, режим хранения и число камер РГС.']].map(function (o, i) { return '<a class="obj-t" href="#raschet/' + o[0] + '"><i class="cn">' + (i + 1) + '</i><b>' + o[1] + '</b><span>' + o[2] + '</span></a>'; }).join('') +
     '</div></div></section>' +
-    '<section id="process"><div class="wrap"><div class="sec-head"><div class="kicker">Как мы работаем</div><h2>Шесть шагов от обращения до сервиса</h2></div>' + stepsHtml() + '</div></section>' +
+    '<section id="process"><div class="wrap"><div class="sec-head"><div class="kicker">Как мы работаем</div><h2>Семь шагов от первого расчёта до сервиса</h2></div>' + stepsHtml() + '</div></section>' +
     '<section id="faq" class="band"><div class="wrap"><div class="sec-head"><div class="kicker">Вопросы</div><h2>Частые вопросы</h2></div>' + faqHtml(FAQ) + '</div></section>' +
     '<section id="kontakty" class="contacts"><div class="wrap"><div class="sec-head"><div class="kicker">Контакты</div><h2>Позвоните или напишите</h2><p>Расскажите об объекте и задаче, мы уточним детали и предложим выезд на расчёт.</p></div>' +
       '<div class="ct-grid"><div class="ct-card"><h3>Связаться напрямую</h3><div class="ct-lines">' +
@@ -1247,7 +1279,7 @@ document.addEventListener('click', function (e) {
   var a = e.target.closest && e.target.closest('a[href^="#"]');
   if (a) {
     var href = a.getAttribute('href');
-    setMenu(false);
+    setMenu(false); var dm = a.closest('.dd'); if (dm) { dm.classList.add('shut'); try { a.blur(); } catch (x) { } } $$('.dgb-t[aria-expanded=true]').forEach(function (b) { b.setAttribute('aria-expanded', 'false'); b.nextElementSibling.hidden = true; });
     if (href === '#' || href === location.hash || (href === '#' && !location.hash)) { e.preventDefault(); if (href === '#') { if (location.hash) location.hash = ''; else route(); } else route(); return; }
   }
   var o = e.target.closest && e.target.closest('[data-open]'); if (o) { lbOpen(+o.getAttribute('data-open')); return; }
@@ -1267,16 +1299,32 @@ document.addEventListener('pointermove', function (e) {
 /* launch splash */
 (function () {
   var s = document.getElementById('splash'); if (!s) return;
-  var t0 = Date.now(), done = function () { var w = Math.max(0, 1300 - (Date.now() - t0)); setTimeout(function () { s.classList.add('out'); setTimeout(function () { if (s.parentNode) s.parentNode.removeChild(s); }, 600); }, w); };
+  var t0 = Date.now(), done = function () { var w = Math.max(0, 3200 - (Date.now() - t0)); setTimeout(function () { s.classList.add('out'); setTimeout(function () { if (s.parentNode) s.parentNode.removeChild(s); }, 600); }, w); };
   if (document.readyState === 'complete') done(); else window.addEventListener('load', done);
+})();
+
+/* print header/footer for calculators */
+(function () {
+  var TT = { holod: 'Тепловой расчёт холодильной камеры', zamorozka: 'Тепловой расчёт камеры шоковой заморозки', hranilishche: 'Расчёт фруктохранилища', ventilyaciya: 'Расчёт вентиляции', klimat: 'Расчёт кондиционирования' };
+  function before() {
+    var app = document.getElementById('app'), p = parseHash(); if (!app || p[0] !== 'raschet') return; after();
+    var h = document.createElement('div'); h.id = 'prHead'; h.className = 'pr-only pr-head';
+    h.innerHTML = '<div class="pb"><svg viewBox="33 26 824 571" aria-hidden="true"><use href="#logo"/></svg><span><b>РОЙ-СТРОЙ</b><small>Строительство, инженерные сети</small></span></div><div class="pc">' + PHONE + '<br>' + MAIL2 + '<br>Москва</div>';
+    app.insertBefore(h, app.firstChild);
+    var ag = document.querySelector('.ag-sign'), f = document.createElement('div'); f.id = 'prFoot'; f.className = 'pr-only pr-foot';
+    f.innerHTML = '<p><b>Онлайн-расчёт:</b> ' + (TT[p[1]] || 'расчёт') + '. Категория компании «РОЙ-СТРОЙ». Результат ориентировочный, окончательные параметры подтверждаются проектом.</p><div class="pr-ag">' + (ag ? ag.outerHTML : '') + '<a href="https://t.me/a7grey"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" style="vertical-align:-2px"><path d="M21.5 3.5 2.6 10.8c-.9.4-.9 1.1-.2 1.3l4.8 1.5 1.9 5.7c.2.6.5.7 1 .3l2.7-2.2 4.9 3.6c.9.5 1.5.2 1.8-.8l3.2-15.2c.3-1.3-.5-1.9-1.4-1.5zM8.4 13.3l9.5-6c.5-.3.9-.1.5.2l-7.9 7.1-.3 3.3z"/></svg> @a7grey</a></div>';
+    app.appendChild(f);
+  }
+  function after() { ['prHead', 'prFoot'].forEach(function (i) { var e = document.getElementById(i); if (e) e.remove(); }); }
+  window.addEventListener('beforeprint', before); window.addEventListener('afterprint', after);
 })();
 /* update notice */
 (function () {
-  var V = '33', box = document.getElementById('upd'); if (!box) return;
+  var V = '34', box = document.getElementById('upd'); if (!box) return;
   function show(h) { box.innerHTML = h; box.hidden = false; }
   try {
     var prev = localStorage.getItem('rs_ver');
-    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v33.</b> Меню с выпадающими разделами, крупнее логотип, камеры хранилища с номерами, панели по температуре.</span><button type="button" id="updX">Понятно</button>'); }
+    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v34.</b> Короткий код расчёта, PDF с шапкой и подписью, панели до 250 мм, меню закрывается после выбора, крупнее логотип.</span><button type="button" id="updX">Понятно</button>'); }
     localStorage.setItem('rs_ver', V);
   } catch (e) { }
   box.addEventListener('click', function (e) {
@@ -1304,6 +1352,7 @@ window.addEventListener('scroll', function () {
   var max = document.documentElement.scrollHeight - innerHeight; $('#hbar').style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0) + ')';
 }, { passive: true });
 $('#burger').addEventListener('click', function () { setMenu(!menuOpen()); });
+document.querySelector('.nav-d').addEventListener('mouseout', function (e) { var d = e.target.closest('.dd'); if (d && !d.contains(e.relatedTarget)) d.classList.remove('shut'); });
 $('#drawer').addEventListener('click', function (e) { var b = e.target.closest('.dgb-t'); if (!b) return; var open = b.getAttribute('aria-expanded') === 'true'; b.setAttribute('aria-expanded', open ? 'false' : 'true'); b.nextElementSibling.hidden = open; });
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
@@ -1363,10 +1412,10 @@ var CALCS = {
   holod: {
     L: 'H', title: 'Холодильные камеры', lead: 'Теплопритоки, холодопроизводительность и режим холодильной машины. Категория (средне- или низкотемпературная) определяется температурой в камере. Город задаёт температуры снаружи и конденсации.',
     catOf: function (p) { return p.tRoom <= -5 ? 'nt' : 'mt'; }, defs2: function (c) { return { dT: c === 'nt' ? 7 : 10, tIn: c === 'nt' ? -12 : 12 }; },
-    opts: function (p) { return { panel: p.tRoom <= -5 ? ['80', '100', '120', '150', '180', '200'] : ['50', '60', '80', '100', '120'] }; },
+    opts: function (p) { return { panel: p.tRoom <= -5 ? ['80', '100', '120', '150', '180', '200', '250'] : ['50', '60', '80', '100', '120'] }; },
     fields: [CITY_F, ['tCust', 'Свой пункт: t снаружи летом, °C', 28, 15, 45, 1], ['tOutA', 'Температура снаружи летом (по городу)', null, 'auto'], ['tkA', 'Температура конденсации (по городу)', null, 'auto'],
       ['place', 'Где стоит камера', [['out', 'снаружи, на улице'], ['in', 'внутри здания, склада']], 0],
-      ['L', 'Длина, м', 6, 1, 60, 0.5], ['W', 'Ширина, м', 4, 1, 60, 0.5], ['H', 'Высота, м', 3, 2, 15, 0.1], ['tRoom', 'Температура в камере, °C (−30…+15)', 2, -30, 15, 1], ['panel', 'Сэндвич-панели PIR, мм', [['50', '50'], ['60', '60'], ['80', '80'], ['100', '100'], ['120', '120'], ['150', '150'], ['180', '180'], ['200', '200']], 3],
+      ['L', 'Длина, м', 6, 1, 60, 0.5], ['W', 'Ширина, м', 4, 1, 60, 0.5], ['H', 'Высота, м', 3, 2, 15, 0.1], ['tRoom', 'Температура в камере, °C (−30…+15)', 2, -30, 15, 1], ['panel', 'Сэндвич-панели PIR, мм', [['50', '50'], ['60', '60'], ['80', '80'], ['100', '100'], ['120', '120'], ['150', '150'], ['180', '180'], ['200', '200'], ['250', '250']], 3],
       ['product', 'Продукция', [['dairy', 'Молочная продукция'], ['meat', 'Мясо, птица'], ['fish', 'Рыба'], ['apple', 'Яблоки'], ['potato', 'Картофель'], ['ready', 'Готовая продукция']], 0], ['mDay', 'Суточный оборот: поступление, кг/сут', 500, 0, 500000, 50], ['tIn', 'Температура при поступлении, °C', 12, -30, 40, 1], ['intensity', 'Открытие дверей', [['0.6', 'редко'], ['1', 'обычно'], ['1.6', 'часто']], 1],
       ['dT', 'Δt: камера − кипение, K', 10, 3, 15, 1], ['ref', 'Хладагент', REFN, 0], ['t0A', 'Температура кипения t₀ (авто)', null, 'auto'], ['shA', 'Перегрев на выходе испарителя (авто)', null, 'auto'], ['scA', 'Переохлаждение жидкости (авто)', null, 'auto']],
     calc: function (p) {
@@ -1404,7 +1453,7 @@ var CALCS = {
   zamorozka: {
     L: 'S', title: 'Шоковая заморозка', lead: 'Время заморозки изделия, мощность камеры, размер партии и режим холодильной машины. Конденсатор стоит снаружи, поэтому нужен город.',
     fields: [CITY_F, ['tCust', 'Свой пункт: t снаружи летом, °C', 28, 15, 45, 1], ['tOutA', 'Температура снаружи летом (по городу)', null, 'auto'], ['tkA', 'Температура конденсации (по городу)', null, 'auto'],
-      ['product', 'Продукция', [['meat', 'Мясо, птица'], ['fish', 'Рыба'], ['dairy', 'Молочная продукция'], ['ready', 'Готовая продукция']], 0], ['m', 'Суточный оборот: производительность, кг/сут', 5000, 100, 500000, 100], ['hours', 'Работа камеры, ч/сут', 20, 4, 24, 1], ['tIn', 'Температура при поступлении, °C', 4, -5, 40, 1], ['tEnd', 'Конечная t в центре изделия, °C', -18, -30, -10, 1], ['tAir', 'Температура воздуха в камере, °C (−45…−27)', -35, -45, -27, 1], ['d', 'Толщина изделия, мм', 60, 10, 200, 5], ['h', 'Обдув', [['15', 'слабый (15 Вт/м²К)'], ['25', 'интенсивный (25)'], ['40', 'скоростной (40)']], 1], ['panel', 'Сэндвич-панели PIR, мм (от 120)', [['120', '120'], ['150', '150'], ['180', '180'], ['200', '200']], 1],
+      ['product', 'Продукция', [['meat', 'Мясо, птица'], ['fish', 'Рыба'], ['dairy', 'Молочная продукция'], ['ready', 'Готовая продукция']], 0], ['m', 'Суточный оборот: производительность, кг/сут', 5000, 100, 500000, 100], ['hours', 'Работа камеры, ч/сут', 20, 4, 24, 1], ['tIn', 'Температура при поступлении, °C', 4, -5, 40, 1], ['tEnd', 'Конечная t в центре изделия, °C', -18, -30, -10, 1], ['tAir', 'Температура воздуха в камере, °C (−45…−27)', -35, -45, -27, 1], ['d', 'Толщина изделия, мм', 60, 10, 200, 5], ['h', 'Обдув', [['15', 'слабый (15 Вт/м²К)'], ['25', 'интенсивный (25)'], ['40', 'скоростной (40)']], 1], ['panel', 'Сэндвич-панели PIR, мм (от 120)', [['120', '120'], ['150', '150'], ['180', '180'], ['200', '200'], ['250', '250']], 1],
       ['dT', 'Δt: воздух − кипение, K', 7, 3, 15, 1], ['ref', 'Хладагент', REFN, 0], ['t0A', 'Температура кипения t₀ (авто)', null, 'auto'], ['shA', 'Перегрев на выходе испарителя (авто)', null, 'auto'], ['scA', 'Переохлаждение жидкости (авто)', null, 'auto']],
     calc: function (p) {
       var cl = climate(p), prod = PR[p.product] || PR.ready, dh = prod.c1 * Math.max(0, p.tIn - prod.tf) + prod.L + prod.c2 * Math.max(0, prod.tf - p.tEnd), kg = p.m / p.hours;
@@ -1471,22 +1520,36 @@ var CALCS = {
 (function () { var o = CALCS, n = {}; ['ventilyaciya', 'klimat', 'holod', 'zamorozka', 'hranilishche'].forEach(function (k) { n[k] = o[k]; }); CALCS = n; })();
 var B32 = '0123456789ABCDEFGHJKMNPQRSTVWXYZ';
 function crc8(a) { var c = 0; a.forEach(function (b) { c ^= b; for (var i = 0; i < 8; i++) c = (c & 128) ? ((c << 1) ^ 7) & 255 : (c << 1) & 255; }); return c; }
+function bitCnt(f) { var n = f[3] === 'chk' ? 2 : (Array.isArray(f[2]) ? f[2].length : Math.round((f[4] - f[3]) / (f[5] || 1)) + 1); return n < 2 ? 0 : Math.ceil(Math.log(n) / Math.LN2); }
+function skipF(f, v) { var m = /^ch(\d+)$/.exec(f[0]); if (m && (+m[1] > +v.nCh || (+v.same && +m[1] > 1))) return 1; if ((f[0] === 'tCust' || f[0] === 'wCust') && v.city && cityOf(v.city)[2] !== '\u0414\u0440\u0443\u0433\u043e\u0435') return 1; return 0; }
 function encCode(key, vals) {
-  var cfg = CALCS[key], bytes = [];
-  uf(key).forEach(function (f, i) { var mm0 = /^ch(\d+)$/.exec(f[0]), n = Array.isArray(f[2]) ? f[2].map(function (o) { return o[0]; }).indexOf(String(vals[f[0]])) : Math.round(vals[f[0]] * 10) + 1000; n = Math.max(0, n); if (mm0 && (+mm0[1] > +vals.nCh || (+vals.same && +mm0[1] > 1))) n = 0; while (n > 127) { bytes.push((n & 127) | 128); n >>= 7; } bytes.push(n); });
-  bytes.push(crc8(bytes)); var bits = '', out = '';
-  bytes.forEach(function (b) { bits += ('00000000' + b.toString(2)).slice(-8); }); while (bits.length % 5) bits += '0';
-  for (var i = 0; i < bits.length; i += 5) out += B32[parseInt(bits.substr(i, 5), 2)];
-  return 'RS-' + cfg.L + '-' + out.match(/.{1,4}/g).join('-');
+  var cfg = CALCS[key], bits = '';
+  uf(key).forEach(function (f) {
+    if (skipF(f, vals)) return; var w = bitCnt(f), n;
+    if (f[3] === 'chk') n = +vals[f[0]] ? 1 : 0;
+    else if (Array.isArray(f[2])) n = Math.max(0, f[2].map(function (o) { return o[0]; }).indexOf(String(vals[f[0]])));
+    else n = Math.min(Math.round((f[4] - f[3]) / (f[5] || 1)), Math.max(0, Math.round((vals[f[0]] - f[3]) / (f[5] || 1))));
+    bits += w ? ('0000000000000000' + n.toString(2)).slice(-w) : '';
+  });
+  var c = crc8([].map.call(bits.match(/.{1,8}/g) || [], function (s) { return parseInt((s + '00000000').slice(0, 8), 2); })) & 31; bits += ('00000' + c.toString(2)).slice(-5);
+  while (bits.length % 5) bits += '0';
+  var out = ''; for (var i = 0; i < bits.length; i += 5) out += B32[parseInt(bits.substr(i, 5), 2)];
+  return 'RS' + cfg.L + out.match(/.{1,4}/g).join('-');
 }
 function decCode(code) {
-  var m = String(code || '').toUpperCase().replace(/\s+/g, '').match(/^RS-([HVKSF])-(.+)$/); if (!m) return null;
-  var key = Object.keys(CALCS).filter(function (k) { return CALCS[k].L === m[1]; })[0], s = m[2].replace(/-/g, ''), bits = '';
+  var m = String(code || '').toUpperCase().replace(/[\s-]+/g, '').match(/^RS([HVKSF])(.+)$/); if (!m) return null;
+  var key = Object.keys(CALCS).filter(function (k) { return CALCS[k].L === m[1]; })[0], s = m[2], bits = '';
+  if (!key) return null;
   for (var i = 0; i < s.length; i++) { var x = B32.indexOf(s[i]); if (x < 0) return null; bits += ('00000' + x.toString(2)).slice(-5); }
-  var bytes = []; for (var j = 0; j + 8 <= bits.length; j += 8) bytes.push(parseInt(bits.substr(j, 8), 2));
-  var cfg = CALCS[key], vals = {}, pos = 0, ok = true;
-  uf(key).forEach(function (f) { var n = 0, sh = 0, b; do { b = bytes[pos++]; if (b === undefined) { ok = false; return; } n |= (b & 127) << sh; sh += 7; } while (b & 128); if (Array.isArray(f[2])) { var o = f[2][n]; if (!o) ok = false; else vals[f[0]] = o[0]; } else { var mm1 = /^ch(\d+)$/.exec(f[0]); vals[f[0]] = (mm1 && (+mm1[1] > +vals.nCh || (+vals.same && +mm1[1] > 1))) ? vals.ch1 : (n - 1000) / 10; } });
-  if (!ok) return null; if (bytes[pos] !== crc8(bytes.slice(0, pos))) return null;
+  var vals = {}, pos = 0, ok = true, fl = uf(key);
+  fl.forEach(function (f) {
+    if (!ok) return; if (skipF(f, vals)) { var mm = /^ch(\d+)$/.exec(f[0]); vals[f[0]] = mm && +vals.same && vals.ch1 != null ? vals.ch1 : f[2]; return; }
+    var w = bitCnt(f), n = w ? parseInt(bits.substr(pos, w), 2) : 0; if (w && (bits.length < pos + w || isNaN(n))) { ok = false; return; } pos += w;
+    if (f[3] === 'chk') vals[f[0]] = n; else if (Array.isArray(f[2])) { var o = f[2][n]; if (!o) ok = false; else vals[f[0]] = o[0]; } else { var st = f[5] || 1; vals[f[0]] = Math.min(f[4], +(f[3] + n * st).toFixed(4)); }
+  });
+  if (!ok || bits.length < pos + 5) return null;
+  var used = bits.substr(0, pos), c = crc8([].map.call(used.match(/.{1,8}/g) || [], function (q) { return parseInt((q + '00000000').slice(0, 8), 2); })) & 31;
+  if (parseInt(bits.substr(pos, 5), 2) !== c || bits.length - pos - 5 >= 5) return null;
   return { key: key, vals: vals };
 }
 function optFix(cfg, o) {
