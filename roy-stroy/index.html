@@ -2,7 +2,7 @@
 <html lang="ru"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="38">
+<meta name="app-version" content="39">
 <meta name="color-scheme" content="only light">
 <meta name="theme-color" content="#ffffff">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
@@ -872,7 +872,7 @@ var FAQ = [
   ['Что нужно для расчёта?', 'Тип объекта, размеры помещения, температурный режим и вид продукции или нагрузки. Если проекта нет, мы выедем на объект, сделаем замеры и подготовим решение.'],
   ['Как узнать стоимость?', 'Цена зависит от мощности, оборудования и состава работ, поэтому называть её без вводных некорректно. После уточнения задачи или выезда мы согласуем смету и фиксируем состав работ до начала монтажа.'],
   ['Вы строите здания и делаете капитальный ремонт?', 'Да. Строим здания из металлоконструкций, склады и хранилища под ключ вместе с холодильной частью. Выполняем капитальный ремонт зданий с заменой инженерных систем. Подробности — на страницах направлений.'],
-  ['Можно получить реквизиты для договора?', 'Да. Реквизиты есть на этой странице в разделе «Контакты»: их можно скопировать или скачать в PDF. Мы работаем по общей системе налогообложения (ОСНО) и подключены к электронному документообороту.'],
+  ['Можно получить реквизиты для договора?', 'Да. Реквизиты есть на этой странице в разделе «Контакты»: их можно скачать в PDF. Мы работаем по общей системе налогообложения (ОСНО) и подключены к электронному документообороту.'],
   ['Обслуживаете ли вы систему после запуска?', 'Да. Сервис и гарантийное сопровождение входят в направления работ. Плановые проверки помогают держать режим стабильным и снижают риск аварий.']
 ];
 
@@ -978,12 +978,7 @@ function pageHome() {
         '<div class="ct-line"><small>Адрес</small><span class="v">' + ADDR + '</span></div></div></div>' +
       '<div class="ct-card"><h3>Быстрая связь</h3><div class="ct-act"><a class="btn btn-cta btn-tel" href="tel:' + TEL + '">' + IC.phone + PHONE + '</a><a class="btn btn-line" href="mailto:' + MAIL1 + '">' + IC.mail + 'Написать на почту</a></div><p class="form-note" style="margin-top:14px">Мы не собираем данные через формы на сайте. Подробнее — в <a href="#privacy">политике конфиденциальности</a>.</p></div></div>' +
       '<div class="req-card" id="rekv"><div class="req-head"><h3>Реквизиты</h3><button type="button" class="btn btn-line btn-sm" id="dlReq">' + IC.dl + 'Скачать реквизиты (PDF)</button></div>' +
-        '<dl class="rq">' + [
-          ['Организация', 'ООО «РОЙ-СТРОЙ»'], ['ИНН', '9702056441'], ['КПП', '770201001'], ['ОГРН', '1237700334849'],
-          ['Исполнительный директор', 'Зулаев Рамзан Алхазурович'], ['Юридический адрес', ADDR], ['Система налогообложения', 'ОСНО'],
-          ['Расчётный счёт', '40702810212010827363'], ['Банк', 'Филиал «Корпоративный» ПАО «Совкомбанк»'], ['БИК', '044525360'], ['Корр. счёт', '30101810445250000360'],
-          ['ЭДО (АО «Калуга Астрал»)', '2AE633B0C1C-25B3-4D2D-B367-16444CB71EB3']
-        ].map(function (r) { return '<div><dt>' + r[0] + '</dt><dd><span>' + r[1] + '</span><button type="button" class="cp" data-copy="' + esc(r[1]) + '" aria-label="Скопировать: ' + esc(r[0]) + '">' + IC.copy + '</button></dd></div>'; }).join('') + '</dl></div>' +
+        '</div>' +
     '</div></section>';
 }
 
@@ -1335,11 +1330,11 @@ function prAfter() { if (prTitle !== null) { document.title = prTitle; prTitle =
 window.addEventListener('beforeprint', prBefore); window.addEventListener('afterprint', prAfter);
 /* update notice */
 (function () {
-  var V = '38', box = document.getElementById('upd'); if (!box) return;
+  var V = '39', box = document.getElementById('upd'); if (!box) return;
   function show(h) { box.innerHTML = h; box.hidden = false; }
   try {
     var prev = localStorage.getItem('rs_ver');
-    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v38.</b> Уточнены формулировки про онлайн-расчёт на главной и в разделе «Как работаем».</span><button type="button" id="updX">Понятно</button>'); }
+    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v39.</b> В разделе «Контакты» остались только кнопка «Скачать реквизиты (PDF)», без списка для копирования.</span><button type="button" id="updX">Понятно</button>'); }
     localStorage.setItem('rs_ver', V);
   } catch (e) { }
   box.addEventListener('click', function (e) {
