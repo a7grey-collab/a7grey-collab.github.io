@@ -2,7 +2,7 @@
 <html lang="ru"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="30">
+<meta name="app-version" content="31">
 <meta name="color-scheme" content="only light">
 <meta name="theme-color" content="#ffffff">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
@@ -23,10 +23,10 @@
 <link rel="canonical" href="https://a7grey-collab.github.io/roy-stroy/">
 <script type="application/ld+json" id="ld-route">{}</script>
 <style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter-cyr.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/inter-lat.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:'Onest';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/onest-cyr.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
 @font-face{font-family:'Onest';font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/onest-lat.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'Unbounded';font-style:normal;font-weight:200 900;font-display:swap;src:url(fonts/unb-cyr.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
-@font-face{font-family:'Unbounded';font-style:normal;font-weight:200 900;font-display:swap;src:url(fonts/unb-lat.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 
 :root{
   --ink:#0d2238;--navy:#1b3c5b;--text:#14202c;--muted:#40566a;--ice:#e8f3f8;--frost:#f5f9fb;--line:#cddbe5;--white:#fff;
@@ -43,7 +43,7 @@ body.menu-open,body.lb-open,body.inst-open{overflow:hidden}
 img,svg{max-width:100%}
 a{color:var(--cold);text-underline-offset:3px}
 h1,h2,h3,h4,p,ul,ol,dl,dd,figure{margin:0}
-h1,h2{font-family:'Unbounded','Onest',sans-serif;font-weight:600;letter-spacing:-.02em;color:var(--ink);line-height:1.12;text-wrap:balance;overflow-wrap:break-word;hyphens:auto}
+h1,h2{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Inter','Onest',sans-serif;font-weight:600;letter-spacing:-.02em;color:var(--ink);line-height:1.12;text-wrap:balance;overflow-wrap:break-word;hyphens:auto}
 h1{font-size:clamp(27px,6.6vw,52px)}
 h2{font-size:clamp(23px,4.6vw,38px)}
 h3{font-size:19px;line-height:1.3;font-weight:700;color:var(--ink)}
@@ -82,7 +82,7 @@ section{padding:56px 0}
 .brand{display:inline-flex;align-items:center;gap:12px;text-decoration:none;color:var(--navy);min-width:0}
 .brand-mark{width:68px;height:48px;flex:0 0 auto;color:var(--navy)}
 .brand-text{display:flex;flex-direction:column;line-height:1.15;min-width:0}
-.brand-text b{font-family:'Unbounded',sans-serif;font-weight:700;font-size:20px;letter-spacing:-.01em;color:var(--navy)}
+.brand-text b{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Inter','Onest',sans-serif;font-weight:700;font-size:20px;letter-spacing:-.01em;color:var(--navy)}
 .brand-text span{font-size:14px;font-weight:600;color:var(--text)}
 .nav-d{display:none;margin-left:auto;gap:4px}
 .nav-d a{padding:10px 14px;border-radius:10px;color:var(--ink);font-weight:600;font-size:15.5px;text-decoration:none}
@@ -117,11 +117,11 @@ section{padding:56px 0}
 .stage svg{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .5s ease}
 .stage svg.on{opacity:1}
 .stage-tag{position:absolute;left:12px;bottom:12px;right:12px;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.94);border-radius:14px;padding:10px 14px;box-shadow:var(--shadow);max-width:fit-content}
-.stage-tag b{font-family:'Unbounded',sans-serif;font-size:20px;color:var(--ink);white-space:nowrap}
+.stage-tag b{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Inter','Onest',sans-serif;font-size:20px;color:var(--ink);white-space:nowrap}
 .stage-tag span{font-weight:600;font-size:15px;line-height:1.25;color:var(--text)}
 .dial{background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.9);border-radius:var(--r-lg);padding:20px;box-shadow:var(--shadow);display:grid;gap:14px}
 .dial-top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
-.dial-temp{font-family:'Unbounded',sans-serif;font-weight:600;font-size:clamp(36px,9vw,52px);line-height:1;color:var(--ink);font-variant-numeric:tabular-nums;min-width:4.6ch}
+.dial-temp{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Inter','Onest',sans-serif;font-weight:600;font-size:clamp(36px,9vw,52px);line-height:1;color:var(--ink);font-variant-numeric:tabular-nums;min-width:4.6ch}
 .dial-name{font-weight:700;font-size:18px;color:var(--ink);line-height:1.3}
 .dial-note{color:var(--muted);font-size:15.5px;margin-top:-4px}
 .dial-label{font-size:14.5px;font-weight:600;color:var(--muted)}
@@ -143,7 +143,7 @@ input[type=range].temp::-moz-range-thumb{width:24px;height:24px;border-radius:50
 .proof{padding:0;background:var(--ink);color:#fff}
 .proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.14)}
 .proof-item{background:var(--ink);padding:22px 20px}
-.proof-item b{display:block;font-family:'Unbounded',sans-serif;font-weight:600;font-size:clamp(28px,6vw,42px);line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+.proof-item b{display:block;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Inter','Onest',sans-serif;font-weight:600;font-size:clamp(28px,6vw,42px);line-height:1;color:#fff;font-variant-numeric:tabular-nums}
 .proof-item span{display:block;margin-top:8px;color:#cfe0ec;font-size:15px;line-height:1.35}
 @media (min-width:900px){.proof-grid{grid-template-columns:repeat(4,1fr)}.proof-item{padding:30px 28px}}
 
@@ -186,7 +186,7 @@ input[type=range].temp::-moz-range-thumb{width:24px;height:24px;border-radius:50
 .step{display:grid;grid-template-columns:52px 1fr;gap:16px;padding-bottom:26px;position:relative}
 .step::before{content:"";position:absolute;left:25px;top:52px;bottom:0;width:2px;background:var(--line)}
 .step:last-child::before{display:none}
-.step-n{width:52px;height:52px;border-radius:50%;border:2px solid var(--line);background:#fff;display:grid;place-items:center;font:600 17px 'Unbounded',sans-serif;color:var(--muted);transition:background .4s,color .4s,border-color .4s}
+.step-n{width:52px;height:52px;border-radius:50%;border:2px solid var(--line);background:#fff;display:grid;place-items:center;font:600 17px -apple-system,BlinkMacSystemFont,'SF Pro Display','Inter','Onest',sans-serif;color:var(--muted);transition:background .4s,color .4s,border-color .4s}
 .step.on .step-n{background:var(--navy);border-color:var(--navy);color:#fff}
 .step.on::before{background:linear-gradient(var(--navy),var(--line))}
 .step h3{margin:10px 0 6px}
@@ -339,7 +339,7 @@ form.req{display:grid;gap:14px}
 .inst-ov.open{display:flex}
 .inst-box{width:100%;max-width:520px;max-height:92vh;overflow-y:auto;background:#fff;border-radius:22px 22px 0 0;padding:22px 18px calc(22px + env(safe-area-inset-bottom));color:var(--text)}
 @media (min-width:640px){.inst-ov{align-items:center;padding:20px}.inst-box{border-radius:22px}}
-.inst-box h3{font-family:'Unbounded',sans-serif;font-size:21px;margin:0 0 8px;color:var(--ink)}
+.inst-box h3{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Inter','Onest',sans-serif;font-size:21px;margin:0 0 8px;color:var(--ink)}
 .inst-box p{margin:0 0 14px;font-size:16px;color:var(--text)}
 .inst-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:54px;margin:0 0 10px;padding:12px 16px;border:2px solid var(--navy);border-radius:var(--r-sm);background:#fff;color:var(--navy);font:700 16px 'Onest',sans-serif;cursor:pointer}
 .inst-btn.main{background:var(--navy);color:#fff}
@@ -442,12 +442,12 @@ input[type=range].temp::-webkit-slider-thumb,input[type=range].temp::-moz-range-
 @media (min-width:640px){.obj-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.why-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (min-width:1060px){.obj-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.why-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .obj-t,.why-i{position:relative;display:grid;gap:6px;padding:20px 20px 22px;background:#fff;border:1px solid var(--line);border-radius:10px;color:var(--ink);text-decoration:none;overflow:hidden;transition:transform .2s,border-color .2s,box-shadow .2s}
-.obj-t b,.why-i b{font:600 19px/1.25 'Unbounded','Onest',sans-serif;letter-spacing:-.01em}
+.obj-t b,.why-i b{font:600 19px/1.25 -apple-system,BlinkMacSystemFont,'SF Pro Display','Inter','Onest',sans-serif;letter-spacing:-.01em}
 .obj-t span,.why-i span{color:var(--muted);font-size:16px}
 .obj-t::before,.why-i::before,.svc-card::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .25s;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(207,90,20,.10),transparent 70%)}
 @media (hover:hover){.obj-t:hover,.why-i:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 8px 24px rgba(13,34,56,.08)}.obj-t:hover::before,.why-i:hover::before,.svc-card:hover::before{opacity:1}}
 .obj-t:focus-visible{outline:3px solid var(--cold);outline-offset:2px}
-.why-i i{font:600 14px/1 'Unbounded',sans-serif;font-style:normal;color:var(--accent)}
+.why-i i{font:600 14px/1 -apple-system,BlinkMacSystemFont,'SF Pro Display','Inter','Onest',sans-serif;font-style:normal;color:var(--accent)}
 .upd{position:fixed;left:12px;right:12px;bottom:84px;z-index:60;display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 14px;background:var(--ink);color:#fff;border-radius:10px;font-size:15px;line-height:1.4;box-shadow:0 8px 28px rgba(0,0,0,.25)}
 .upd[hidden]{display:none}
 .upd button{flex:none;min-height:44px;padding:0 16px;border:0;border-radius:8px;background:var(--accent);color:#fff;font:600 15px 'Onest',sans-serif;cursor:pointer}
@@ -489,10 +489,10 @@ body.menu-open .fab,body.lb-open .fab,body.inst-open .fab,body:not(.ready) .fab{
 .calc-f input,.calc-f select{width:100%;min-width:0;min-height:44px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font:500 16px 'Onest',sans-serif}
 .calc-f input:focus-visible,.calc-f select:focus-visible{outline:3px solid var(--cold);outline-offset:1px}
 .calc-r{display:grid;gap:12px;align-content:start;background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 18px}
-.calc-r .tot b{display:block;font:600 clamp(30px,8vw,40px)/1.1 'Unbounded',sans-serif;color:var(--ink)}
+.calc-r .tot b{display:block;font:600 clamp(30px,8vw,40px)/1.1 -apple-system,BlinkMacSystemFont,'SF Pro Display','Inter','Onest',sans-serif;color:var(--ink)}
 .calc-r .tot span{color:var(--muted);font-size:15px}
 .calc-r .kv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.calc-r .kv b{display:block;font:600 18px 'Unbounded',sans-serif;color:var(--ink)}.calc-r .kv small{color:var(--muted);font-size:13.5px}
+.calc-r .kv b{display:block;font:600 18px -apple-system,BlinkMacSystemFont,'SF Pro Display','Inter','Onest',sans-serif;color:var(--ink)}.calc-r .kv small{color:var(--muted);font-size:13.5px}
 .calc-r .bar{display:flex;height:10px;border-radius:99px;overflow:hidden;background:var(--line)}
 .calc-r .leg{list-style:none;margin:0;padding:0;display:grid;gap:6px}
 .calc-r .leg li{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:8px;align-items:center;font-size:14.5px}
@@ -557,7 +557,7 @@ body.menu-open .fab,body.lb-open .fab,body.inst-open .fab,body:not(.ready) .fab{
 .sp #splash.out{opacity:0;visibility:hidden}
 .sp-in{display:grid;justify-items:center;gap:0;padding:0 24px;text-align:center}
 .sp-mark{width:min(46vw,200px);height:auto;color:#1b3c5b;animation:spUp .7s cubic-bezier(.2,.7,.2,1) both}
-.sp-name{margin-top:18px;font:700 clamp(26px,8.6vw,40px)/1.1 'Unbounded','Onest',sans-serif;letter-spacing:.14em;text-indent:.14em;color:#1b3c5b;animation:spUp .7s .18s cubic-bezier(.2,.7,.2,1) both}
+.sp-name{margin-top:18px;font:700 clamp(26px,8.6vw,40px)/1.1 -apple-system,BlinkMacSystemFont,'SF Pro Display','Inter','Onest',sans-serif;letter-spacing:.14em;text-indent:.14em;color:#1b3c5b;animation:spUp .7s .18s cubic-bezier(.2,.7,.2,1) both}
 .sp-line{display:block;width:56px;height:3px;margin:16px 0 12px;border-radius:3px;background:#d9622b;transform-origin:center;animation:spLine .6s .5s ease both}
 .sp-sub{font:500 clamp(13px,3.9vw,16px)/1.3 'Onest',sans-serif;letter-spacing:.06em;color:#5b6b7a;animation:spUp .7s .42s cubic-bezier(.2,.7,.2,1) both}
 @keyframes spUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
@@ -609,7 +609,7 @@ body.menu-open .fab,body.lb-open .fab,body.inst-open .fab,body:not(.ready) .fab{
     <div><h4>Разделы</h4><ul><li><a href="#referencii">Объекты</a></li><li><a href="#process">Как работаем</a></li><li><a href="#faq">Вопросы</a></li><li><a href="#kontakty">Контакты и реквизиты</a></li><li><a href="#privacy">Политика конфиденциальности</a></li></ul></div>
     <div><h4>Контакты</h4><ul><li><a href="tel:+79381539999">+7 (938) 153-99-99</a></li><li><a href="mailto:Rz-holod@mail.ru">Rz-holod@mail.ru</a></li><li><a href="mailto:roy.stroy@bk.ru">roy.stroy@bk.ru</a></li></ul><p class="foot-tag" style="margin-top:10px">129090, г. Москва, пр-кт Мира, д. 19, стр. 1, помещение 1/2</p><button type="button" class="btn btn-line btn-sm" id="openInstall"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M12 7v7m0 0-2.5-2.5M12 14l2.5-2.5"/></svg> Установить как приложение</button></div>
   </div>
-  <p class="foot-note">Сайт дорабатывается и скоро переедет на новый домен.</p>
+  <p class="foot-note">Сайт дорабатывается и скоро переедет на новый домен. Иллюстративные фотографии в разделах направлений: Unsplash.</p>
   <div class="foot-bottom"><span>Сайт не использует cookie и не собирает персональные данные через формы.</span><span>© РОЙ-СТРОЙ. ИНН 9702056441, ОГРН 1237700334849</span></div>
 </div>
 </footer>
@@ -675,6 +675,59 @@ body.menu-open .fab,body.lb-open .fab,body.inst-open .fab,body:not(.ready) .fab{
 .calc-card em{font-style:normal;font-weight:700;font-size:15px;color:var(--accent,#cf5a14);display:inline-flex;align-items:center;gap:6px}
 .calc-more{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:16px}.calc-more small{font-size:14px;color:var(--muted,#5b6b7a);margin-right:4px}
 .calc-more .chip{text-decoration:none}
+
+/* v31 */
+:root{--hf:-apple-system,BlinkMacSystemFont,'SF Pro Display','Inter','Onest',sans-serif}
+h1,h2,h3{font-family:var(--hf);letter-spacing:-.022em;font-feature-settings:"ss01","cv11"}
+h1{font-weight:700;letter-spacing:-.03em}
+.brand-text b{letter-spacing:-.02em;font-weight:700}
+.sp-name{letter-spacing:.12em;font-weight:700}
+.dial-temp,.proof-item b,.calc-r .tot b,.calc-r .kv b,.stage-tag b{letter-spacing:-.03em;font-weight:700}
+@media (min-width:1000px){
+  .hdr-in{gap:24px}
+  .nav-d{align-items:center;gap:0;margin-left:auto;margin-right:28px}
+  .nav-d>a,.nav-d>.dd{position:relative;display:flex;align-items:center;min-height:44px}
+  .nav-d>a,.nav-d .dd>a.dd-t{display:flex;align-items:center;min-height:44px;padding:0 17px;line-height:1.2;border-radius:0;white-space:nowrap}
+  .nav-d>*+*::before{content:"";position:absolute;left:0;top:50%;width:1px;height:22px;background:var(--line);transform:translateY(-50%);pointer-events:none}
+  .nav-d a:hover,.nav-d a.on{background:transparent;color:var(--accent)}
+  .nav-d>a:hover,.nav-d .dd>a.dd-t:hover,.nav-d>a.on,.nav-d .dd>a.dd-t.on{box-shadow:inset 0 -2px 0 var(--accent)}
+  .dd-m a{padding:10px 12px;min-height:0;display:block;border-radius:10px;color:var(--ink)}
+  .dd-m a:hover{background:var(--soft,#eef3f7);box-shadow:none}
+  .hdr-phone{margin-left:6px}
+}
+@media (min-width:1000px) and (max-width:1180px){.nav-d>a,.nav-d .dd>a.dd-t{padding:0 12px;font-size:15px}.nav-d{margin-right:16px}}
+/* city field */
+.fld-city{grid-column:1/-1}
+.city-hint{display:block;margin-top:6px;font-size:13.5px;line-height:1.45;color:var(--muted,#5b6b7a)}
+.city-hint b{color:var(--ink)}
+.fld select{text-overflow:ellipsis}
+/* service photos */
+.svc-ph-s{padding-block:8px 0}
+.svc-ph{display:grid;gap:14px}
+.svc-ph figure{margin:0;border-radius:18px;overflow:hidden;background:var(--ice,#eef3f7);aspect-ratio:16/8}
+.svc-ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.svc-ph figure:hover img{transform:scale(1.03)}
+.svc-ph.two figure{aspect-ratio:4/3}
+@media (min-width:720px){.svc-ph.two{grid-template-columns:1fr 1fr}.svc-ph figure{aspect-ratio:21/8}.svc-ph.two figure{aspect-ratio:4/3}}
+/* animated icons */
+.ai{display:block;overflow:visible}
+.ai-spin{transform-origin:12px 12px;transform-box:view-box;animation:ai-rot 14s linear infinite}
+.ai-fan .ai-spin{animation-duration:3.2s}
+.ai-p{transform-origin:12px 12px;transform-box:view-box;animation:ai-pulse 2.6s ease-in-out infinite}
+.ai-w1,.ai-w2,.ai-w3{stroke-dasharray:6 6;animation:ai-flow 1.8s linear infinite}
+.ai-w2{animation-delay:-.6s}.ai-w3{animation-delay:-1.2s}
+.ai-hg{transform-origin:12px 17px;transform-box:view-box;animation:ai-rise 3.4s ease-in-out infinite}
+.calc-card:hover .ai-spin,.tab:hover .ai-spin{animation-duration:2.4s}
+.tab{display:inline-flex;align-items:center;gap:8px}
+.tab-i svg{width:18px;height:18px}
+@keyframes ai-rot{to{transform:rotate(360deg)}}
+@keyframes ai-pulse{50%{transform:scale(1.35);opacity:.55}}
+@keyframes ai-flow{to{stroke-dashoffset:-12}}
+@keyframes ai-rise{0%,100%{transform:scaleY(.45)}50%{transform:scaleY(1)}}
+@media (prefers-reduced-motion:reduce){.ai *,.ai{animation:none!important}}
+
+.tab{text-decoration:none}
+.brand{flex-shrink:0}.brand-text,.brand-text span{white-space:nowrap}
 </style>
 <div class="ag-sign"><a href="https://t.me/a7grey" target="_blank" rel="noopener" aria-label="Alex Grey · IT Solutions" title="Alex Grey · IT Solutions"><svg role="img" aria-label="Alex Grey · IT Solutions" xmlns="http://www.w3.org/2000/svg" viewBox="11.54 26.94 390.53 127.43"><g transform="translate(7.7,1.5)"><path d="M21.12 97.44Q15.55 97.44 11.69 95.30Q7.82 93.17 5.83 89.59Q3.84 86.02 3.84 81.70Q3.84 78.10 4.94 75.12Q6.05 72.14 8.52 69.86Q10.99 67.58 15.17 66.05Q18.05 64.99 22.03 64.18Q26.02 63.36 31.06 62.59Q34.03 62.16 37.34 61.68Q36.96 58.46 35.23 56.78Q33.02 54.62 27.84 54.62Q24.96 54.62 21.84 56.02Q18.72 57.41 17.47 60.96L5.66 57.22Q7.63 50.78 13.06 46.75Q18.48 42.72 27.84 42.72Q34.70 42.72 40.03 44.83Q45.36 46.94 48.10 52.13Q49.63 55.01 49.92 57.89Q50.21 60.77 50.21 64.32V96.00H38.78V89.62Q35.71 93.26 32.26 95.09Q27.84 97.44 21.12 97.44ZM23.90 87.17Q27.50 87.17 29.98 85.90Q32.45 84.62 33.91 82.99Q35.38 81.36 35.90 80.26Q36.91 78.14 37.10 75.31Q37.20 73.63 37.20 72.24Q33.98 72.82 31.68 73.20Q28.08 73.87 25.87 74.40Q23.66 74.93 21.98 75.55Q20.06 76.32 18.89 77.21Q17.71 78.10 17.16 79.15Q16.61 80.21 16.61 81.50Q16.61 83.28 17.50 84.55Q18.38 85.82 20.02 86.50Q21.65 87.17 23.90 87.17Z M60.38 96.00V25.44H73.44V96.00Z M108.67 97.44Q100.70 97.44 94.63 94.01Q88.56 90.58 85.13 84.55Q81.70 78.53 81.70 70.75Q81.70 62.26 85.06 55.97Q88.42 49.68 94.32 46.20Q100.22 42.72 107.90 42.72Q116.06 42.72 121.78 46.56Q127.49 50.40 130.22 57.36Q132.96 64.32 132.14 73.73H95.76Q96.38 78.38 98.69 81.26Q101.81 85.25 107.90 85.25Q111.74 85.25 114.48 83.57Q117.22 81.89 118.66 78.72L131.71 82.46Q128.78 89.57 122.47 93.50Q116.16 97.44 108.67 97.44ZM118.94 64.03Q118.37 59.81 116.74 57.50Q114.19 54.05 108.48 54.05Q101.81 54.05 98.69 58.08Q96.86 60.43 96.10 64.03Z M132.00 96.00 150.53 69.79 132.38 44.16H147.74L158.11 59.52L168.29 44.16H183.65L165.50 69.79L184.13 96.00H168.77L158.11 80.06L147.36 96.00Z" style="fill:var(--ag-ink,#1f2328)"/><path d="M207.46 120.48Q203.04 120.48 199.06 119.06Q195.07 117.65 191.93 115.13Q188.78 112.61 186.82 109.25L198.91 103.39Q200.16 105.70 202.49 106.90Q204.82 108.10 207.55 108.10Q210.48 108.10 213.07 107.11Q215.66 106.13 217.22 104.18Q218.78 102.24 218.69 99.36V94.18Q213.65 97.44 206.30 97.44Q199.15 97.44 193.78 93.84Q188.40 90.24 185.40 84.05Q182.40 77.86 182.40 70.08Q182.40 62.16 185.45 55.99Q188.50 49.82 194.02 46.27Q199.54 42.72 206.98 42.72Q214.37 42.72 219.41 46.32Q219.89 46.66 220.32 46.99V44.16H231.74V99.55Q231.74 101.47 231.58 103.18Q231.41 104.88 230.98 106.56Q229.73 111.31 226.34 114.38Q222.96 117.46 218.06 118.97Q213.17 120.48 207.46 120.48ZM208.42 85.82Q212.78 85.82 215.40 83.86Q218.02 81.89 219.17 78.34Q220.32 74.78 220.32 70.08Q220.32 65.38 219.17 61.82Q218.02 58.27 215.50 56.30Q212.98 54.34 208.90 54.34Q204.53 54.34 201.72 56.47Q198.91 58.61 197.57 62.18Q196.22 65.76 196.22 70.08Q196.22 74.45 197.52 78.02Q198.82 81.60 201.50 83.71Q204.19 85.82 208.42 85.82Z M241.92 96.00V44.16H253.44V52.51Q254.06 51.36 254.88 50.30Q256.56 48.10 259.01 46.66Q260.88 45.50 263.09 44.86Q265.30 44.21 267.65 44.04Q270.00 43.87 272.35 44.16V56.35Q270.19 55.68 267.34 55.90Q264.48 56.11 262.18 57.22Q259.87 58.27 258.29 60.02Q256.70 61.78 255.89 64.15Q255.07 66.53 255.07 69.50V96.00Z M301.34 97.44Q293.38 97.44 287.30 94.01Q281.23 90.58 277.80 84.55Q274.37 78.53 274.37 70.75Q274.37 62.26 277.73 55.97Q281.09 49.68 286.99 46.20Q292.90 42.72 300.58 42.72Q308.74 42.72 314.45 46.56Q320.16 50.40 322.90 57.36Q325.63 64.32 324.82 73.73H288.43Q289.06 78.38 291.36 81.26Q294.48 85.25 300.58 85.25Q304.42 85.25 307.15 83.57Q309.89 81.89 311.33 78.72L324.38 82.46Q321.46 89.57 315.14 93.50Q308.83 97.44 301.34 97.44ZM311.62 64.03Q311.04 59.81 309.41 57.50Q306.86 54.05 301.15 54.05Q294.48 54.05 291.36 58.08Q289.54 60.43 288.77 64.03Z M338.02 119.04 346.56 95.57 325.63 44.16H339.17L352.80 79.44L366.34 44.16H379.39L350.11 119.04Z" fill="#8a9099"/><circle class="ag-dot" cx="384.77" cy="86.40" r="9.60" fill="#c9a227"/><g style="fill:var(--ag-ink,#1f2328)"><path transform="translate(-3.94 -45.60) scale(1.350)" d="M5.76 146.64V129.36H8.27V146.64Z"/><path transform="translate(-2.37 -45.60) scale(1.350)" d="M26.26 146.64V131.72H20.51V129.36H34.51V131.72H28.76V146.64Z"/><path transform="translate(-0.42 -45.60) scale(1.350)" d="M66.94 147.00Q65.08 147.00 63.58 146.36Q62.09 145.72 61.12 144.52Q60.16 143.33 59.87 141.68L62.48 141.29Q62.88 142.87 64.14 143.75Q65.40 144.64 67.08 144.64Q68.12 144.64 69.00 144.31Q69.88 143.98 70.41 143.36Q70.94 142.74 70.94 141.88Q70.94 141.41 70.78 141.05Q70.62 140.69 70.34 140.42Q70.06 140.15 69.65 139.95Q69.25 139.75 68.77 139.61L64.34 138.30Q63.70 138.11 63.02 137.80Q62.35 137.50 61.79 137.00Q61.24 136.50 60.89 135.76Q60.54 135.02 60.54 133.97Q60.54 132.37 61.36 131.26Q62.18 130.15 63.59 129.58Q64.99 129.01 66.73 129.01Q68.48 129.04 69.87 129.64Q71.26 130.24 72.17 131.36Q73.09 132.48 73.44 134.08L70.75 134.53Q70.57 133.56 69.98 132.86Q69.40 132.16 68.54 131.78Q67.69 131.40 66.70 131.39Q65.74 131.36 64.94 131.68Q64.14 131.99 63.67 132.55Q63.19 133.12 63.19 133.85Q63.19 134.57 63.61 135.01Q64.03 135.46 64.65 135.71Q65.27 135.97 65.88 136.14L69.07 137.04Q69.67 137.21 70.43 137.49Q71.20 137.77 71.91 138.28Q72.62 138.78 73.09 139.61Q73.56 140.45 73.56 141.71Q73.56 143.02 73.03 144.01Q72.50 145.00 71.59 145.66Q70.67 146.33 69.47 146.66Q68.27 147.00 66.94 147.00Z"/><path transform="translate(1.90 -45.60) scale(1.350)" d="M93.41 147.00Q90.82 147.00 88.99 145.87Q87.17 144.73 86.20 142.70Q85.24 140.68 85.24 138.00Q85.24 135.32 86.20 133.30Q87.17 131.27 88.99 130.13Q90.82 129.00 93.41 129.00Q95.99 129.00 97.82 130.13Q99.65 131.27 100.61 133.30Q101.57 135.32 101.57 138.00Q101.57 140.68 100.61 142.70Q99.65 144.73 97.82 145.87Q95.99 147.00 93.41 147.00ZM93.41 144.61Q95.24 144.64 96.46 143.80Q97.68 142.97 98.29 141.47Q98.90 139.98 98.90 138.00Q98.90 136.02 98.29 134.54Q97.68 133.06 96.46 132.23Q95.24 131.40 93.41 131.39Q91.57 131.36 90.35 132.19Q89.14 133.02 88.52 134.52Q87.91 136.02 87.90 138.00Q87.89 139.98 88.50 141.46Q89.11 142.94 90.34 143.77Q91.57 144.60 93.41 144.61Z"/><path transform="translate(2.82 -45.60) scale(1.350)" d="M114.29 146.64V129.36H116.80V144.28H124.62V146.64Z"/><path transform="translate(4.55 -45.60) scale(1.350)" d="M143.63 147.00Q141.60 147.00 140.05 146.17Q138.49 145.33 137.62 143.83Q136.74 142.32 136.74 140.28V129.37L139.28 129.36V140.15Q139.28 141.25 139.66 142.09Q140.03 142.93 140.65 143.50Q141.28 144.06 142.05 144.35Q142.82 144.64 143.63 144.64Q144.44 144.64 145.22 144.34Q145.99 144.05 146.62 143.48Q147.24 142.92 147.61 142.08Q147.97 141.24 147.97 140.15V129.36H150.52V140.28Q150.52 142.31 149.64 143.82Q148.76 145.33 147.21 146.17Q145.66 147.00 143.63 147.00Z"/><path transform="translate(6.45 -45.60) scale(1.350)" d="M168.26 146.64V131.72H162.52V129.36H176.52V131.72H170.77V146.64Z"/><path transform="translate(8.01 -45.60) scale(1.350)" d="M188.76 146.64V129.36H191.27V146.64Z"/><path transform="translate(8.93 -45.60) scale(1.350)" d="M212.16 147.00Q209.57 147.00 207.74 145.87Q205.92 144.73 204.95 142.70Q203.99 140.68 203.99 138.00Q203.99 135.32 204.95 133.30Q205.92 131.27 207.74 130.13Q209.57 129.00 212.16 129.00Q214.74 129.00 216.57 130.13Q218.40 131.27 219.36 133.30Q220.32 135.32 220.32 138.00Q220.32 140.68 219.36 142.70Q218.40 144.73 216.57 145.87Q214.74 147.00 212.16 147.00ZM212.16 144.61Q214.00 144.64 215.21 143.80Q216.43 142.97 217.04 141.47Q217.66 139.98 217.66 138.00Q217.66 136.02 217.04 134.54Q216.43 133.06 215.21 132.23Q214.00 131.40 212.16 131.39Q210.32 131.36 209.11 132.19Q207.89 133.02 207.28 134.52Q206.66 136.02 206.65 138.00Q206.64 139.98 207.25 141.46Q207.86 142.94 209.09 143.77Q210.32 144.60 212.16 144.61Z"/><path transform="translate(10.18 -45.60) scale(1.350)" d="M232.80 146.64V129.36H235.34L243.85 142.20V129.36H246.40V146.64H243.85L235.34 133.79V146.64Z"/><path transform="translate(11.22 -45.60) scale(1.350)" d="M266.10 147.00Q264.24 147.00 262.75 146.36Q261.25 145.72 260.29 144.52Q259.32 143.33 259.03 141.68L261.65 141.29Q262.04 142.87 263.30 143.75Q264.56 144.64 266.24 144.64Q267.29 144.64 268.16 144.31Q269.04 143.98 269.57 143.36Q270.11 142.74 270.11 141.88Q270.11 141.41 269.95 141.05Q269.78 140.69 269.50 140.42Q269.22 140.15 268.82 139.95Q268.42 139.75 267.94 139.61L263.51 138.30Q262.86 138.11 262.19 137.80Q261.52 137.50 260.96 137.00Q260.40 136.50 260.05 135.76Q259.70 135.02 259.70 133.97Q259.70 132.37 260.53 131.26Q261.35 130.15 262.75 129.58Q264.16 129.01 265.90 129.01Q267.65 129.04 269.03 129.64Q270.42 130.24 271.34 131.36Q272.26 132.48 272.60 134.08L269.92 134.53Q269.74 133.56 269.15 132.86Q268.56 132.16 267.71 131.78Q266.86 131.40 265.86 131.39Q264.90 131.36 264.10 131.68Q263.30 131.99 262.83 132.55Q262.36 133.12 262.36 133.85Q262.36 134.57 262.78 135.01Q263.20 135.46 263.81 135.71Q264.43 135.97 265.04 136.14L268.24 137.04Q268.84 137.21 269.60 137.49Q270.36 137.77 271.07 138.28Q271.79 138.78 272.26 139.61Q272.72 140.45 272.72 141.71Q272.72 143.02 272.20 144.01Q271.67 145.00 270.75 145.66Q269.83 146.33 268.63 146.66Q267.43 147.00 266.10 147.00Z"/></g></g></svg></a></div>
 <script>
@@ -883,11 +936,23 @@ function extraBlocks(m, slug) {
   return h;
 }
 var SVC_CALC = { klimat: ['klimat', 'ventilyaciya'], zamorozka: ['zamorozka', 'holod'], chillery: ['holod', 'klimat'], agrosektor: ['hranilishche', 'zamorozka', 'holod'], fruktohranilishcha: ['hranilishche', 'holod'], 'holodilnye-kamery': ['holod', 'zamorozka', 'hranilishche'], stroitelstvo: ['holod', 'hranilishche'], kapremont: ['klimat', 'ventilyaciya'] };
+var AI = {
+  holod: '<svg class="ai ai-snow" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><g class="ai-spin"><path d="M12 2.5v19M3.8 7.25l16.4 9.5M3.8 16.75l16.4-9.5"/><path d="m9.5 4.2 2.5 2 2.5-2M9.5 19.8l2.5-2 2.5 2M4.2 9.6l3 .6-.5 3M19.8 14.4l-3-.6.5-3M4.2 14.4l3-.6-.5-3M19.8 9.6l-3 .6.5 3"/></g></svg>',
+  zamorozka: '<svg class="ai ai-frost" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9"/><circle class="ai-p" cx="12" cy="12" r="3.2"/></svg>',
+  ventilyaciya: '<svg class="ai ai-fan" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1.6"/><g class="ai-spin"><path d="M12 10.4C12 6 10.2 3.4 7.6 3.6 5.4 3.8 5.2 6.4 7 8c1.4 1.3 3 2 5 2.4Z"/><path d="M13.6 12c4.4 0 7-1.8 6.8-4.4-.2-2.2-2.8-2.4-4.4-.6-1.3 1.4-2 3-2.4 5Z"/><path d="M12 13.6c0 4.4 1.8 7 4.4 6.8 2.2-.2 2.4-2.8.6-4.4-1.4-1.3-3-2-5-2.4Z"/><path d="M10.4 12C6 12 3.4 13.8 3.6 16.4c.2 2.2 2.8 2.4 4.4.6 1.3-1.4 2-3 2.4-5Z"/></g></svg>',
+  klimat: '<svg class="ai ai-ac" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="8" rx="2.5"/><path d="M7 9h10"/><path class="ai-w1" d="M7 16c0 1.6 1.2 1.6 1.2 3.2"/><path class="ai-w2" d="M12 16c0 1.6 1.2 1.6 1.2 3.2"/><path class="ai-w3" d="M17 16c0 1.6 1.2 1.6 1.2 3.2"/></svg>',
+  hranilishche: '<svg class="ai ai-th" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14.2V5a2 2 0 1 1 4 0v9.2a4 4 0 1 1-4 0Z"/><path class="ai-hg" d="M12 17V9" stroke-width="2.4"/></svg>'
+};
+var SVC_PH = { klimat: [['img/svc_klimat.jpg', 'Наружные блоки кондиционирования на фасаде здания'], ['img/svc_klimat2.jpg', 'Воздуховоды приточно-вытяжной вентиляции под потолком']], zamorozka: [['img/svc_zamorozka.jpg', 'Замороженные ягоды и фрукты с инеем']], chillery: [['img/svc_chillery.jpg', 'Градирни системы водяного охлаждения']], agrosektor: [['img/svc_agrosektor.jpg', 'Птицы на выгуле у фермерского птичника']], fruktohranilishcha: [['img/svc_fruktohranilishcha.jpg', 'Ящик с яблоками урожая']], 'holodilnye-kamery': [['img/svc_holodilnye-kamery.jpg', 'Склад с палетными стеллажами и погрузчиком']], stroitelstvo: [['img/svc_stroitelstvo.jpg', 'Металлический каркас здания под солнцем']], kapremont: [['img/svc_kapremont.jpg', 'Фасад здания в строительных лесах при капитальном ремонте']] };
+function svcPhotos(slug) {
+  var a = SVC_PH[slug]; if (!a) return '';
+  return '<section class="svc-ph-s"><div class="wrap"><div class="svc-ph' + (a.length > 1 ? ' two' : '') + '">' + a.map(function (p) { return '<figure><img loading="lazy" decoding="async" src="' + p[0] + '" alt="' + esc(p[1]) + '"></figure>'; }).join('') + '</div></div></section>';
+}
 function calcBlock(slug) {
   var ks = SVC_CALC[slug]; if (!ks) return '';
   var first = ks[0], rest = Object.keys(CALCS).filter(function (k) { return ks.indexOf(k) < 0; });
   return '<section class="band calc-cta"><div class="wrap"><div class="sec-head"><div class="kicker">Онлайн-расчёт</div><h2>Прикиньте параметры сами за пару минут</h2><p>Введите размеры и режим: рядом сразу появится 3D-модель и мощность оборудования. Код расчёта можно прислать нам, персональные данные не нужны.</p></div><div class="calc-cards">' +
-    ks.map(function (k, i) { return '<a class="calc-card' + (i === 0 ? ' main' : '') + '" href="#raschet/' + k + '"><i class="cc-ic">' + IC.calc + '</i><b>' + CALCS[k].title + '</b><span>' + CALCS[k].lead + '</span><em>Рассчитать' + IC.arrow + '</em></a>'; }).join('') +
+    ks.map(function (k, i) { return '<a class="calc-card' + (i === 0 ? ' main' : '') + '" href="#raschet/' + k + '"><i class="cc-ic">' + (AI[k] || IC.calc) + '</i><b>' + CALCS[k].title + '</b><span>' + CALCS[k].lead + '</span><em>Рассчитать' + IC.arrow + '</em></a>'; }).join('') +
     '</div><div class="calc-more"><small>Другие расчёты:</small>' + rest.map(function (k) { return '<a class="chip" href="#raschet/' + k + '">' + CALCS[k].title + '</a>'; }).join('') + '</div></div></section>';
 }
 function pageService(slug) {
@@ -909,7 +974,7 @@ function pageService(slug) {
         (np ? '<div class="facts"><div class="fact"><b>6</b><span>этапов работ</span></div><div class="fact"><b>1</b><span>подрядчик на весь цикл</span></div><div class="fact"><b>' + MODE[slug] + '</b><span>формат работ</span></div></div></div>' : '<div class="facts"><div class="fact"><b>' + LST.length + '</b><span>' + plural(LST.length, ['объект', 'объекта', 'объектов']) + ' в портфолио</span></div><div class="fact"><b>' + ph + '</b><span>фото работ</span></div><div class="fact"><b>' + MODE[slug] + '</b><span>типовой режим</span></div></div></div>') +
         '<div class="stage" id="sstage" data-temp="' + TEMP[slug] + '"><img class="ph on" alt="' + esc(m.title) + ': фото объекта" src="' + (window.__COVER[m.catId] || (c.projects[0] && c.projects[0].media[0])) + '">' + (np ? '' : '<button type="button" class="stage-open" data-open="' + ALL.indexOf(items0) + '" aria-label="Открыть фото объекта">' + IC.img + 'Фото</button>') + '</div></div></div></section>' +
     '<section class="band"><div class="wrap"><div class="sec-head"><div class="kicker">Инженерный подход</div><h2>На что мы смотрим в первую очередь</h2></div><div class="why-grid w3">' + m.tech.map(function (o, i) { return '<div class="why-i"><i>' + (i + 1) + '</i><b>' + esc(o[0]) + '</b><span>' + esc(o[1]) + '</span></div>'; }).join('') + '</div></div></section>' +
-    '<section><div class="wrap"><div class="sec-head"><h2>Состав работ</h2></div><ul class="checks">' + m.scope.map(function (s) { return '<li>' + IC.check + '<span>' + esc(s) + '</span></li>'; }).join('') + '</ul></div></section>' + extraBlocks(m, slug) + calcBlock(slug) +
+    svcPhotos(slug) + '<section><div class="wrap"><div class="sec-head"><h2>Состав работ</h2></div><ul class="checks">' + m.scope.map(function (s) { return '<li>' + IC.check + '<span>' + esc(s) + '</span></li>'; }).join('') + '</ul></div></section>' + extraBlocks(m, slug) + calcBlock(slug) +
     (np ? ((m.obj && m.obj.length ? '<section class="band"><div class="wrap"><div class="sec-head"><div class="kicker">Для каких объектов</div><h2>Здания под вашу задачу</h2></div><div class="obj-grid">' + m.obj.map(function (o) { return '<div class="obj-t"><b>' + esc(o[0]) + '</b><span>' + esc(o[1]) + '</span></div>'; }).join('') + '</div>' + (slug === 'stroitelstvo' ? '<div class="gal3"><img loading="lazy" alt="" src="' + window.__COVER.x_build2 + '"><img loading="lazy" alt="" src="' + window.__COVER.x_build3 + '"></div>' : '') + '</div></section>' : '') + '<section class="band"><div class="wrap"><div class="sec-head"><h2>Хотите посмотреть реализованные работы?</h2><p>В портфолио ' + TOTAL_PROJ + ' объектов с фотографиями: холодильные камеры, климат, чиллеры и хранилища.</p></div><div class="more-row"><a class="btn btn-line" href="#referencii">Смотреть объекты' + IC.arrow + '</a></div></div></section>') :
     '<section class="band" id="obekty"><div class="wrap"><div class="sec-head"><h2>Объекты по направлению</h2><p>Нажмите на карточку, чтобы открыть фотографии.</p></div><div class="proj-grid" id="pg"></div>' +
       '<div class="more-row"><a class="btn btn-line" href="#referencii/' + m.catId + '">Все объекты направления' + IC.arrow + '</a></div></div></section>') +
@@ -1183,11 +1248,11 @@ document.addEventListener('pointermove', function (e) {
 })();
 /* update notice */
 (function () {
-  var V = '30', box = document.getElementById('upd'); if (!box) return;
+  var V = '31', box = document.getElementById('upd'); if (!box) return;
   function show(h) { box.innerHTML = h; box.hidden = false; }
   try {
     var prev = localStorage.getItem('rs_ver');
-    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v30.</b> Новое: интерактивная 3D-модель камеры и помещения в расчётах (размеры меняются вместе с полями), онлайн-расчёт на каждой странице направления, Агросектор собран из объектов других разделов без дублей.</span><button type="button" id="updX">Понятно</button>'); }
+    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v31.</b> Выбор города в расчётах, новое меню, шрифт и фото в разделах.</span><button type="button" id="updX">Понятно</button>'); }
     localStorage.setItem('rs_ver', V);
   } catch (e) { }
   box.addEventListener('click', function (e) {
@@ -1224,10 +1289,20 @@ function psat(t) { return 0.61094 * Math.exp(17.625 * t / (t + 243.04)); }
 function enth(t, rh) { var pv = rh * psat(t), w = 0.622 * pv / (101.325 - pv); return 1.006 * t + w * (2501 + 1.86 * t); }
 function fmtN(x, d) { return x.toLocaleString('ru-RU', { maximumFractionDigits: d == null ? 1 : d, minimumFractionDigits: 0 }); }
 var VT = [['office', 'Офис, переговорные', 3], ['shop', 'Торговый зал', 4], ['store', 'Склад', 2], ['shop2', 'Цех, производство', 5], ['kitchen', 'Кухня, заготовочный цех', 12], ['sport', 'Спортзал, фитнес', 5], ['rest', 'Зал кафе и ресторана', 8]];
+/* cities: [id,name,group,summer t,winter t] approx. design temperatures */
+var CITY = [["0","Москва","Москва и центр России",28,-25],["1","Санкт-Петербург","Москва и центр России",26,-24],["2","Калининград","Москва и центр России",25,-18],["3","Великий Новгород","Москва и центр России",25,-27],["4","Псков","Москва и центр России",25,-24],["5","Смоленск","Москва и центр России",25,-24],["6","Брянск","Москва и центр России",27,-23],["7","Калуга","Москва и центр России",26,-27],["8","Тула","Москва и центр России",28,-25],["9","Орёл","Москва и центр России",28,-25],["10","Курск","Москва и центр России",29,-24],["11","Белгород","Москва и центр России",29,-23],["12","Воронеж","Москва и центр России",30,-24],["13","Липецк","Москва и центр России",29,-25],["14","Тамбов","Москва и центр России",29,-26],["15","Рязань","Москва и центр России",28,-27],["16","Владимир","Москва и центр России",27,-28],["17","Иваново","Москва и центр России",27,-28],["18","Ярославль","Москва и центр России",26,-27],["19","Кострома","Москва и центр России",26,-31],["20","Тверь","Москва и центр России",26,-26],["21","Мурманск","Север и Северо-Запад",21,-27],["22","Архангельск","Север и Северо-Запад",23,-31],["23","Петрозаводск","Север и Северо-Запад",24,-27],["24","Вологда","Север и Северо-Запад",25,-31],["25","Сыктывкар","Север и Северо-Запад",25,-34],["26","Нарьян-Мар","Север и Северо-Запад",20,-36],["27","Нижний Новгород","Поволжье и Урал",27,-28],["28","Казань","Поволжье и Урал",28,-30],["29","Чебоксары","Поволжье и Урал",27,-30],["30","Йошкар-Ола","Поволжье и Урал",27,-30],["31","Саранск","Поволжье и Урал",28,-27],["32","Пенза","Поволжье и Урал",29,-27],["33","Ульяновск","Поволжье и Урал",29,-31],["34","Самара","Поволжье и Урал",31,-30],["35","Саратов","Поволжье и Урал",31,-26],["36","Волгоград","Поволжье и Урал",33,-22],["37","Астрахань","Поволжье и Урал",34,-19],["38","Элиста","Поволжье и Урал",33,-22],["39","Ижевск","Поволжье и Урал",27,-30],["40","Киров","Поволжье и Урал",26,-33],["41","Пермь","Поволжье и Урал",27,-35],["42","Уфа","Поволжье и Урал",28,-31],["43","Оренбург","Поволжье и Урал",31,-31],["44","Челябинск","Поволжье и Урал",28,-34],["45","Екатеринбург","Поволжье и Урал",27,-32],["46","Курган","Поволжье и Урал",29,-34],["47","Тюмень","Поволжье и Урал",27,-34],["48","Ростов-на-Дону","Юг России и Крым",32,-19],["49","Краснодар","Юг России и Крым",32,-19],["50","Сочи","Юг России и Крым",29,-3],["51","Новороссийск","Юг России и Крым",30,-9],["52","Майкоп","Юг России и Крым",31,-18],["53","Ставрополь","Юг России и Крым",29,-19],["54","Симферополь","Юг России и Крым",31,-13],["55","Севастополь","Юг России и Крым",29,-8],["56","Омск","Сибирь и Дальний Восток",29,-35],["57","Новосибирск","Сибирь и Дальний Восток",28,-37],["58","Томск","Сибирь и Дальний Восток",26,-40],["59","Кемерово","Сибирь и Дальний Восток",27,-39],["60","Барнаул","Сибирь и Дальний Восток",29,-39],["61","Красноярск","Сибирь и Дальний Восток",27,-37],["62","Абакан","Сибирь и Дальний Восток",29,-37],["63","Иркутск","Сибирь и Дальний Восток",26,-34],["64","Улан-Удэ","Сибирь и Дальний Восток",28,-37],["65","Чита","Сибирь и Дальний Восток",29,-38],["66","Якутск","Сибирь и Дальний Восток",28,-52],["67","Благовещенск","Сибирь и Дальний Восток",29,-33],["68","Хабаровск","Сибирь и Дальний Восток",28,-31],["69","Владивосток","Сибирь и Дальний Восток",24,-24],["70","Южно-Сахалинск","Сибирь и Дальний Восток",22,-22],["71","Петропавловск-Камчатский","Сибирь и Дальний Восток",18,-18],["72","Магадан","Сибирь и Дальний Восток",17,-29],["73","Сургут","Сибирь и Дальний Восток",25,-41],["74","Ханты-Мансийск","Сибирь и Дальний Восток",25,-40],["75","Новый Уренгой","Сибирь и Дальний Восток",23,-43],["76","Салехард","Сибирь и Дальний Восток",22,-42],["77","Норильск","Сибирь и Дальний Восток",21,-42],["78","Грозный (Чечня)","Северный Кавказ",31,-14],["79","Гудермес (Чечня)","Северный Кавказ",31,-14],["80","Аргун (Чечня)","Северный Кавказ",31,-14],["81","Шали (Чечня)","Северный Кавказ",30,-14],["82","Урус-Мартан (Чечня)","Северный Кавказ",30,-14],["83","Ведено (Чечня, горы)","Северный Кавказ",28,-14],["84","Магас (Ингушетия)","Северный Кавказ",29,-17],["85","Назрань (Ингушетия)","Северный Кавказ",30,-17],["86","Малгобек (Ингушетия)","Северный Кавказ",30,-17],["87","Махачкала (Дагестан)","Северный Кавказ",29,-8],["88","Каспийск (Дагестан)","Северный Кавказ",29,-8],["89","Дербент (Дагестан)","Северный Кавказ",30,-6],["90","Хасавюрт (Дагестан)","Северный Кавказ",31,-10],["91","Буйнакск (Дагестан)","Северный Кавказ",30,-12],["92","Владикавказ (Сев. Осетия)","Северный Кавказ",29,-15],["93","Беслан (Сев. Осетия)","Северный Кавказ",30,-15],["94","Нальчик (Кабардино-Балкария)","Северный Кавказ",30,-18],["95","Прохладный (Кабардино-Балкария)","Северный Кавказ",31,-18],["96","Черкесск (Карачаево-Черкесия)","Северный Кавказ",29,-18],["97","Пятигорск","Северный Кавказ",29,-18],["98","Минеральные Воды","Северный Кавказ",29,-18],["99","Кисловодск","Северный Кавказ",27,-17],["100","Алматы","Казахстан",33,-22],["101","Астана","Казахстан",29,-35],["102","Шымкент","Казахстан",36,-15],["103","Конаев (Капшагай)","Казахстан",34,-21],["104","Талдыкорган","Казахстан",33,-23],["105","Тараз","Казахстан",34,-17],["106","Туркестан","Казахстан",36,-15],["107","Кызылорда","Казахстан",36,-24],["108","Актау","Казахстан",33,-15],["109","Атырау","Казахстан",34,-24],["110","Уральск","Казахстан",32,-29],["111","Актобе","Казахстан",31,-31],["112","Костанай","Казахстан",30,-34],["113","Кокшетау","Казахстан",28,-35],["114","Петропавловск (КЗ)","Казахстан",28,-35],["115","Павлодар","Казахстан",31,-37],["116","Семей","Казахстан",32,-35],["117","Усть-Каменогорск","Казахстан",31,-32],["118","Караганда","Казахстан",29,-30],["119","Жезказган","Казахстан",33,-30],["120","Ташкент","Узбекистан",36,-12],["121","Самарканд","Узбекистан",36,-14],["122","Бухара","Узбекистан",38,-12],["123","Навои","Узбекистан",38,-13],["124","Карши","Узбекистан",38,-10],["125","Термез","Узбекистан",41,-4],["126","Андижан","Узбекистан",35,-12],["127","Фергана","Узбекистан",35,-11],["128","Наманган","Узбекистан",35,-13],["129","Джизак","Узбекистан",36,-12],["130","Ургенч","Узбекистан",37,-15],["131","Нукус","Узбекистан",36,-18],["132","Бишкек","Кыргызстан",33,-22],["133","Ош","Кыргызстан",34,-17],["134","Джалал-Абад","Кыргызстан",34,-14],["135","Баткен","Кыргызстан",35,-12],["136","Талас","Кыргызстан",31,-22],["137","Нарын","Кыргызстан",29,-31],["138","Каракол","Кыргызстан",27,-21],["139","Чолпон-Ата","Кыргызстан",27,-14],["140","Душанбе","Таджикистан",37,-12],["141","Худжанд","Таджикистан",37,-14],["142","Бохтар (Курган-Тюбе)","Таджикистан",38,-10],["143","Куляб","Таджикистан",38,-12],["144","Хорог","Таджикистан",30,-15],["145","Ашхабад","Туркменистан",40,-8],["146","Туркменабат","Туркменистан",40,-14],["147","Мары","Туркменистан",40,-11],["148","Дашогуз","Туркменистан",38,-18],["149","Туркменбаши","Туркменистан",33,-6],["150","Тбилиси","Грузия",34,-6],["151","Рустави","Грузия",34,-6],["152","Гори","Грузия",33,-8],["153","Телави","Грузия",34,-9],["154","Кутаиси","Грузия",33,-3],["155","Зугдиди","Грузия",31,-1],["156","Батуми","Грузия",29,0],["157","Ахалцихе","Грузия",28,-12],["158","Баку","Азербайджан",33,-3],["159","Сумгаит","Азербайджан",32,-4],["160","Гянджа","Азербайджан",37,-5],["161","Мингечевир","Азербайджан",37,-6],["162","Шеки","Азербайджан",33,-6],["163","Губа","Азербайджан",29,-7],["164","Ленкорань","Азербайджан",31,-1],["165","Нахичевань","Азербайджан",37,-12],["166","Ереван","Армения",35,-18],["167","Гюмри","Армения",29,-24],["168","Ванадзор","Армения",29,-17],["169","Севан","Армения",24,-20]];
+var CITY_F = ['city', 'Город, регион', CITY, 0];
+function cityOf(id) { return CITY[+id] || CITY[0]; }
+function cityApply(form) {
+  var s = form.elements.city; if (!s) return; var c = cityOf(s.value), el;
+  if ((el = form.elements.tOut)) el.value = c[3];
+  if ((el = form.elements.tWin)) el.value = c[4];
+  var h = document.getElementById('cityHint'); if (h) h.innerHTML = '<b>' + esc(c[1]) + ':</b> летом +' + c[3] + ' °C, зимой ' + String(c[4]).replace('-', '\u2212') + ' °C. Значения ориентировочные, их можно поправить в поле ниже.';
+}
 var CALCS = {
   holod: {
     L: 'H', title: 'Холодильная камера', lead: 'Холодопроизводительность камеры и структура теплопритоков. Для плюсовых и минусовых режимов.',
-    fields: [['L', 'Длина, м', 6, 1, 60, 0.5], ['W', 'Ширина, м', 4, 1, 60, 0.5], ['H', 'Высота, м', 3, 2, 15, 0.1], ['tRoom', 'Температура в камере, °C', 4, -45, 15, 1], ['panel', 'Панели PIR, мм', [['80', '80'], ['100', '100'], ['120', '120'], ['150', '150'], ['200', '200']], 1],
+    fields: [CITY_F, ['L', 'Длина, м', 6, 1, 60, 0.5], ['W', 'Ширина, м', 4, 1, 60, 0.5], ['H', 'Высота, м', 3, 2, 15, 0.1], ['tRoom', 'Температура в камере, °C', 4, -45, 15, 1], ['panel', 'Панели PIR, мм', [['80', '80'], ['100', '100'], ['120', '120'], ['150', '150'], ['200', '200']], 1],
       ['product', 'Продукция', [['dairy', 'Молочная продукция'], ['meat', 'Мясо, птица'], ['fish', 'Рыба'], ['apple', 'Яблоки'], ['potato', 'Картофель'], ['ready', 'Готовая продукция']], 0], ['mDay', 'Поступление продукции, кг/сут', 500, 0, 500000, 50], ['tIn', 'Температура при поступлении, °C', 12, -30, 40, 1], ['tOut', 'Расчётная t снаружи летом, °C', 28, 0, 45, 1], ['intensity', 'Открытие дверей', [['0.6', 'редко'], ['1', 'обычно'], ['1.6', 'часто']], 1]],
     calc: function (p) {
       var tR = p.tRoom, tO = p.tOut, U = PANEL_U[p.panel] || 0.18, prod = PR[p.product] || PR.ready, mDay = p.mDay, V = p.L * p.W * p.H, A = p.L * p.W, Aw = 2 * (p.L + p.W) * p.H, dW = tO - tR;
@@ -1244,7 +1319,7 @@ var CALCS = {
   },
   ventilyaciya: {
     L: 'V', title: 'Вентиляция', lead: 'Расход воздуха, сечение воздуховода и мощность калорифера для приточной системы.',
-    fields: [['type', 'Тип помещения', VT.map(function (v) { return [v[0], v[1]]; }), 0], ['A', 'Площадь, м²', 100, 5, 5000, 5], ['H', 'Высота, м', 3, 2, 15, 0.1], ['N', 'Людей, чел', 10, 0, 500, 1], ['norm', 'Проветривание', [['60', 'нет окон: 60 м³/ч на человека'], ['40', 'ограниченное: 40 м³/ч'], ['20', 'естественное: 20 м³/ч']], 0], ['Q', 'Избыточное тепло, кВт', 0, 0, 500, 0.5], ['dT', 'Допустимый перегрев воздуха, К', 6, 2, 12, 1], ['tWin', 'Расчётная t зимой, °C', -25, -45, 5, 1], ['tIn', 'Температура притока, °C', 20, 10, 30, 1], ['eta', 'Рекуперация тепла', [['0', 'нет'], ['50', 'пластинчатый, ≈ 50 %'], ['70', 'роторный, ≈ 70 %']], 0], ['v', 'Скорость в магистрали, м/с', [['4', '4 (тише)'], ['5', '5'], ['6', '6 (компактнее)']], 0]],
+    fields: [CITY_F, ['type', 'Тип помещения', VT.map(function (v) { return [v[0], v[1]]; }), 0], ['A', 'Площадь, м²', 100, 5, 5000, 5], ['H', 'Высота, м', 3, 2, 15, 0.1], ['N', 'Людей, чел', 10, 0, 500, 1], ['norm', 'Проветривание', [['60', 'нет окон: 60 м³/ч на человека'], ['40', 'ограниченное: 40 м³/ч'], ['20', 'естественное: 20 м³/ч']], 0], ['Q', 'Избыточное тепло, кВт', 0, 0, 500, 0.5], ['dT', 'Допустимый перегрев воздуха, К', 6, 2, 12, 1], ['tWin', 'Расчётная t зимой, °C', -25, -55, 5, 1], ['tIn', 'Температура притока, °C', 20, 10, 30, 1], ['eta', 'Рекуперация тепла', [['0', 'нет'], ['50', 'пластинчатый, ≈ 50 %'], ['70', 'роторный, ≈ 70 %']], 0], ['v', 'Скорость в магистрали, м/с', [['4', '4 (тише)'], ['5', '5'], ['6', '6 (компактнее)']], 0]],
     calc: function (p) {
       var kr = VT[Math.max(0, VT.map(function (v) { return v[0]; }).indexOf(p.type))][2], V = p.A * p.H, Lp = p.N * (+p.norm), Lk = V * kr, Lh = p.Q > 0 ? 2.985 * p.Q * 1000 / p.dT : 0, L = Math.max(Lp, Lk, Lh), Lr = Math.ceil(L / 50) * 50 || 50;
       var F = Lr / 3600 / (+p.v), D = Math.sqrt(4 * F / Math.PI) * 1000, SER = [100, 125, 160, 200, 250, 315, 400, 500, 630, 800, 1000, 1250], Ds = SER.filter(function (x) { return x >= D; })[0] || SER[SER.length - 1];
@@ -1271,7 +1346,7 @@ var CALCS = {
   },
   hranilishche: {
     L: 'F', title: 'Фруктохранилище', lead: 'Холодильная мощность хранилища для плодов и овощей: пик загрузки, режим хранения и число камер.',
-    fields: [['crop', 'Культура', [['apple', 'Яблоки'], ['pear', 'Груши'], ['potato', 'Картофель'], ['onion', 'Лук'], ['cabbage', 'Капуста']], 0], ['mode', 'Режим хранения', [['ca', 'Регулируемая атмосфера (РГС)'], ['reg', 'Обычное холодное хранение']], 0], ['cap', 'Вместимость, т', 5000, 100, 30000, 100], ['load', 'Загрузка урожая, т/сут', 400, 10, 3000, 10], ['tField', 'Температура плодов при загрузке, °C', 18, 2, 35, 1], ['H', 'Высота укладки, м', 6, 3, 12, 0.5], ['panel', 'Панели PIR, мм', [['100', '100'], ['120', '120'], ['150', '150'], ['200', '200']], 2], ['tOut', 'Расчётная t снаружи летом, °C', 30, 15, 45, 1]],
+    fields: [CITY_F, ['crop', 'Культура', [['apple', 'Яблоки'], ['pear', 'Груши'], ['potato', 'Картофель'], ['onion', 'Лук'], ['cabbage', 'Капуста']], 0], ['mode', 'Режим хранения', [['ca', 'Регулируемая атмосфера (РГС)'], ['reg', 'Обычное холодное хранение']], 0], ['cap', 'Вместимость, т', 5000, 100, 30000, 100], ['load', 'Загрузка урожая, т/сут', 400, 10, 3000, 10], ['tField', 'Температура плодов при загрузке, °C', 18, 2, 35, 1], ['H', 'Высота укладки, м', 6, 3, 12, 0.5], ['panel', 'Панели PIR, мм', [['100', '100'], ['120', '120'], ['150', '150'], ['200', '200']], 2], ['tOut', 'Расчётная t снаружи летом, °C', 28, 15, 45, 1]],
     calc: function (p) {
       var CR = { apple: { n: 'яблоки', t: 1, c: 3.65, r0: 11 }, pear: { n: 'груши', t: 0, c: 3.55, r0: 9 }, potato: { n: 'картофель', t: 4, c: 3.45, r0: 14 }, onion: { n: 'лук', t: 0, c: 3.60, r0: 6 }, cabbage: { n: 'капуста', t: 0, c: 3.90, r0: 12 } }, cr = CR[p.crop] || CR.apple, tR = cr.t, U = PANEL_U[p.panel] || 0.13;
       var V = p.cap / 0.25, A = V / p.H, L = Math.sqrt(2 * A), W = L / 2, Aw = 2 * (L + W) * p.H, dW = Math.max(0, p.tOut - tR);
@@ -1286,7 +1361,7 @@ var CALCS = {
   },
   klimat: {
     L: 'K', title: 'Кондиционирование', lead: 'Холодильная нагрузка помещения и ориентир по мощности системы кондиционирования.',
-    fields: [['A', 'Площадь, м²', 40, 5, 3000, 1], ['H', 'Высота, м', 3, 2, 12, 0.1], ['N', 'Людей, чел', 4, 0, 300, 1], ['Aw', 'Площадь остекления, м²', 6, 0, 500, 1], ['side', 'Сторона света остекления', [['s', 'юг'], ['ew', 'восток или запад'], ['n', 'север']], 1], ['shade', 'Защита от солнца', [['1', 'нет'], ['0.6', 'плёнка'], ['0.5', 'жалюзи снаружи']], 0], ['Lw', 'Длина наружной стены, м', 6, 0, 200, 1], ['eq', 'Оборудование, кВт', 0.5, 0, 200, 0.1], ['li', 'Освещение, Вт/м²', 12, 0, 40, 1], ['fr', 'Свежий воздух на человека', [['0', 'нет притока'], ['20', '20 м³/ч'], ['40', '40 м³/ч']], 1], ['tIn', 'Температура в помещении, °C', 24, 18, 28, 1], ['tOut', 'Расчётная t снаружи, °C', 30, 20, 45, 1], ['mg', 'Запас, %', 10, 0, 30, 5]],
+    fields: [CITY_F, ['A', 'Площадь, м²', 40, 5, 3000, 1], ['H', 'Высота, м', 3, 2, 12, 0.1], ['N', 'Людей, чел', 4, 0, 300, 1], ['Aw', 'Площадь остекления, м²', 6, 0, 500, 1], ['side', 'Сторона света остекления', [['s', 'юг'], ['ew', 'восток или запад'], ['n', 'север']], 1], ['shade', 'Защита от солнца', [['1', 'нет'], ['0.6', 'плёнка'], ['0.5', 'жалюзи снаружи']], 0], ['Lw', 'Длина наружной стены, м', 6, 0, 200, 1], ['eq', 'Оборудование, кВт', 0.5, 0, 200, 0.1], ['li', 'Освещение, Вт/м²', 12, 0, 40, 1], ['fr', 'Свежий воздух на человека', [['0', 'нет притока'], ['20', '20 м³/ч'], ['40', '40 м³/ч']], 1], ['tIn', 'Температура в помещении, °C', 24, 18, 28, 1], ['tOut', 'Расчётная t снаружи, °C', 28, 15, 45, 1], ['mg', 'Запас, %', 10, 0, 30, 5]],
     calc: function (p) {
       var qs = { s: 150, ew: 200, n: 80 }[p.side] || 150, Qpe = p.N * 115, Qsol = p.Aw * qs * (+p.shade), Qwall = 0.4 * Math.max(0, p.Lw * p.H - p.Aw) * Math.max(0, p.tOut - p.tIn), Qgl = 3 * p.Aw * Math.max(0, p.tOut - p.tIn);
       var Qeq = p.eq * 1000, Qli = p.li * p.A, Lf = p.N * (+p.fr), Qfa = Lf > 0 ? 1.2 * Lf / 3600 * Math.max(0, enth(p.tOut, 0.5) - enth(p.tIn, 0.5)) * 1000 : 0;
@@ -1322,6 +1397,11 @@ function readVals(key, f) {
 function calcFormHtml(key, vals) {
   return CALCS[key].fields.map(function (f) {
     var v = vals ? vals[f[0]] : null;
+    if (f[0] === 'city') {
+      var cur = cityOf(v != null ? v : f[3]), g = '', h = '';
+      f[2].forEach(function (o) { if (o[2] !== g) { if (g) h += '</optgroup>'; g = o[2]; h += '<optgroup label="' + g + '">'; } h += '<option value="' + o[0] + '"' + (o[0] === cur[0] ? ' selected' : '') + '>' + o[1] + '</option>'; });
+      return '<label class="fld-city"><span>' + f[1] + '</span><select name="city">' + h + '</optgroup></select><small class="city-hint" id="cityHint"><b>' + esc(cur[1]) + ':</b> летом +' + cur[3] + ' °C, зимой ' + String(cur[4]).replace('-', '\u2212') + ' °C. Значения ориентировочные, их можно поправить в поле ниже.</small></label>';
+    }
     if (Array.isArray(f[2])) return '<label><span>' + f[1] + '</span><select name="' + f[0] + '">' + f[2].map(function (o, i) { var sel = v != null ? String(v) === o[0] : i === f[3]; return '<option value="' + o[0] + '"' + (sel ? ' selected' : '') + '>' + o[1] + '</option>'; }).join('') + '</select></label>';
     return '<label><span>' + f[1] + '</span><input type="number" inputmode="decimal" name="' + f[0] + '" value="' + (v != null ? v : f[2]) + '" min="' + f[3] + '" max="' + f[4] + '" step="' + f[5] + '"></label>';
   }).join('');
@@ -1352,7 +1432,7 @@ function calcRefresh() {
 }
 function pageCalc(key, restore) {
   if (!CALCS[key]) key = 'holod'; var vals = restore && restore.key === key ? restore.vals : null;
-  var tabs = Object.keys(CALCS).map(function (k) { return '<a class="tab' + (k === key ? ' on' : '') + '" href="#raschet/' + k + '">' + CALCS[k].title + '</a>'; }).join('');
+  var tabs = Object.keys(CALCS).map(function (k) { return '<a class="tab' + (k === key ? ' on' : '') + '" href="#raschet/' + k + '"><span class="tab-i">' + (AI[k] || '') + '</span>' + CALCS[k].title + '</a>'; }).join('');
   return '<section class="shero"><div class="wrap"><nav class="crumbs" aria-label="Навигация"><a href="#">Главная</a><i>/</i><span>Онлайн-расчёты</span></nav><h1>Онлайн-расчёт: ' + CALCS[key].title.toLowerCase() + '</h1><p class="lead" style="font-size:18.5px;margin-top:14px;max-width:640px">' + CALCS[key].lead + ' Результат ориентировочный: итоговый проект подтверждает инженер.</p><div class="tabs">' + tabs + '</div></div></section>' +
     '<section><div class="wrap"><div class="v3d" id="v3d"><canvas id="c3d" role="img" aria-label="Интерактивная 3D-модель: размеры меняются вместе с параметрами расчёта"></canvas><div class="v3d-bar" role="group" aria-label="Вид"><button type="button" class="chip on" data-v="iso">3D</button><button type="button" class="chip" data-v="plan">План</button><button type="button" class="chip" data-v="side">Фасад</button></div><p class="v3d-cap" id="v3dCap"></p><p class="v3d-hint">Потяните модель, чтобы повернуть. Размеры меняются вместе с полями расчёта.</p></div><div class="calc"><form class="calc-f" id="cf" data-k="' + key + '" onsubmit="return false">' + calcFormHtml(key, vals) + '</form><div class="calc-r" id="cr" aria-live="polite"></div></div>' +
     '<div class="restore"><label for="rcode">Уже есть код расчёта?</label><div class="restore-row"><input id="rcode" type="text" autocomplete="off" autocapitalize="characters" placeholder="RS-H-…"><button type="button" class="btn btn-line btn-sm" id="rcodeGo">Открыть расчёт</button></div><p id="rcodeErr" class="calc-w" hidden>Код не распознан. Проверьте, что он введён полностью.</p></div>' +
@@ -1360,8 +1440,8 @@ function pageCalc(key, restore) {
     ctaBand('Нужен точный расчёт и проект?', 'Назовите код расчёта по телефону или отправьте на почту. Мы откроем ваши параметры и предложим решение.');
 }
 
-document.addEventListener('input', function (e) { if (e.target.form && e.target.form.id === 'cf') calcRefresh(); });
-document.addEventListener('change', function (e) { if (e.target.form && e.target.form.id === 'cf') calcRefresh(); });
+document.addEventListener('input', function (e) { if (e.target.form && e.target.form.id === 'cf') { if (e.target.name === 'city') cityApply(e.target.form); calcRefresh(); } });
+document.addEventListener('change', function (e) { if (e.target.form && e.target.form.id === 'cf') { if (e.target.name === 'city') cityApply(e.target.form); calcRefresh(); } });
 document.addEventListener('click', function (e) {
   if (e.target.id === 'codeCp') { var t = document.getElementById('codeV').textContent; try { navigator.clipboard.writeText(t).then(function () { toast('Код скопирован'); }); } catch (x) { } }
   if (e.target.id === 'calcLink') { var cd = document.getElementById('codeV').textContent, k = document.getElementById('cf').getAttribute('data-k'); copyText(location.origin + location.pathname + '#raschet/' + k + '/' + cd, 'Ссылка скопирована'); }
