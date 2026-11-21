@@ -2,7 +2,7 @@
 <html lang="ru"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="37">
+<meta name="app-version" content="38">
 <meta name="color-scheme" content="only light">
 <meta name="theme-color" content="#ffffff">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
@@ -857,7 +857,7 @@ var SVC_DESC = {
   'holodilnye-kamery': 'Холодильные камеры под ключ: расчёт, монтаж панелей и холодильного контура, автоматика, сдача. 11 объектов с фото. РОЙ-СТРОЙ, Москва.'
 };
 var STEPS = [
-  ['Онлайн-расчёт на сайте', 'Прикиньте нагрузку и режим камеры или системы в онлайн-расчёте: без регистрации и персональных данных. Короткий код расчёта пришлите нам, мы продолжим с ваших цифр.'],
+  ['Онлайн-расчёт на сайте', 'Выполните предварительный расчёт онлайн: нагрузку и режим камеры или системы. Без регистрации и персональных данных. Короткий код расчёта пришлите нам, мы продолжим с ваших цифр.'],
   ['Заявка и вводные', 'Звоните или пишите: уточним объект, задачу, сроки и температурный режим.'],
   ['Выезд и расчёт', 'Осматриваем помещение, считаем нагрузки и подбираем оборудование под ваш режим работы.'],
   ['Проект и смета', 'Согласуем решение, состав работ и стоимость до начала монтажа, без сюрпризов в процессе.'],
@@ -969,7 +969,7 @@ function pageHome() {
     '<section id="raschet"><div class="wrap"><div class="sec-head"><div class="kicker">Онлайн-расчёты</div><h2>Оцените проект за пару минут</h2><p>Пять расчётов: холодильная камера, шоковая заморозка, фруктохранилище, вентиляция и кондиционирование. Каждому расчёту присваивается код: назовите его нам по телефону или отправьте на почту, персональные данные не нужны.</p></div><div class="why-grid w3">' +
       [['ventilyaciya', 'Вентиляция', 'Расход воздуха, воздуховод и мощность калорифера.'], ['klimat', 'Кондиционирование', 'Холодильная нагрузка и ориентир по оборудованию.'], ['holod', 'Холодильные камеры', 'Холодопроизводительность и структура теплопритоков.'], ['zamorozka', 'Шоковая заморозка', 'Время заморозки, мощность камеры и размер партии.'], ['hranilishche', 'Фруктохранилище', 'Пик загрузки, режим хранения и число камер РГС.']].map(function (o, i) { return '<a class="obj-t" href="#raschet/' + o[0] + '"><i class="cn">' + (i + 1) + '</i><b>' + o[1] + '</b><span>' + o[2] + '</span></a>'; }).join('') +
     '</div></div></section>' +
-    '<section id="process"><div class="wrap"><div class="sec-head"><div class="kicker">Как мы работаем</div><h2>Семь шагов от первого расчёта до сервиса</h2></div>' + stepsHtml() + '</div></section>' +
+    '<section id="process"><div class="wrap"><div class="sec-head"><div class="kicker">Как мы работаем</div><h2>Семь шагов от онлайн-расчёта до сервиса</h2></div>' + stepsHtml() + '</div></section>' +
     '<section id="faq" class="band"><div class="wrap"><div class="sec-head"><div class="kicker">Вопросы</div><h2>Частые вопросы</h2></div>' + faqHtml(FAQ) + '</div></section>' +
     '<section id="kontakty" class="contacts"><div class="wrap"><div class="sec-head"><div class="kicker">Контакты</div><h2>Позвоните или напишите</h2><p>Расскажите об объекте и задаче, мы уточним детали и предложим выезд на расчёт.</p></div>' +
       '<div class="ct-grid"><div class="ct-card"><h3>Связаться напрямую</h3><div class="ct-lines">' +
@@ -1012,7 +1012,7 @@ function svcPhotos(slug) {
 function calcBlock(slug) {
   var ks = SVC_CALC[slug]; if (!ks) return '';
   var first = ks[0], rest = Object.keys(CALCS).filter(function (k) { return ks.indexOf(k) < 0; });
-  return '<section class="band calc-cta"><div class="wrap"><div class="sec-head"><div class="kicker">Онлайн-расчёт</div><h2>Прикиньте параметры сами за пару минут</h2><p>Введите размеры и режим: рядом сразу появится 3D-модель и мощность оборудования. Код расчёта можно прислать нам, персональные данные не нужны.</p></div><div class="calc-cards">' +
+  return '<section class="band calc-cta"><div class="wrap"><div class="sec-head"><div class="kicker">Онлайн-расчёт</div><h2>Рассчитайте параметры онлайн за пару минут</h2><p>Введите размеры и режим: рядом сразу появится 3D-модель и мощность оборудования. Код расчёта можно прислать нам, персональные данные не нужны.</p></div><div class="calc-cards">' +
     ks.map(function (k, i) { return '<a class="calc-card' + (i === 0 ? ' main' : '') + '" href="#raschet/' + k + '"><i class="cc-ic">' + (AI[k] || IC.calc) + '</i><b>' + CALCS[k].title + '</b><span>' + CALCS[k].lead + '</span><em>Рассчитать' + IC.arrow + '</em></a>'; }).join('') +
     '</div><div class="calc-more"><small>Другие расчёты:</small>' + rest.map(function (k) { return '<a class="chip" href="#raschet/' + k + '">' + CALCS[k].title + '</a>'; }).join('') + '</div></div></section>';
 }
@@ -1335,11 +1335,11 @@ function prAfter() { if (prTitle !== null) { document.title = prTitle; prTitle =
 window.addEventListener('beforeprint', prBefore); window.addEventListener('afterprint', prAfter);
 /* update notice */
 (function () {
-  var V = '37', box = document.getElementById('upd'); if (!box) return;
+  var V = '38', box = document.getElementById('upd'); if (!box) return;
   function show(h) { box.innerHTML = h; box.hidden = false; }
   try {
     var prev = localStorage.getItem('rs_ver');
-    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v37.</b> PDF расчёта: название страницы не печатается, шапка и подвал есть всегда, код в шапке и в конце.</span><button type="button" id="updX">Понятно</button>'); }
+    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v38.</b> Уточнены формулировки про онлайн-расчёт на главной и в разделе «Как работаем».</span><button type="button" id="updX">Понятно</button>'); }
     localStorage.setItem('rs_ver', V);
   } catch (e) { }
   box.addEventListener('click', function (e) {
