@@ -2,7 +2,7 @@
 <html lang="ru"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="34">
+<meta name="app-version" content="35">
 <meta name="color-scheme" content="only light">
 <meta name="theme-color" content="#ffffff">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
@@ -1305,14 +1305,14 @@ document.addEventListener('pointermove', function (e) {
 
 /* print header/footer for calculators */
 (function () {
-  var TT = { holod: 'Тепловой расчёт холодильной камеры', zamorozka: 'Тепловой расчёт камеры шоковой заморозки', hranilishche: 'Расчёт фруктохранилища', ventilyaciya: 'Расчёт вентиляции', klimat: 'Расчёт кондиционирования' };
+  var TT = { holod: 'холодильной камеры', zamorozka: 'шоковой заморозки', hranilishche: 'фруктохранилища', ventilyaciya: 'вентиляции', klimat: 'кондиционирования' };
   function before() {
     var app = document.getElementById('app'), p = parseHash(); if (!app || p[0] !== 'raschet') return; after();
     var h = document.createElement('div'); h.id = 'prHead'; h.className = 'pr-only pr-head';
     h.innerHTML = '<div class="pb"><svg viewBox="33 26 824 571" aria-hidden="true"><use href="#logo"/></svg><span><b>РОЙ-СТРОЙ</b><small>Строительство, инженерные сети</small></span></div><div class="pc">' + PHONE + '<br>' + MAIL2 + '<br>Москва</div>';
     app.insertBefore(h, app.firstChild);
     var ag = document.querySelector('.ag-sign'), f = document.createElement('div'); f.id = 'prFoot'; f.className = 'pr-only pr-foot';
-    f.innerHTML = '<p><b>Онлайн-расчёт:</b> ' + (TT[p[1]] || 'расчёт') + '. Категория компании «РОЙ-СТРОЙ». Результат ориентировочный, окончательные параметры подтверждаются проектом.</p><div class="pr-ag">' + (ag ? ag.outerHTML : '') + '<a href="https://t.me/a7grey"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" style="vertical-align:-2px"><path d="M21.5 3.5 2.6 10.8c-.9.4-.9 1.1-.2 1.3l4.8 1.5 1.9 5.7c.2.6.5.7 1 .3l2.7-2.2 4.9 3.6c.9.5 1.5.2 1.8-.8l3.2-15.2c.3-1.3-.5-1.9-1.4-1.5zM8.4 13.3l9.5-6c.5-.3.9-.1.5.2l-7.9 7.1-.3 3.3z"/></svg> @a7grey</a></div>';
+    f.innerHTML = '<p><b>Онлайн-расчёт:</b> ' + (TT[p[1]] || 'расчёта') + '. Результат ориентировочный, окончательные параметры подтверждаются проектом.</p><div class="pr-ag">' + (ag ? ag.outerHTML : '') + '<a href="https://t.me/a7grey"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true" style="vertical-align:-2px"><path d="M21.5 3.5 2.6 10.8c-.9.4-.9 1.1-.2 1.3l4.8 1.5 1.9 5.7c.2.6.5.7 1 .3l2.7-2.2 4.9 3.6c.9.5 1.5.2 1.8-.8l3.2-15.2c.3-1.3-.5-1.9-1.4-1.5zM8.4 13.3l9.5-6c.5-.3.9-.1.5.2l-7.9 7.1-.3 3.3z"/></svg> @a7grey</a></div>';
     app.appendChild(f);
   }
   function after() { ['prHead', 'prFoot'].forEach(function (i) { var e = document.getElementById(i); if (e) e.remove(); }); }
@@ -1320,11 +1320,11 @@ document.addEventListener('pointermove', function (e) {
 })();
 /* update notice */
 (function () {
-  var V = '34', box = document.getElementById('upd'); if (!box) return;
+  var V = '35', box = document.getElementById('upd'); if (!box) return;
   function show(h) { box.innerHTML = h; box.hidden = false; }
   try {
     var prev = localStorage.getItem('rs_ver');
-    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v34.</b> Короткий код расчёта, PDF с шапкой и подписью, панели до 250 мм, меню закрывается после выбора, крупнее логотип.</span><button type="button" id="updX">Понятно</button>'); }
+    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v35.</b> Уточнена подпись в PDF-версии расчёта.</span><button type="button" id="updX">Понятно</button>'); }
     localStorage.setItem('rs_ver', V);
   } catch (e) { }
   box.addEventListener('click', function (e) {
