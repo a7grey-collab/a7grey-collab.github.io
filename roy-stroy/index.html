@@ -2,7 +2,7 @@
 <html lang="ru"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="40">
+<meta name="app-version" content="41">
 <meta name="color-scheme" content="only light">
 <meta name="theme-color" content="#ffffff">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
@@ -1330,11 +1330,11 @@ function prAfter() { if (prTitle !== null) { document.title = prTitle; prTitle =
 window.addEventListener('beforeprint', prBefore); window.addEventListener('afterprint', prAfter);
 /* update notice */
 (function () {
-  var V = '40', box = document.getElementById('upd'); if (!box) return;
+  var V = '41', box = document.getElementById('upd'); if (!box) return;
   function show(h) { box.innerHTML = h; box.hidden = false; }
   try {
     var prev = localStorage.getItem('rs_ver');
-    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v40.</b> В расчёте холодильных камер продукцию выбирают первой, температура ограничена продуктом. Уточнены диапазоны для фруктохранилищ.</span><button type="button" id="updX">Понятно</button>'); }
+    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v41.</b> Замороженная рыба: температура хранения −30…−18 °C, не теплее −18 °C.</span><button type="button" id="updX">Понятно</button>'); }
     localStorage.setItem('rs_ver', V);
   } catch (e) { }
   box.addEventListener('click', function (e) {
@@ -1373,7 +1373,7 @@ PR.icecream = { n: 'Мороженое', c1: 3.30, c2: 1.85, L: 200, tf: -5.5, r
 PR.meatF = PR.meat; PR.fishF = PR.fish; PR.readyF = PR.ready;
 PR.veg = { n: 'Овощи, фрукты, зелень', c1: 3.80, c2: 1.90, L: 300, tf: -0.8, r5: 6.0, q10: 2.2 };
 /* допустимая температура хранения по продукции, °C: [мин, макс], по умолчанию, температура при поступлении */
-var PTR = { dairy: [0, 5], icecream: [-25, -18], meat: [-2, 2], meatF: [-30, -18], fish: [-2, 2], fishF: [-30, -14], veg: [0, 8], apple: [-1, 2], potato: [2, 8], ready: [0, 6], readyF: [-30, -18] };
+var PTR = { dairy: [0, 5], icecream: [-25, -18], meat: [-2, 2], meatF: [-30, -18], fish: [-2, 2], fishF: [-30, -18], veg: [0, 8], apple: [-1, 2], potato: [2, 8], ready: [0, 6], readyF: [-30, -18] };
 var PTD = { dairy: 2, icecream: -20, meat: 0, meatF: -20, fish: 0, fishF: -20, veg: 4, apple: 1, potato: 4, ready: 2, readyF: -20 };
 var PTI = { dairy: 6, icecream: -12, meat: 4, meatF: -12, fish: 2, fishF: -12, veg: 12, apple: 12, potato: 10, ready: 8, readyF: -12 };
 function psat(t) { return 0.61094 * Math.exp(17.625 * t / (t + 243.04)); }
