@@ -2,7 +2,7 @@
 <html lang="ru"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="43">
+<meta name="app-version" content="44">
 <meta name="color-scheme" content="only light">
 <meta name="theme-color" content="#ffffff">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
@@ -596,7 +596,7 @@ body.menu-open .fab,body.lb-open .fab,body.inst-open .fab,body:not(.ready) .fab{
     <div><h4>Разделы</h4><ul><li><a href="#referencii">Объекты</a></li><li><a href="#process">Как работаем</a></li><li><a href="#faq">Вопросы</a></li><li><a href="#kontakty">Контакты и реквизиты</a></li><li><a href="#privacy">Политика конфиденциальности</a></li></ul></div>
     <div><h4>Контакты</h4><ul><li><a href="tel:+79381539999">+7 (938) 153-99-99</a></li><li><a href="mailto:Rz-holod@mail.ru">Rz-holod@mail.ru</a></li><li><a href="mailto:roy.stroy@bk.ru">roy.stroy@bk.ru</a></li></ul><p class="foot-tag" style="margin-top:10px">129090, г. Москва, пр-кт Мира, д. 19, стр. 1, помещение 1/2</p><button type="button" class="btn btn-line btn-sm" id="openInstall"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M12 7v7m0 0-2.5-2.5M12 14l2.5-2.5"/></svg> Установить как приложение</button></div>
   </div>
-  <p class="foot-note">Сайт дорабатывается и скоро переедет на новый домен. Иллюстративные фотографии в разделах направлений: Unsplash.</p>
+  <p class="foot-note">Сайт дорабатывается и скоро переедет на новый домен.</p>
   <div class="foot-bottom"><span>Сайт не использует cookie и не собирает персональные данные через формы.</span><span>© РОЙ-СТРОЙ. ИНН 9702056441, ОГРН 1237700334849</span></div>
 </div>
 </footer>
@@ -998,7 +998,7 @@ var AI = {
   klimat: '<svg class="ai ai-ac" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="8" rx="2.5"/><path d="M7 9h10"/><path class="ai-w1" d="M7 16c0 1.6 1.2 1.6 1.2 3.2"/><path class="ai-w2" d="M12 16c0 1.6 1.2 1.6 1.2 3.2"/><path class="ai-w3" d="M17 16c0 1.6 1.2 1.6 1.2 3.2"/></svg>',
   hranilishche: '<svg class="ai ai-th" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14.2V5a2 2 0 1 1 4 0v9.2a4 4 0 1 1-4 0Z"/><path class="ai-hg" d="M12 17V9" stroke-width="2.4"/></svg>'
 };
-var SVC_PH = { klimat: [['img/svc_klimat.jpg', 'Наружные блоки кондиционирования на фасаде здания'], ['img/svc_klimat2.jpg', 'Воздуховоды приточно-вытяжной вентиляции под потолком']], zamorozka: [['img/svc_zamorozka.jpg', 'Замороженные ягоды и фрукты с инеем']], chillery: [['img/svc_chillery.jpg', 'Градирни системы водяного охлаждения']], agrosektor: [['img/svc_agrosektor.jpg', 'Птицы на выгуле у фермерского птичника']], fruktohranilishcha: [['img/svc_fruktohranilishcha.jpg', 'Ящик с яблоками урожая']], 'holodilnye-kamery': [['img/svc_holodilnye-kamery.jpg', 'Склад с палетными стеллажами и погрузчиком']], stroitelstvo: [['img/svc_stroitelstvo.jpg', 'Металлический каркас здания под солнцем']], kapremont: [['img/svc_kapremont.jpg', 'Фасад здания в строительных лесах при капитальном ремонте']] };
+var SVC_PH = { klimat: [['img/svc_klimat.jpg', 'Наружные блоки кондиционирования на фасаде здания'], ['img/svc_klimat2.jpg', 'Воздуховоды приточно-вытяжной вентиляции под потолком']], zamorozka: [['img/svc_zamorozka.jpg', 'Яркие сочные ягоды для заморозки']], chillery: [['img/svc_chillery.jpg', 'Градирни системы водяного охлаждения']], agrosektor: [['img/svc_agrosektor.jpg', 'Птицы на выгуле у фермерского птичника']], fruktohranilishcha: [['img/svc_fruktohranilishcha.jpg', 'Ящик с яблоками урожая']], 'holodilnye-kamery': [['img/svc_holodilnye-kamery.jpg', 'Склад с палетными стеллажами и погрузчиком']], stroitelstvo: [['img/svc_stroitelstvo.jpg', 'Металлический каркас здания под солнцем']], kapremont: [['img/svc_kapremont.jpg', 'Фасад здания в строительных лесах при капитальном ремонте']] };
 function svcPhotos(slug) {
   var a = SVC_PH[slug]; if (!a) return '';
   return '<section class="svc-ph-s"><div class="wrap"><div class="svc-ph' + (a.length > 1 ? ' two' : '') + '">' + a.map(function (p) { return '<figure><img loading="lazy" decoding="async" src="' + p[0] + '" alt="' + esc(p[1]) + '"></figure>'; }).join('') + '</div></div></section>';
@@ -1329,11 +1329,11 @@ function prAfter() { if (prTitle !== null) { document.title = prTitle; prTitle =
 window.addEventListener('beforeprint', prBefore); window.addEventListener('afterprint', prAfter);
 /* update notice */
 (function () {
-  var V = '43', box = document.getElementById('upd'); if (!box) return;
+  var V = '44', box = document.getElementById('upd'); if (!box) return;
   function show(h) { box.innerHTML = h; box.hidden = false; }
   try {
     var prev = localStorage.getItem('rs_ver');
-    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v43.</b> Блок «Состав оборудования» в расчётах камер, шоковой заморозки и хранилищ; исправлены тёмные кнопки-вкладки при тёмной теме телефона.</span><button type="button" id="updX">Понятно</button>'); }
+    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v44.</b> Более яркое и сочное фото в разделе «Шоковая заморозка»; убрана строка про источник иллюстраций в подвале.</span><button type="button" id="updX">Понятно</button>'); }
     localStorage.setItem('rs_ver', V);
   } catch (e) { }
   box.addEventListener('click', function (e) {
