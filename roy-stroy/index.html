@@ -2,7 +2,7 @@
 <html lang="ru"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="41">
+<meta name="app-version" content="43">
 <meta name="color-scheme" content="only light">
 <meta name="theme-color" content="#ffffff">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
@@ -541,7 +541,6 @@ body.menu-open .fab,body.lb-open .fab,body.inst-open .fab,body:not(.ready) .fab{
 .restore-row input{flex:1 1 200px;min-height:44px;border:1.5px solid var(--line);border-radius:12px;padding:0 14px;font:inherit;text-transform:uppercase}
 .btn-sm{min-height:44px;padding:0 16px;font-size:15px}
 .calc-w{color:#9a5b00;background:#fff6e5;border-radius:10px;padding:10px 12px;font-size:14px;margin:10px 0 0}
-@media (prefers-color-scheme:dark){.dd-m,.stat,.sec-i,.tab,.code-box{background:#161d24}.tab.on{background:#e8edf2;color:#10161c}.turnkey{background:#1c2630}.calc-w{background:#2b2312;color:#f0c674}}
 .calc-r{grid-template-columns:minmax(0,1fr);min-width:0}.calc>*{min-width:0}
 .calc-r .leg{list-style:none;padding:0;margin:0;display:grid;gap:6px}
 .calc-r .leg li{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:8px;align-items:center;font-size:14.5px}
@@ -1330,11 +1329,11 @@ function prAfter() { if (prTitle !== null) { document.title = prTitle; prTitle =
 window.addEventListener('beforeprint', prBefore); window.addEventListener('afterprint', prAfter);
 /* update notice */
 (function () {
-  var V = '41', box = document.getElementById('upd'); if (!box) return;
+  var V = '43', box = document.getElementById('upd'); if (!box) return;
   function show(h) { box.innerHTML = h; box.hidden = false; }
   try {
     var prev = localStorage.getItem('rs_ver');
-    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v41.</b> Замороженная рыба: температура хранения −30…−18 °C, не теплее −18 °C.</span><button type="button" id="updX">Понятно</button>'); }
+    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v43.</b> Блок «Состав оборудования» в расчётах камер, шоковой заморозки и хранилищ; исправлены тёмные кнопки-вкладки при тёмной теме телефона.</span><button type="button" id="updX">Понятно</button>'); }
     localStorage.setItem('rs_ver', V);
   } catch (e) { }
   box.addEventListener('click', function (e) {
@@ -1376,6 +1375,18 @@ PR.veg = { n: 'Овощи, фрукты, зелень', c1: 3.80, c2: 1.90, L: 3
 var PTR = { dairy: [0, 5], icecream: [-25, -18], meat: [-2, 2], meatF: [-30, -18], fish: [-2, 2], fishF: [-30, -18], veg: [0, 8], apple: [-1, 2], potato: [2, 8], ready: [0, 6], readyF: [-30, -18] };
 var PTD = { dairy: 2, icecream: -20, meat: 0, meatF: -20, fish: 0, fishF: -20, veg: 4, apple: 1, potato: 4, ready: 2, readyF: -20 };
 var PTI = { dairy: 6, icecream: -12, meat: 4, meatF: -12, fish: 2, fishF: -12, veg: 12, apple: 12, potato: 10, ready: 8, readyF: -12 };
+/* состав поставки: ориентировочно, по геометрии и мощности */
+function specRows(rooms, panel, nt, qrooms, qtot, t0, tk, big) {
+  var pcs = 0, area = 0, doors = 0, ev = 0, evq = 0;
+  rooms.forEach(function (r, i) {
+    var L = r[0], W = r[1], H = r[2], A = L * W, wallN = Math.ceil(2 * (L + W)), roofN = Math.ceil(W), floorN = nt ? Math.ceil(W) : 0, q = qrooms[i];
+    pcs += wallN + roofN + floorN; area += (2 * (L + W) * H + A * (nt ? 2 : 1)) * 1.08; doors += big ? 1 : Math.max(1, Math.ceil(A / 60));
+    var n = Math.max(1, Math.ceil(q / (big ? 40000 : 16000)), Math.ceil(L / (big ? 12 : 9))); ev += n; evq = Math.max(evq, q / n);
+  });
+  var rows = [['Сэндвич-панели PIR ' + panel + ' мм', pcs + ' шт, ≈ ' + fmtN(area, 0) + ' м² с запасом 8 %'], [big ? 'Двери и ворота загрузки' : 'Распашные двери' + (nt ? ' с обогревом рамы' : ''), doors + ' шт'], ['Воздухоохладители', ev + ' шт, до ' + fmtN(evq / 1000, 1) + ' кВт каждый'], ['Холодильный агрегат', 'Q₀ ≈ ' + fmtN(qtot / 1000, 1) + ' кВт при t₀ ' + fmtN(t0, 0).replace('-', '\u2212') + ' °C, tк ' + tk + ' °C']];
+  if (nt) rows.push(['Подогрев пола и дверного проёма', 'нужен']);
+  return rows;
+}
 function psat(t) { return 0.61094 * Math.exp(17.625 * t / (t + 243.04)); }
 function enth(t, rh) { var pv = rh * psat(t), w = 0.622 * pv / (101.325 - pv); return 1.006 * t + w * (2501 + 1.86 * t); }
 function fmtN(x, d) { return x.toLocaleString('ru-RU', { maximumFractionDigits: d == null ? 1 : d, minimumFractionDigits: 0 }); }
@@ -1455,6 +1466,7 @@ var CALCS = {
       var cop = cy ? cy.cop : 0;
       return { main: [fmtN(q0 / 1000) + ' кВт', 'холодопроизводительность при t₀ = ' + fmtN(t0, 0) + ' °C, tк = ' + tk + ' °C'], kv: [[fmtN(V) + ' м³', 'объём камеры'], [fmtN(q0 / V, 0) + ' Вт/м³', 'удельная нагрузка'], ['≈ ' + fmtN(cap, 1) + ' т', 'вместимость камеры'], [fmtN(turn, 1) + ' %', 'суточный оборот'], [cy ? fmtN(cy.Pel, 1) + ' кВт' : '—', 'электрическая мощность компрессора'], [cy ? fmtN(cop, 2) : '—', 'холодильный коэффициент COP'], ['≈ ' + fmtN(Aev, 0) + ' м²', 'поверхность воздухоохладителя']],
         parts: [['Через ограждения', Qtr], ['Охлаждение продукта', Qp], ['Дыхание продукции', Qr], ['Воздухообмен, двери', Qinf], ['Люди и свет', Qint], ['Вентиляторы и оттайка', Qfan + Qdef]], unit: 'W', warn: w, cyc: cp.rows, sum: 'Q0 ≈ ' + fmtN(q0 / 1000) + ' кВт, t₀ ' + fmtN(t0, 0) + ' °C, tк ' + tk + ' °C',
+        spec: specRows([[p.L, p.W, p.H]], p.panel, nt, [q0], q0, t0, tk),
         auto: { tOutA: fT(cl.s) + ' · ' + cl.nm, tkA: fmtN(tk) + ' °C · ' + tierName(tk), t0A: fT(t0, 1), shA: sh + ' K', scA: sc + ' K' } };
     }
   },
@@ -1488,6 +1500,7 @@ var CALCS = {
       if (p.tAir > p.tEnd - 8) w.push('Температура воздуха должна быть заметно ниже конечной температуры изделия.');
       if (p.tEnd > -12) w.push('Для длительного хранения продукт обычно замораживают до −18 °C и ниже.');
       return { main: [fmtN(q0 / 1000) + ' кВт', 'холодопроизводительность при t₀ = ' + fmtN(t0, 0) + ' °C, tк = ' + tk + ' °C'], kv: [[fmtN(tau, 1) + ' ч', 'время заморозки (ориентир)'], [fmtN(cyc, 0) + ' ' + plural(cyc, ['цикл', 'цикла', 'циклов']) + ' в сутки', 'с загрузкой и выгрузкой'], [fmtN(batch, 0) + ' кг', 'размер одной партии'], [fmtN(dh, 0) + ' кДж/кг', 'отбор тепла у продукта'], [cy ? fmtN(cy.Pel, 1) + ' кВт' : '—', 'электрическая мощность компрессора'], [cy ? fmtN(cy.cop, 2) : '—', 'холодильный коэффициент COP']], parts: [['Заморозка продукта', Qp], ['Вентиляторы', Qfan], ['Оттайка', Qdef], ['Ограждения и двери', Qenc]], unit: 'W', warn: w, cyc: cp.rows, sum: 'Q0 ≈ ' + fmtN(q0 / 1000) + ' кВт, цикл ≈ ' + fmtN(tau, 1) + ' ч, партия ≈ ' + fmtN(batch, 0) + ' кг',
+        spec: specRows([[Lc, Wc, Hc]], p.panel, true, [q0], q0, t0, tk),
         auto: { tOutA: fT(cl.s) + ' · ' + cl.nm, tkA: fmtN(tk) + ' °C · ' + tierName(tk), t0A: fT(t0, 1), shA: sh + ' K', scA: sc + ' K' } };
     }
   },
@@ -1519,6 +1532,7 @@ var CALCS = {
       if (p.dT > 8) w.push('Δt больше 8 K: воздух пересушивается, плоды теряют массу. Для плодов держат Δt около 5–6 K.');
       return { main: [fmtN(peak / 1000, 0) + ' кВт', 'пиковая холодопроизводительность (' + cr.n + ', ' + fmtN(tR, 1) + ' °C)'], kv: [[fmtN(hold / 1000, 0) + ' кВт', 'режим хранения'], [fmtN(Vg, 0) + ' м³', 'объём хранилища'], [fmtN(cap, 0) + ' т', 'общая вместимость, ' + n + ' ' + plural(n, ['камера', 'камеры', 'камер'])], [fmtN(intake, 0) + ' т/сут', 'суточное поступление'], [fmtN(season, 0) + ' сут', 'срок загрузки хранилища'], [fmtN(chPk / 1000, 0) + ' кВт', 'на самую крупную камеру в загрузке'], [cy ? fmtN(cy.Pel, 0) + ' кВт' : '—', 'электрическая мощность компрессоров'], [cy ? fmtN(cy.cop, 2) : '—', 'холодильный коэффициент COP']],
         parts: [['Через ограждения', Qtr], ['Охлаждение плодов', Qpk], ['Дыхание плодов', Qr + Qrin], ['Вентиляторы и оттайка', Qfan + Qdef], ['Люди и свет', Qint]], unit: 'W', warn: w, cyc: cp.rows, sum: 'Q0 пик ≈ ' + fmtN(peak / 1000, 0) + ' кВт, хранение ≈ ' + fmtN(hold / 1000, 0) + ' кВт, ' + n + ' камер, ' + fmtN(cap, 0) + ' т',
+        spec: (function () { var rooms = [], qs = []; caps.forEach(function (c) { var Ac = c / 0.25 / Hh * 1.12, Lq = Math.sqrt(1.6 * Ac); rooms.push([Lq, Ac / Lq, Hh]); qs.push(chPk * c / mx); }); return specRows(rooms, p.panel, false, qs, peak, t0, tk, true); })(),
         auto: { tOutA: fT(cl.s) + ' · ' + cl.nm, tkA: fmtN(tk) + ' °C · ' + tierName(tk), capA: fmtN(cap, 0) + ' т (' + n + ' ' + plural(n, ['камера', 'камеры', 'камер']) + ')', intakeA: fmtN(intake, 0) + ' т/сут', seasonA: fmtN(season, 0) + ' сут', t0A: fT(t0, 1), shA: sh + ' K', scA: sc + ' K' } };
     }
   },
@@ -1621,12 +1635,13 @@ function calcRefresh() {
   if (CALCS[key].dyn) { var dy = CALCS[key].dyn(vals); Object.keys(dy).forEach(function (k) { var el = f.elements[k], g = document.getElementById('rg_' + k); if (el) { el.min = dy[k][0]; el.max = dy[k][1]; } if (g) g.textContent = '(' + String(dy[k][0]).replace('-', '\u2212') + '…' + String(dy[k][1]).replace('-', '\u2212') + ')'; }); }
   var tot = r.parts.reduce(function (s, x) { return s + x[1]; }, 0) || 1, pu = r.unit === 'air' ? ' м³/ч' : ' кВт', pv = function (w) { return r.unit === 'air' ? fmtN(w, 0) : fmtN(w / 1000, 2); };
   var code = encCode(key, vals), lines = uf(key).filter(function (fd) { return !/^ch(\d+)$/.test(fd[0]) || +RegExp.$1 <= +vals.nCh; }).map(function (fd) { var v = vals[fd[0]]; if (Array.isArray(fd[2])) { v = fd[2].filter(function (o) { return o[0] === String(v); })[0][1]; } if (fd[3] === 'chk') v = v ? 'да' : 'нет'; return fd[1] + ': ' + v; });
-  try { v3dUpdate(key, vals, r); } catch (e) { } var shareUrl = location.origin + location.pathname + '#raschet/' + key + '/' + code; saveHist(key, code, r.sum); var body = 'Код расчёта: ' + code + '\nРасчёт: ' + CALCS[key].title + '\nРезультат: ' + r.sum + '\n\nИсходные данные:\n' + lines.join('\n') + (r.cyc ? '\n\nРежим холодильной машины (авто):\n' + r.cyc.map(function (x) { return x[0] + ': ' + x[1]; }).join('\n') : '');
+  try { v3dUpdate(key, vals, r); } catch (e) { } var shareUrl = location.origin + location.pathname + '#raschet/' + key + '/' + code; saveHist(key, code, r.sum); var body = 'Код расчёта: ' + code + '\nРасчёт: ' + CALCS[key].title + '\nРезультат: ' + r.sum + '\n\nИсходные данные:\n' + lines.join('\n') + (r.spec ? '\n\nСостав оборудования (ориентировочно):\n' + r.spec.map(function (x) { return x[0] + ': ' + x[1]; }).join('\n') : '') + (r.cyc ? '\n\nРежим холодильной машины (авто):\n' + r.cyc.map(function (x) { return x[0] + ': ' + x[1]; }).join('\n') : '');
   out.innerHTML = '<div class="tot"><b>' + r.main[0] + '</b><span>' + r.main[1] + '</span></div>' +
     '<div class="kv">' + r.kv.map(function (k) { return '<div><b>' + k[0] + '</b><small>' + k[1] + '</small></div>'; }).join('') + '</div>' +
     '<div class="bar" role="img" aria-label="Структура расчёта">' + r.parts.filter(function (x) { return x[1] > 0; }).map(function (x, i) { return '<i class="b' + i + '" style="width:' + (x[1] / tot * 100) + '%"></i>'; }).join('') + '</div>' +
     '<ul class="leg">' + r.parts.filter(function (x) { return x[1] > 0; }).map(function (x, i) { return '<li><i class="b' + i + '"></i><span>' + x[0] + '</span><b>' + pv(x[1]) + pu + '</b></li>'; }).join('') + '</ul>' +
     r.warn.map(function (w) { return '<p class="calc-w">' + esc(w) + '</p>'; }).join('') +
+    (r.spec ? '<details class="cyc"><summary>Состав оборудования<small>ориентировочно</small></summary><dl>' + r.spec.map(function (x) { return '<div><dt>' + x[0] + '</dt><dd>' + x[1] + '</dd></div>'; }).join('') + '</dl><p class="calc-n">Состав и цену уточняет проект после выезда и обмеров.</p></details>' : '') +
     (r.cyc ? '<details class="cyc" open><summary>Режим холодильной машины<small>считается автоматически</small></summary><dl>' + r.cyc.map(function (x) { return '<div><dt>' + x[0] + '</dt><dd>' + x[1] + '</dd></div>'; }).join('') + '</dl></details>' : '') +
     '<div class="code-box"><small>Код вашего расчёта</small><b class="code" id="codeV">' + code + '</b><div class="code-act"><button type="button" class="btn btn-line btn-sm" id="codeCp">Скопировать код</button><a class="btn btn-cta btn-sm" href="mailto:' + MAIL1 + '?subject=' + encodeURIComponent('Расчёт ' + code) + '&body=' + encodeURIComponent(body) + '">Отправить код на почту' + IC.arrow + '</a><a class="btn btn-line btn-sm" href="tel:' + TEL + '">' + IC.phone + 'Позвонить и назвать код</a></div><div class="code-act code-act2"><button type="button" class="btn btn-line btn-sm" id="calcLink">Ссылка на расчёт</button><a class="btn btn-line btn-sm" target="_blank" rel="noopener" href="https://t.me/share/url?url=' + encodeURIComponent(shareUrl) + '&text=' + encodeURIComponent('Расчёт РОЙ-СТРОЙ: ' + r.sum) + '">Telegram</a><a class="btn btn-line btn-sm" target="_blank" rel="noopener" href="https://wa.me/?text=' + encodeURIComponent('Расчёт РОЙ-СТРОЙ: ' + r.sum + ' ' + shareUrl) + '">WhatsApp</a><button type="button" class="btn btn-line btn-sm" id="calcPrint">Печать / PDF</button></div><p>Код содержит только параметры расчёта. Имя и контакты вводить не нужно.</p></div>';
 }
