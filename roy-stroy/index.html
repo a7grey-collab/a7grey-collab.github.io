@@ -2,7 +2,7 @@
 <html lang="ru"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="45">
+<meta name="app-version" content="46">
 <meta name="color-scheme" content="only light">
 <meta name="theme-color" content="#ffffff">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
@@ -280,6 +280,17 @@ form.req{display:grid;gap:14px}
 .foot .brand-text b{color:#fff}
 .foot .brand-text span{color:#e9eef2}
 .foot-tag{margin-top:14px;max-width:340px;font-size:15px;color:#b6c8d6}
+
+.chg-ov{position:fixed;inset:0;z-index:9998;background:rgba(10,25,40,.6);display:flex;align-items:center;justify-content:center;padding:16px}
+.chg-ov[hidden]{display:none}
+.chg-box{background:#fff;color:#14283c;border-radius:16px;width:100%;max-width:520px;max-height:86vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.chg-h{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:1px solid #d9e3ea}
+.chg-h b{font-size:18px}.chg-h button{min-width:44px;min-height:44px;border:1.5px solid #cfdbe3;border-radius:10px;background:#fff;font-size:22px;line-height:1;cursor:pointer;color:#14283c}
+.chg-b{overflow:auto;padding:6px 18px 18px;-webkit-overflow-scrolling:touch}
+.chg-b section{padding:12px 0;border-bottom:1px solid #e6edf2}.chg-b section:last-child{border:0}
+.chg-b h3{margin:0 0 6px;font-size:16px;color:#d4561a}
+.chg-b ul{margin:0;padding-left:20px}.chg-b li{margin:3px 0;font-size:15px;line-height:1.4;overflow-wrap:anywhere}
+.chg-n{margin:10px 0 0;font-size:13px;color:#5b6b79}
 .foot-note{margin:34px 0 0;padding:14px 18px;border:2px solid #4fc3d8;border-radius:12px;background:rgba(79,195,216,.1);color:#fff;font-weight:600;text-align:center}
 .foot-bottom{margin-top:26px;padding:20px 0 6px;border-top:1px solid rgba(255,255,255,.14);display:grid;gap:8px;text-align:center;font-size:14.5px;color:#9fb4c4}
 @media (min-width:860px){.foot-grid{grid-template-columns:1.4fr 1fr 1fr 1.3fr}}
@@ -594,7 +605,7 @@ body.menu-open .fab,body.lb-open .fab,body.inst-open .fab,body:not(.ready) .fab{
     <div><a class="brand" href="#" aria-label="РОЙ-СТРОЙ"><svg class="brand-mark" aria-hidden="true"><use href="#logo"/></svg><span class="brand-text"><b>РОЙ-СТРОЙ</b><span>Строительство<br>инженерные сети</span></span></a><p class="foot-tag">Климатические и холодильные системы для бизнеса: от расчёта до сервиса.</p></div>
     <div><h4>Направления</h4><ul><li><a href="#services/klimat">Кондиционирование и вентиляция</a></li><li><a href="#services/holodilnye-kamery">Холодильные камеры</a></li><li><a href="#services/chillery">Чиллеры (водоохлаждающие установки)</a></li><li><a href="#services/zamorozka">Шоковая заморозка</a></li><li><a href="#services/fruktohranilishcha">Фруктохранилища</a></li><li><a href="#services/agrosektor">Агросектор</a></li><li><a href="#services/stroitelstvo">Строительство зданий и хранилищ</a></li><li><a href="#services/kapremont">Капитальный ремонт зданий</a></li></ul></div>
     <div><h4>Разделы</h4><ul><li><a href="#referencii">Объекты</a></li><li><a href="#process">Как работаем</a></li><li><a href="#faq">Вопросы</a></li><li><a href="#kontakty">Контакты и реквизиты</a></li><li><a href="#privacy">Политика конфиденциальности</a></li></ul></div>
-    <div><h4>Контакты</h4><ul><li><a href="tel:+79381539999">+7 (938) 153-99-99</a></li><li><a href="mailto:Rz-holod@mail.ru">Rz-holod@mail.ru</a></li><li><a href="mailto:roy.stroy@bk.ru">roy.stroy@bk.ru</a></li></ul><p class="foot-tag" style="margin-top:10px">129090, г. Москва, пр-кт Мира, д. 19, стр. 1, помещение 1/2</p><button type="button" class="btn btn-line btn-sm" id="openInstall"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M12 7v7m0 0-2.5-2.5M12 14l2.5-2.5"/></svg> Установить как приложение</button></div>
+    <div><h4>Контакты</h4><ul><li><a href="tel:+79381539999">+7 (938) 153-99-99</a></li><li><a href="mailto:Rz-holod@mail.ru">Rz-holod@mail.ru</a></li><li><a href="mailto:roy.stroy@bk.ru">roy.stroy@bk.ru</a></li></ul><p class="foot-tag" style="margin-top:10px">129090, г. Москва, пр-кт Мира, д. 19, стр. 1, помещение 1/2</p><button type="button" class="btn btn-line btn-sm" id="openInstall"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M12 7v7m0 0-2.5-2.5M12 14l2.5-2.5"/></svg> Установить как приложение</button> <button type="button" class="btn btn-line btn-sm" id="openChg" style="margin-top:8px"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8v5l3 2"/><circle cx="12" cy="12" r="9"/></svg> Обновления сайта</button></div>
   </div>
   <p class="foot-note">Сайт дорабатывается и скоро переедет на новый домен.</p>
   <div class="foot-bottom"><span>Сайт не использует cookie и не собирает персональные данные через формы.</span><span>© РОЙ-СТРОЙ. ИНН 9702056441, ОГРН 1237700334849</span></div>
@@ -615,6 +626,8 @@ body.menu-open .fab,body.lb-open .fab,body.inst-open .fab,body:not(.ready) .fab{
   </div>
 </div>
 <div class="fab" id="fab" aria-label="Навигация по странице"><button type="button" data-fab="up" aria-label="Наверх">↑</button><button type="button" data-fab="down" aria-label="Вниз">↓</button><button type="button" data-fab="back" aria-label="Назад">←</button></div>
+<div id="chg" class="chg-ov" hidden role="dialog" aria-modal="true" aria-labelledby="chgT"><div class="chg-box"><div class="chg-h"><b id="chgT">Обновления сайта</b><button type="button" id="chgX" aria-label="Закрыть">×</button></div><div class="chg-b"><section><h3>v46</h3><ul><li>Кнопка «Обновления сайта» со списком изменений</li></ul></section><section><h3>v45</h3><ul><li>Исправлено наслоение текста в блоках «Состав оборудования» и «Режим холодильной машины» на телефоне</li></ul></section><section><h3>v44</h3><ul><li>Новое яркое фото в разделе «Шоковая заморозка»</li><li>Убрана строка об источнике иллюстраций в подвале</li></ul></section><section><h3>v43</h3><ul><li>Блок «Состав оборудования» в расчётах камер, шоковой заморозки и хранилищ</li><li>Исправлены тёмные вкладки при тёмной теме телефона</li></ul></section><section><h3>v41</h3><ul><li>Замороженная рыба: диапазон −30…−18 °C</li></ul></section><section><h3>v40</h3><ul><li>Температура в камере привязана к выбранному продукту</li><li>Обновлены диапазоны для фруктохранилища</li></ul></section><section><h3>v39</h3><ul><li>Реквизиты скачиваются только PDF-файлом</li></ul></section><section><h3>v38</h3><ul><li>Новые формулировки про онлайн-расчёт</li></ul></section><section><h3>v35–37</h3><ul><li>PDF расчёта: логотип как на сайте, код расчёта в шапке</li><li>Подпись разработчика, без адреса страницы в колонтитулах</li></ul></section><section><h3>v34</h3><ul><li>Короткий код расчёта</li><li>PDF с шапкой и подписью</li><li>Панели до 250 мм</li><li>Меню закрывается после выбора</li></ul></section><section><h3>v33</h3><ul><li>Меню с подразделами (Услуги, Расчёты, Объекты)</li><li>Камеры хранилища с номерами и 3D-подписями</li><li>Толщина панелей по температуре</li><li>Галочка «одинаково для всех камер»</li></ul></section><section><h3>v32</h3><ul><li>Холодильный цикл по таблицам CoolProp</li><li>Диапазоны категорий, температура кипения по ΔT</li><li>Температура конденсации по городу</li><li>Камеры фруктохранилища</li></ul></section><section><h3>v31</h3><ul><li>Выбор города с расчётной температурой</li><li>Фото категорий, анимированные иконки, новые заголовки</li></ul></section><section><h3>v30</h3><ul><li>3D-модель в расчётах</li><li>Расчёты на страницах направлений</li><li>Агросектор без дублей</li></ul></section><section><h3>v29</h3><ul><li>Агросектор со ссылками на объекты</li><li>Новые расчёты, поиск, «поделиться расчётом»</li></ul></section><section><h3>v28</h3><ul><li>Фото птицефабрик</li><li>Заставка с названием</li></ul></section><p class="chg-n">Список ведётся с версии 28.</p></div></div></div>
+<script>(function(){var o=document.getElementById("chg");if(!o)return;function sh(v){o.hidden=!v;document.body.style.overflow=v?"hidden":""}document.addEventListener("click",function(e){var t=e.target;if(t.closest&&t.closest("#openChg")){sh(true)}else if(t===o||(t.closest&&t.closest("#chgX"))){sh(false)}});document.addEventListener("keydown",function(e){if(e.key==="Escape")sh(false)})})();</script>
 <div id="upd" class="upd" role="status" aria-live="polite" hidden></div>
 <!-- ALEX GREY SIGNATURE v1 — вставлять последним элементом перед </body>, ничего после него -->
 <style>
@@ -1331,11 +1344,11 @@ function prAfter() { if (prTitle !== null) { document.title = prTitle; prTitle =
 window.addEventListener('beforeprint', prBefore); window.addEventListener('afterprint', prAfter);
 /* update notice */
 (function () {
-  var V = '45', box = document.getElementById('upd'); if (!box) return;
+  var V = '46', box = document.getElementById('upd'); if (!box) return;
   function show(h) { box.innerHTML = h; box.hidden = false; }
   try {
     var prev = localStorage.getItem('rs_ver');
-    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v45.</b> Исправлено наслоение текста в блоках «Состав оборудования» и «Режим холодильной машины» на телефоне.</span><button type="button" id="updX">Понятно</button>'); }
+    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v46.</b> В подвале появилась кнопка «Обновления сайта» со списком изменений по версиям.</span><button type="button" id="updX">Понятно</button>'); }
     localStorage.setItem('rs_ver', V);
   } catch (e) { }
   box.addEventListener('click', function (e) {
