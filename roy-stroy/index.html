@@ -2,7 +2,7 @@
 <html lang="ru"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="app-version" content="44">
+<meta name="app-version" content="45">
 <meta name="color-scheme" content="only light">
 <meta name="theme-color" content="#ffffff">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' mailto:">
@@ -726,6 +726,8 @@ h1{font-weight:700;letter-spacing:-.03em}
 .cyc summary::-webkit-details-marker{display:none}.cyc summary small{font-weight:500;color:var(--muted);font-size:13px}
 .cyc dl{margin:0;padding:0 16px 10px;display:grid}
 .cyc dl>div{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-top:1px solid var(--line);font-size:14.5px}
+.cyc .calc-n{margin:0;padding:0 16px 14px}
+@media(max-width:560px){.cyc dl>div{flex-direction:column;gap:2px}.cyc dd{text-align:left}}
 .cyc dt{color:var(--muted);min-width:0}.cyc dd{margin:0;font-weight:700;color:var(--ink);text-align:right;min-width:0;overflow-wrap:anywhere}
 
 /* v33 */
@@ -1329,11 +1331,11 @@ function prAfter() { if (prTitle !== null) { document.title = prTitle; prTitle =
 window.addEventListener('beforeprint', prBefore); window.addEventListener('afterprint', prAfter);
 /* update notice */
 (function () {
-  var V = '44', box = document.getElementById('upd'); if (!box) return;
+  var V = '45', box = document.getElementById('upd'); if (!box) return;
   function show(h) { box.innerHTML = h; box.hidden = false; }
   try {
     var prev = localStorage.getItem('rs_ver');
-    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v44.</b> Более яркое и сочное фото в разделе «Шоковая заморозка»; убрана строка про источник иллюстраций в подвале.</span><button type="button" id="updX">Понятно</button>'); }
+    if (prev && prev !== V) { show('<span><b>Сайт обновлён до v45.</b> Исправлено наслоение текста в блоках «Состав оборудования» и «Режим холодильной машины» на телефоне.</span><button type="button" id="updX">Понятно</button>'); }
     localStorage.setItem('rs_ver', V);
   } catch (e) { }
   box.addEventListener('click', function (e) {
