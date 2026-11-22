@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://a7grey-collab.github.io/roy-stroy/sitemap.xml
